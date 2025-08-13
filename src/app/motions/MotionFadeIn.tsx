@@ -20,7 +20,7 @@ export function MotionFadeIn({ as = "div", className, children, delay = 0, once 
   return (
     <Component
       className={className}
-      style={style}
+      style={{ ...style, willChange: "opacity, transform" }}
       variants={fadeInUp}
       initial="initial"
       whileInView="animate"

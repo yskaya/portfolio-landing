@@ -8,11 +8,8 @@ import { About } from "./components/About";
 import { Skills } from "./components/Skills";
 import { WorkHistory } from "./components/WorkHistory";
 import { Projects } from "./components/Projects";
-import { ProjectDetail } from "./components/ProjectDetail";
 import { Contact } from "./components/Contact";
 import { ParallaxBackground } from "./components/ParallaxBackground";
-
-import { projectsData } from "./components/ProjectData";
 import { MotionBackground } from "./motions/MotionBackground";
 import { MotionNav } from "./motions/MotionNav";
 import { MotionSection } from "./motions/MotionSection";
@@ -20,12 +17,14 @@ import { MotionCursor } from "./motions/MotionCursor";
 import { useMouseMV, useScrollMV } from "./hooks/useMotionValues";
 import { NAV_ITEMS, SECTION } from "./utils/paths";
 import { fastSpring } from "./motions/animationPresets";
+import { useData } from "./context/DataContext";
 
 type Page = "home" | "projects";
 
 export default function App() {
   const isClient = typeof window !== "undefined";
   const [currentPage, setCurrentPage] = useState<Page>("home");
+  const { intro } = useData();
   
 
   const { x, y } = useMouseMV();
@@ -110,7 +109,7 @@ export default function App() {
         <footer className="relative py-12 px-4 border-t footer-shell">
           <div className="max-w-6xl mx-auto text-center">
             <p className="text-sm small-note">
-              &copy; 2024 Yulia Kanapatskaya
+              &copy; 2024 {intro.name || 'TBD'}
               <span style={{ color: "#00ff41" }}> // </span>
               <span style={{ color: "#00d4ff" }}>Engineered with precision</span>
               <span style={{ color: "#ff006e" }}> &amp; passion</span>

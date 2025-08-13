@@ -4,18 +4,20 @@ import { MotionFadeIn } from '../motions/MotionFadeIn';
 import { Button } from "../ui/button";
 import { ArrowDown, Github, Linkedin, Mail, Terminal } from "lucide-react";
 import { useMousePosition } from '../hooks/useMousePosition';
+import { useData } from '../context/DataContext';
 
 export function Hero() {
   const [scrollY, setScrollY] = useState(0);
   const [textIndex, setTextIndex] = useState(0);
   const mousePosition = useMousePosition();
+  const { intro } = useData();
 
-  const rotatingTitles = [
-    "Senior Software Engineer",
-    "Frontend Architect", 
-    "Full-stack Developer",
-    "AI Integration Expert",
-    "Tech Leadership"
+  const rotatingTitles = intro.positions && intro.positions.length > 0 ? intro.positions : ["TBD"];
+  const username = intro.links?.email ? intro.links.email.split('@')[0] : 'tbd';
+  const socialLinks = [
+    { icon: Github, label: 'GitHub', href: intro.links?.github || 'TBD', color: '#00d4ff' },
+    { icon: Linkedin, label: 'LinkedIn', href: intro.links?.linkedin || 'TBD', color: '#ff006e' },
+    { icon: Mail, label: 'Contact', href: intro.links?.email ? `mailto:${intro.links.email}` : 'TBD', color: '#8338ec' },
   ];
 
   useEffect(() => {
@@ -97,7 +99,7 @@ export function Hero() {
           }}>
             <div className="flex items-center gap-2 mb-2">
               <Terminal size={16} />
-              <span>yulia@portfolio:~$</span>
+              <span>{username}@portfolio:~$</span>
               <m.span
                 animate={{ opacity: [1, 0] }}
                 transition={{ duration: 1, repeat: Infinity }}
@@ -132,7 +134,7 @@ export function Hero() {
               fontWeight: 700,
             }}
           >
-            Yulia Kanapatskaya
+            {intro.name || 'TBD'}
 
             {/* Glitch effect overlay */}
             <m.div
@@ -210,9 +212,9 @@ export function Hero() {
             }}
             delay={0.4}
           >
-            <span style={{ color: '#ff006e' }}>15 years</span> crafting scalable web solutions across global markets.
+            {intro.short_description || 'TBD'}
             <br />
-            From <span style={{ color: '#00d4ff' }}>Belarus</span> to <span style={{ color: '#00d4ff' }}>Berlin</span>, <span style={{ color: '#00d4ff' }}>New York</span> to <span style={{ color: '#00d4ff' }}>Los Angeles</span> — building the future with <span style={{ color: '#00ff41' }}>React</span>, <span style={{ color: '#00ff41' }}>TypeScript</span>, and innovation.
+            {intro.about || 'TBD'}
           </MotionFadeIn>
         </m.div>
         
@@ -221,11 +223,7 @@ export function Hero() {
           className="flex justify-center gap-6 mb-12"
           delay={0.6}
         >
-          {[
-            { icon: Github, label: "GitHub", href: "#", color: "#00d4ff" },
-            { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/yskaya", color: "#ff006e" },
-            { icon: Mail, label: "Contact", href: "mailto:yulia.kanapatskaya@gmail.com", color: "#8338ec" }
-          ].map((item, index) => (
+          {socialLinks.map((item, index) => (
             <m.div key={index} whileHover={{ 
                 scale: 1.05,
                 boxShadow: `0 0 30px ${item.color}`,
@@ -286,7 +284,7 @@ export function Hero() {
           >
             <span style={{ color: '#00ff41' }}>📍</span>
             <span className="ml-2" style={{ color: 'rgba(255, 255, 255, 0.9)' }}>
-              Los Angeles, CA
+              {intro.location || 'TBD'}
             </span>
             {/* Dot blinking */}
             <m.span 

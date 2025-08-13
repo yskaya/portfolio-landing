@@ -9,16 +9,16 @@ interface Project {
   id: string;
   title: string;
   description: string;
-  fullDescription: string[];
+  longDescription: string[];
   technologies: string[];
   features: string[];
   challenges: string[];
-  results: string[];
-  image: string;
-  demoUrl?: string;
-  githubUrl?: string;
-  timeline: string;
-  teamSize: string;
+  outcomes: string[];
+  image?: string;
+  demo?: string;
+  github?: string;
+  duration: string;
+  team: string;
   role: string;
   category: string;
 }
@@ -84,7 +84,7 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
           </Button>
 
           <div className="flex gap-3">
-            {project.demoUrl && (
+            {project.demo && (
               <Button
                 variant="outline"
                 asChild
@@ -95,13 +95,13 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
                   color: '#00ff88',
                 }}
               >
-                <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
+                <a href={project.demo} target="_blank" rel="noopener noreferrer">
                   <ExternalLink className="h-4 w-4" />
                   {isModal ? 'Demo' : 'Live Demo'}
                 </a>
               </Button>
             )}
-            {project.githubUrl && (
+            {project.github && (
               <Button
                 variant="outline"
                 asChild
@@ -112,7 +112,7 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
                   color: '#ffffff',
                 }}
               >
-                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                <a href={project.github} target="_blank" rel="noopener noreferrer">
                   <Github className="h-4 w-4" />
                   Code
                 </a>
@@ -180,7 +180,7 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
               <div className="text-center p-4 cyber-glass rounded-lg">
                 <Calendar className={`${isModal ? 'w-5 h-5' : 'w-6 h-6'} mx-auto mb-2`} style={{ color: '#00d4ff' }} />
                 <div className={`${isModal ? 'text-xs' : 'text-sm'} font-semibold`} style={{ color: '#00d4ff' }}>
-                  {project.timeline}
+                  {project.duration}
                 </div>
                 <div className={`${isModal ? 'text-xs' : 'text-xs'}`} style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
                   Timeline
@@ -189,7 +189,7 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
               <div className="text-center p-4 cyber-glass rounded-lg">
                 <Users className={`${isModal ? 'w-5 h-5' : 'w-6 h-6'} mx-auto mb-2`} style={{ color: '#00ff88' }} />
                 <div className={`${isModal ? 'text-xs' : 'text-sm'} font-semibold`} style={{ color: '#00ff88' }}>
-                  {project.teamSize}
+                  {project.team}
                 </div>
                 <div className={`${isModal ? 'text-xs' : 'text-xs'}`} style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
                   Team Size
@@ -247,7 +247,7 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
               Project Overview
             </h3>
             <div className="space-y-3">
-              {project.fullDescription.map((paragraph, index) => (
+            {project.longDescription.map((paragraph, index) => (
                 <p 
                   key={index}
                   className={isModal ? 'text-sm' : 'text-base'}
@@ -331,7 +331,7 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
               Results & Impact
             </h3>
             <div className="space-y-2">
-              {project.results.map((result, index) => (
+            {project.outcomes.map((result, index) => (
                 <m.div
                   key={index}
                   className="flex items-start gap-3"
@@ -356,25 +356,25 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
         </div>
 
         {/* Action Buttons - only in modal */}
-        {isModal && (project.demoUrl || project.githubUrl) && (
+        {isModal && (project.demo || project.github) && (
           <MotionFadeIn
             className="flex justify-center gap-4 mt-6 pt-6 border-t border-white/10"
             y={20}
             duration={0.6}
             delay={0.8}
           >
-            {project.demoUrl && (
+            {project.demo && (
               <Button
                 asChild
                 className="btn-cyber px-6 py-3"
               >
-                <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
+                <a href={project.demo} target="_blank" rel="noopener noreferrer">
                   <ExternalLink className="h-4 w-4 mr-2" />
                   View Live Demo
                 </a>
               </Button>
             )}
-            {project.githubUrl && (
+            {project.github && (
               <Button
                 variant="outline"
                 asChild
@@ -384,7 +384,7 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
                   color: '#ffffff',
                 }}
               >
-                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                <a href={project.github} target="_blank" rel="noopener noreferrer">
                   <Github className="h-4 w-4 mr-2" />
                   View Code
                 </a>
