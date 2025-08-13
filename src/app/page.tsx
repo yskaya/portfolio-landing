@@ -10,7 +10,8 @@ import { WorkHistory } from "./components/WorkHistory";
 import { Projects } from "./components/Projects";
 import { ProjectDetail } from "./components/ProjectDetail";
 import { Contact } from "./components/Contact";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
+import { ParallaxBackground } from "./components/ParallaxBackground";
+
 import { projectsData } from "./components/ProjectData";
 import { MotionBackground } from "./motions/MotionBackground";
 import { MotionNav } from "./motions/MotionNav";
@@ -25,8 +26,7 @@ type Page = "home" | "projects";
 export default function App() {
   const isClient = typeof window !== "undefined";
   const [currentPage, setCurrentPage] = useState<Page>("home");
-  const [selectedProjectId, setSelectedProjectId] = useState<string>("");
-  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+  
 
   const { x, y } = useMouseMV();
   const { y: scrollYMV, vy: scrollVeloMV, dir } = useScrollMV();
@@ -41,28 +41,8 @@ export default function App() {
     return (xNow / w - 0.5) * 2;
   })();
 
-  const selectedProject = useMemo(
-    () => projectsData.find((p) => p.id === selectedProjectId),
-    [selectedProjectId]
-  );
+  
 
-  const handleProjectSelect = useCallback((projectId: string) => {
-    if (projectId === "all") setCurrentPage("projects");
-    else {
-      setSelectedProjectId(projectId);
-      setIsProjectModalOpen(true);
-    }
-  }, []);
-
-  const handleCloseProjectModal = useCallback(() => {
-    setIsProjectModalOpen(false);
-    setSelectedProjectId("");
-  }, []);
-
-  const handleBackToHome = useCallback(() => {
-    setCurrentPage("home");
-    setSelectedProjectId("");
-  }, []);
 
   const scrollToSection = useCallback((sectionId: string) => {
     if (currentPage !== "home") {
@@ -82,18 +62,14 @@ export default function App() {
   return (
     <div className="min-h-screen relative overflow-hidden app-bg">
       <LazyMotion features={domAnimation} strict>
-        {/* Background grid */}
-        <MotionBackground scrollY={scrollY} scrollVelocity={scrollVelocity} />
-
-        {/* Scroll-related light FX (your component) */}
-        {/* <ScrollEffects /> */}
-        {/* <ParallaxBackground /> */}
-
+        
+        {/*<ParallaxBackground />*/}
+        
         {/* NAV */}
         <MotionNav
           items={NAV_ITEMS}
           activeId={SECTION.HERO}      // or derive from your scroll observer if you keep it
-          onBackHome={handleBackToHome}
+          
           onClickItem={scrollToSection}
           // MotionNav expects a number for mouseXPercent; get a snapshot from MV:
           mouseXPercent={mouseXPercentNumber}
@@ -103,60 +79,34 @@ export default function App() {
 
         <main className="relative z-10">
           <AnimatePresence mode="wait">
-            {currentPage === "home" && (
-              <div key="home-content">
-                {/* HERO */}
-                <MotionSection id={SECTION.HERO} className="cyber-glass">
-                  <Hero />
-                </MotionSection>
+            <div key="home-content">
+              <MotionSection id={SECTION.HERO} className="cyber-glass">
+                <Hero />
+              </MotionSection>
 
-                <MotionSection id={SECTION.ABOUT} className="cyber-glass">
-                  <About />
-                </MotionSection>
+              <MotionSection id={SECTION.ABOUT} className="cyber-glass">
+                <About />
+              </MotionSection>
 
-                <MotionSection id={SECTION.EXPERIENCE} className="cyber-glass-purple">
-                  <WorkHistory />
-                </MotionSection>
+              <MotionSection id={SECTION.EXPERIENCE} className="cyber-glass-purple">
+                <WorkHistory />
+              </MotionSection>
 
-                <MotionSection id={SECTION.SKILLS} className="cyber-glass-pink">
-                  <Skills />
-                </MotionSection>
+              <MotionSection id={SECTION.SKILLS} className="cyber-glass-pink">
+                <Skills />
+              </MotionSection>
 
-                <MotionSection id={SECTION.PROJECTS} className="cyber-glass">
-                  <Projects onProjectSelect={handleProjectSelect} />
-                </MotionSection>
+              <MotionSection id={SECTION.PROJECTS} className="cyber-glass">
+                <Projects />
+              </MotionSection>
 
-                <MotionSection id={SECTION.CONTACT} className="cyber-glass-purple">
-                  <Contact />
-                </MotionSection>
-              </div>
-            )}
-          </AnimatePresence>
-
-          {currentPage === "projects" && (
-            <div className="pt-24">
-              <Projects onProjectSelect={handleProjectSelect} showAll />
+              <MotionSection id={SECTION.CONTACT} className="cyber-glass-purple">
+                <Contact />
+              </MotionSection>
             </div>
-          )}
+          </AnimatePresence>
         </main>
 
-        {/* Modal */}
-        <Dialog open={isProjectModalOpen} onOpenChange={setIsProjectModalOpen}>
-          <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto cyber-glass border-2">
-            <DialogHeader className="sr-only">
-              <DialogTitle>{selectedProject?.title || "Project Details"}</DialogTitle>
-            </DialogHeader>
-            {selectedProject && (
-              <ProjectDetail
-                project={selectedProject}
-                onBack={handleCloseProjectModal}
-                isModal
-              />
-            )}
-          </DialogContent>
-        </Dialog>
-
-        {/* Footer (kept simple; no blur/filters) */}
         <footer className="relative py-12 px-4 border-t footer-shell">
           <div className="max-w-6xl mx-auto text-center">
             <p className="text-sm small-note">
@@ -168,7 +118,6 @@ export default function App() {
           </div>
         </footer>
 
-        {/* Cursor */}
         <MotionCursor x={x} y={y} />
       </LazyMotion>
     </div>

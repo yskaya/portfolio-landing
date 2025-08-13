@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { MotionFadeIn } from '../motions/MotionFadeIn';
 import { Button } from "../ui/button";
 import { ArrowDown, Github, Linkedin, Mail, Terminal } from "lucide-react";
@@ -38,7 +38,7 @@ export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
       {/* Cyberpunk Background Elements */}
-      <motion.div
+      <m.div
         className="absolute inset-0 opacity-20"
         animate={{
           rotate: mouseXPercent * 0.5,
@@ -77,7 +77,7 @@ export function Hero() {
             boxShadow: '0 0 15px rgba(0, 255, 65, 0.3)',
           }} 
         />
-      </motion.div>
+      </m.div>
 
       {/* Main Content */}
       <div className="relative max-w-4xl mx-auto text-center z-10">
@@ -97,12 +97,12 @@ export function Hero() {
             <div className="flex items-center gap-2 mb-2">
               <Terminal size={16} />
               <span>yulia@portfolio:~$</span>
-              <motion.span
+              <m.span
                 animate={{ opacity: [1, 0] }}
                 transition={{ duration: 1, repeat: Infinity }}
               >
                 █
-              </motion.span>
+              </m.span>
             </div>
             <div className="ml-4">
               <span style={{ color: '#00d4ff' }}>cat</span> about.me
@@ -111,7 +111,7 @@ export function Hero() {
         </MotionFadeIn>
 
         {/* Name with holographic effect */}
-        <motion.div
+        <m.div
           className="mb-8"
           style={{
             transform: `translateY(${scrollY * -0.1}px)`,
@@ -134,7 +134,7 @@ export function Hero() {
             Yulia Kanapatskaya
 
             {/* Glitch effect overlay */}
-            <motion.div
+            <m.div
               className="absolute inset-0"
               style={{
                 background: 'linear-gradient(90deg, transparent 30%, rgba(0, 212, 255, 0.1) 50%, transparent 70%)',
@@ -153,7 +153,7 @@ export function Hero() {
           </MotionFadeIn>
           
           {/* Rotating subtitle with typewriter effect */}
-          <motion.div
+          <m.div
             className="relative"
             animate={{
               x: mouseXPercent * -5,
@@ -172,17 +172,17 @@ export function Hero() {
               exit={{ opacity: 0, y: -20 }}
             >
               {rotatingTitles[textIndex]}
-              <motion.span
+              <m.span
                 animate={{ opacity: [1, 0] }}
                 transition={{ duration: 0.8, repeat: Infinity }}
                 style={{ color: '#00ff41' }}
               >
                 _
-              </motion.span>
+              </m.span>
             </MotionFadeIn>
             
             {/* Animated underline with circuit pattern */}
-            <motion.div
+            <m.div
               className="absolute bottom-0 left-1/2 transform -translate-x-1/2 h-0.5"
               style={{
                 background: 'linear-gradient(90deg, transparent, #00d4ff, #ff006e, #8338ec, transparent)',
@@ -197,7 +197,7 @@ export function Hero() {
                 repeatType: 'reverse',
               }}
             />
-          </motion.div>
+          </m.div>
 
           {/* Bio with cyber styling */}
           <MotionFadeIn
@@ -213,7 +213,7 @@ export function Hero() {
             <br />
             From <span style={{ color: '#00d4ff' }}>Belarus</span> to <span style={{ color: '#00d4ff' }}>Berlin</span>, <span style={{ color: '#00d4ff' }}>New York</span> to <span style={{ color: '#00d4ff' }}>Los Angeles</span> — building the future with <span style={{ color: '#00ff41' }}>React</span>, <span style={{ color: '#00ff41' }}>TypeScript</span>, and innovation.
           </MotionFadeIn>
-        </motion.div>
+        </m.div>
         
         {/* Social Links with cyberpunk styling */}
         <MotionFadeIn
@@ -225,8 +225,14 @@ export function Hero() {
             { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/yskaya", color: "#ff006e" },
             { icon: Mail, label: "Contact", href: "mailto:yulia.kanapatskaya@gmail.com", color: "#8338ec" }
           ].map((item, index) => (
-            <motion.div key={index}>
+            <m.div key={index} whileHover={{ 
+                scale: 1.05,
+                boxShadow: `0 0 30px ${item.color}`,
+              }}
+              whileTap={{ scale: 0.95 }}
+            >
               <Button 
+                asChild
                 variant="outline" 
                 size="lg" 
                 className="relative overflow-hidden border-2 transition-all duration-300 btn-cyber"
@@ -238,19 +244,13 @@ export function Hero() {
                   textTransform: 'uppercase',
                   letterSpacing: '0.1em',
                 }}
-                whileHover={{ 
-                  scale: 1.05,
-                  boxShadow: `0 0 30px ${item.color}`,
-                }}
-                whileTap={{ scale: 0.95 }}
-                asChild
               >
                 <a href={item.href} target={item.href.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer">
                   <item.icon className="mr-2 h-5 w-5" />
                   {item.label}
                   
                   {/* Holographic shimmer */}
-                  <motion.div
+                  <m.div
                     className="absolute inset-0 opacity-0 group-hover:opacity-100"
                     style={{
                       background: `linear-gradient(90deg, transparent, ${item.color}40, transparent)`,
@@ -265,7 +265,7 @@ export function Hero() {
                   />
                 </a>
               </Button>
-            </motion.div>
+            </m.div>
           ))}
         </MotionFadeIn>
         
@@ -287,19 +287,20 @@ export function Hero() {
             <span className="ml-2" style={{ color: 'rgba(255, 255, 255, 0.9)' }}>
               Los Angeles, CA
             </span>
-            <motion.span 
+            {/* Dot blinking */}
+            <m.span 
               className="ml-2"
               animate={{ opacity: [0.5, 1, 0.5] }}
               transition={{ duration: 2, repeat: Infinity }}
               style={{ color: '#00ff41' }}
             >
               ●
-            </motion.span>
+            </m.span>
           </div>
         </MotionFadeIn>
         
-        {/* Animated scroll indicator with cyberpunk styling */}
-        <motion.div 
+        {/* Down Arrow Sign */}
+        <m.div 
           className="relative"
           animate={{
             y: [0, 15, 0],
@@ -317,7 +318,7 @@ export function Hero() {
               filter: 'drop-shadow(0 0 10px #00d4ff)',
             }}
           />
-          <motion.div 
+          <m.div 
             className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-16 h-16 border rounded-full"
             style={{
               borderColor: '#00d4ff',
@@ -332,13 +333,13 @@ export function Hero() {
               repeat: Infinity,
             }}
           />
-        </motion.div>
+        </m.div>
       </div>
 
-      {/* Digital particles with cyberpunk colors */}
+      {/* Sparkling Show */}
       <div className="absolute inset-0 pointer-events-none">
         {Array.from({ length: 15 }).map((_, index) => (
-          <motion.div
+          <m.div
             key={index}
             className="absolute w-1 h-1 rounded-full"
             style={{

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { MotionFadeIn } from "../motions/MotionFadeIn";
 import { Badge } from "../ui/badge";
 import { useMousePosition } from '../hooks/useMousePosition';
@@ -60,7 +60,7 @@ export function Skills() {
   return (
     <section className="relative py-32 px-4 overflow-hidden">
       {/* Technical background pattern */}
-      <motion.div
+      <m.div
         className="absolute inset-0 opacity-5"
         style={{
           transform: `translateY(${scrollY * 0.05}px)`,
@@ -84,7 +84,7 @@ export function Skills() {
           Tech Stack
 
           {/* Animated circuit lines */}
-          <motion.div
+          <m.div
             className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-32 h-1"
             style={{
               background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
@@ -113,7 +113,7 @@ export function Skills() {
           {skillCategories.map((category, index) => {
             const Icon = category.icon;
             return (
-              <motion.div
+              <m.div
                 key={index}
                 className="relative group"
                 style={{ transform: `translateY(${scrollY * (index % 2 === 0 ? -0.02 : 0.02)}px)` }}
@@ -148,27 +148,27 @@ export function Skills() {
                   />
 
                   {/* Icon with rotation effect */}
-                  <motion.div
+                  <m.div
                     className="flex items-center mb-4"
                     whileHover={{ x: 5 }}
                     transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                   >
-                    <motion.div
+                    <m.div
                       className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mr-3"
                       whileHover={{ rotate: 360, scale: 1.1 }}
                       transition={{ duration: 0.5 }}
                     >
                       <Icon className="h-5 w-5 text-white" />
-                    </motion.div>
+                    </m.div>
                     <h3 className="text-lg font-semibold text-white">
                       {category.title}
                     </h3>
-                  </motion.div>
+                  </m.div>
 
                   {/* Skills with staggered animation */}
                   <div className="flex flex-wrap gap-2">
                     {category.skills.map((skill, skillIndex) => (
-                      <motion.div
+                      <m.div
                         key={skillIndex}
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
@@ -190,7 +190,7 @@ export function Skills() {
                           className="bg-white/10 text-white border-white/20 hover:bg-white/20 transition-all duration-300 cursor-default relative overflow-hidden text-xs"
                         >
                           {/* Shine effect */}
-                          <motion.div
+                          <m.div
                             className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
                             initial={{ x: '-100%' }}
                             whileHover={{ x: '100%' }}
@@ -198,13 +198,13 @@ export function Skills() {
                           />
                           <span className="relative z-10">{skill}</span>
                         </Badge>
-                      </motion.div>
+                      </m.div>
                     ))}
                   </div>
 
                   {/* Floating particles */}
                   {Array.from({ length: 2 }).map((_, particleIndex) => (
-                    <motion.div
+                    <m.div
                       key={particleIndex}
                       className="absolute w-1 h-1 bg-white/30 rounded-full"
                       style={{
@@ -224,13 +224,13 @@ export function Skills() {
                     />
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>
 
         {/* Experience highlight */}
-        <motion.div 
+        <m.div 
           className="mt-20 text-center"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -258,7 +258,7 @@ export function Skills() {
               </ul>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

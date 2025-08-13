@@ -3,13 +3,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Mail, MapPin, Linkedin } from "lucide-react";
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 
 export function Contact() {
   return (
     <section className="py-20 px-4 bg-black/20">
       <div className="max-w-6xl mx-auto">
-        <motion.h2 
+        <m.h2 
           className="text-3xl md:text-4xl font-bold text-center mb-12 text-white"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -17,10 +17,10 @@ export function Contact() {
           viewport={{ once: true }}
         >
           Let's Build Something Together
-        </motion.h2>
+        </m.h2>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
@@ -43,7 +43,7 @@ export function Contact() {
             </div>
             
             <div className="space-y-4">
-              <motion.div 
+              <m.div 
                 className="flex items-center gap-3 text-gray-300"
                 whileHover={{ x: 5 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 25 }}
@@ -52,8 +52,8 @@ export function Contact() {
                 <a href="mailto:yulia.kanapatskaya@gmail.com" className="hover:text-white transition-colors">
                   yulia.kanapatskaya@gmail.com
                 </a>
-              </motion.div>
-              <motion.div 
+              </m.div>
+              <m.div 
                 className="flex items-center gap-3 text-gray-300"
                 whileHover={{ x: 5 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 25 }}
@@ -67,18 +67,18 @@ export function Contact() {
                 >
                   linkedin.com/in/yskaya
                 </a>
-              </motion.div>
-              <motion.div 
+              </m.div>
+              <m.div 
                 className="flex items-center gap-3 text-gray-300"
                 whileHover={{ x: 5 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 25 }}
               >
                 <MapPin className="h-5 w-5" />
                 <span>Los Angeles, CA</span>
-              </motion.div>
+              </m.div>
             </div>
 
-            <motion.div 
+            <m.div 
               className="mt-8 p-4 rounded-lg bg-white/5 border border-white/10"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -90,10 +90,10 @@ export function Contact() {
                 I bring clarity to complexity — and momentum to code."
               </p>
               <p className="text-gray-500 text-xs mt-2">— From my cover letter</p>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
           
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -132,11 +132,11 @@ export function Contact() {
                 </Button>
               </CardContent>
             </Card>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Call to action */}
-        <motion.div 
+        <m.div 
           className="text-center mt-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -169,7 +169,7 @@ export function Contact() {
               </a>
             </Button>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

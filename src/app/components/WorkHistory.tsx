@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { Calendar, MapPin, Users, TrendingUp, ExternalLink, Building } from 'lucide-react';
 import { useMousePosition } from '../hooks/useMousePosition';
 import { MotionSection } from '../motions/MotionSection';
@@ -158,9 +158,9 @@ export function WorkHistory() {
   };
 
   return (
-    <MotionSection id="work-history" className="relative py-32 px-4 overflow-hidden">
+    <div id="work-history" className="relative py-32 px-4 overflow-hidden">
       {/* Background pattern */}
-      <motion.div
+      <m.div
         className="absolute inset-0 opacity-5"
         style={{
           transform: `translateY(${scrollY * 0.1}px)`,
@@ -175,7 +175,7 @@ export function WorkHistory() {
       />
 
       <div className="max-w-6xl mx-auto">
-        <motion.div
+        <m.div
           className="text-center mb-16"
           style={{ transform: `translateY(${scrollY * -0.05}px)` }}
           animate={{
@@ -183,7 +183,7 @@ export function WorkHistory() {
           }}
           transition={{ type: 'spring', stiffness: 150, damping: 20 }}
         >
-          <motion.h2 
+          <m.h2 
             className="mb-6"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -191,8 +191,8 @@ export function WorkHistory() {
             viewport={{ once: true }}
           >
             Professional Journey
-          </motion.h2>
-          <motion.p 
+          </m.h2>
+          <m.p 
             className="text-lg max-w-2xl mx-auto"
             style={{ color: 'rgba(255, 255, 255, 0.8)' }}
             initial={{ opacity: 0, y: 30 }}
@@ -201,8 +201,8 @@ export function WorkHistory() {
             viewport={{ once: true }}
           >
             15 years of engineering excellence across global markets, from startup environments to enterprise-scale platforms.
-          </motion.p>
-        </motion.div>
+          </m.p>
+        </m.div>
 
         <div className="space-y-8">
           {experiences.map((exp, index) => (
@@ -212,7 +212,7 @@ export function WorkHistory() {
               animateStyle={{ x: mouseXPercent * (index % 2 === 0 ? 2 : -2) }}
               transition={{ type: 'spring', stiffness: 200, damping: 25 }}
             >
-              <motion.div
+              <m.div
                 className="cyber-glass-purple rounded-xl p-8 cursor-pointer transition-all duration-300"
                 whileHover={{
                   scale: 1.02,
@@ -224,15 +224,15 @@ export function WorkHistory() {
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <motion.h3 
+                      <m.h3 
                         className="text-2xl font-bold"
                         style={{ color: '#ffffff' }}
                         whileHover={{ color: '#8338ec' }}
                       >
                         {exp.position}
-                      </motion.h3>
+                      </m.h3>
                       {exp.companyUrl && (
-                        <motion.a
+                        <m.a
                           href={exp.companyUrl}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -250,7 +250,7 @@ export function WorkHistory() {
                         >
                           <ExternalLink className="w-3 h-3" />
                           Visit
-                        </motion.a>
+                        </m.a>
                       )}
                     </div>
                     <div className="flex items-center gap-4 text-sm mb-4">
@@ -295,7 +295,7 @@ export function WorkHistory() {
                 {/* Technologies */}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {exp.technologies.map((tech, techIndex) => (
-                    <motion.span
+                    <m.span
                       key={techIndex}
                       className="px-3 py-1 text-xs rounded-full"
                       style={{
@@ -309,13 +309,13 @@ export function WorkHistory() {
                       }}
                     >
                       {tech}
-                    </motion.span>
+                    </m.span>
                   ))}
                 </div>
 
                 {/* Expand/Collapse Indicator */}
                 <div className="flex justify-center">
-                  <motion.div
+                  <m.div
                     className="w-8 h-1 rounded-full"
                     style={{ background: 'rgba(131, 56, 236, 0.5)' }}
                     animate={{
@@ -327,7 +327,7 @@ export function WorkHistory() {
                 </div>
 
                 {/* Expanded Content */}
-                <motion.div
+                <m.div
                   initial={false}
                   animate={{
                     height: expandedId === exp.id ? 'auto' : 0,
@@ -371,14 +371,14 @@ export function WorkHistory() {
                       </div>
                     </div>
                   </div>
-                </motion.div>
-              </motion.div>
+                </m.div>
+              </m.div>
             </MotionFadeIn>
           ))}
         </div>
 
         {/* Career Summary */}
-        <motion.div
+        <m.div
           className="mt-16 text-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -408,8 +408,8 @@ export function WorkHistory() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
-    </MotionSection>
+    </div>
   );
 }

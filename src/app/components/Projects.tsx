@@ -1,9 +1,12 @@
+import { useMemo, useState, useCallback } from "react";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Badge } from "../ui/badge";
 import { ExternalLink, Github, ArrowRight } from "lucide-react";
 import { projectsData } from "./ProjectData";
 import { MotionFadeIn } from "../motions/MotionFadeIn";
+
 
 interface ProjectsProps {
   onProjectSelect?: (projectId: string) => void;
@@ -11,9 +14,28 @@ interface ProjectsProps {
 }
 
 export function Projects({ onProjectSelect, showAll = false }: ProjectsProps) {
+  const [selectedProjectId, setSelectedProjectId] = useState<string>("");
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+
   const displayProjects = showAll ? projectsData : projectsData.slice(0, 4);
+  
+  const selectedProject = useMemo(
+    () => projectsData.find((p) => p.id === selectedProjectId),
+    [selectedProjectId]
+  );
+
+  const handleProjectSelect = useCallback((projectId: string) => {
+    setSelectedProjectId(projectId);
+    setIsProjectModalOpen(true);
+  }, []);
+
+  const handleCloseProjectModal = useCallback(() => {
+    setIsProjectModalOpen(false);
+    setSelectedProjectId("");
+  }, []);
 
   return (
+    <>
     <section className="py-20 px-4">
       <div className="max-w-6xl mx-auto">
         <MotionFadeIn>
@@ -94,6 +116,21 @@ export function Projects({ onProjectSelect, showAll = false }: ProjectsProps) {
           </div>
         )}
       </div>
+      <Dialog open={isProjectModalOpen} onOpenChange={setIsProjectModalOpen}>
+          <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto cyber-glass border-2">
+            <DialogHeader className="sr-only">
+              <DialogTitle>{selectedProject?.title || "Project Details"}</DialogTitle>
+            </DialogHeader>
+            {selectedProject && (
+              <ProjectDetail
+                project={selectedProject}
+                onBack={handleCloseProjectModal}
+                isModal
+              />
+            )}
+          </DialogContent>
+        </Dialog>
     </section>
+    </>
   );
 }

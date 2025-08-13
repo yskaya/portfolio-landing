@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { useMousePosition } from '../hooks/useMousePosition';
 
 export function ParallaxBackground() {
@@ -19,7 +19,7 @@ export function ParallaxBackground() {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
       {/* Cyberpunk Circuit Grid Layer */}
-      <motion.div
+      <m.div
         className="absolute inset-0 opacity-10"
         style={{
           transform: `translateY(${scrollY * 0.1}px)`,
@@ -39,7 +39,7 @@ export function ParallaxBackground() {
       />
 
       {/* Digital Matrix Pattern */}
-      <motion.div
+      <m.div
         className="absolute inset-0 opacity-5"
         style={{
           transform: `translateY(${scrollY * -0.15}px)`,
@@ -54,7 +54,7 @@ export function ParallaxBackground() {
       />
 
       {/* Floating Holographic Elements */}
-      <motion.div
+      <m.div
         className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full"
         style={{
           background: `
@@ -77,7 +77,7 @@ export function ParallaxBackground() {
         transition={{ type: 'spring', stiffness: 100, damping: 25 }}
       />
 
-      <motion.div
+      <m.div
         className="absolute bottom-1/3 right-1/3 w-64 h-64 rounded-lg"
         style={{
           background: `
@@ -100,7 +100,7 @@ export function ParallaxBackground() {
         transition={{ type: 'spring', stiffness: 120, damping: 20 }}
       />
 
-      <motion.div
+      <m.div
         className="absolute top-2/3 left-1/2 w-48 h-48"
         style={{
           background: `
@@ -127,7 +127,7 @@ export function ParallaxBackground() {
       />
 
       {/* Cyberpunk Hexagon Pattern */}
-      <motion.div
+      <m.div
         className="absolute inset-0 opacity-5 mix-blend-screen"
         style={{
           transform: `translateY(${scrollY * 0.05}px)`,
@@ -143,7 +143,7 @@ export function ParallaxBackground() {
       />
 
       {/* Dynamic Light Rays */}
-      <motion.div 
+      <m.div 
         className="absolute inset-0"
         style={{
           background: `
@@ -166,7 +166,7 @@ export function ParallaxBackground() {
       {/* Matrix Code Rain Effect */}
       <div className="absolute inset-0 overflow-hidden">
         {Array.from({ length: 10 }).map((_, index) => (
-          <motion.div
+          <m.div
             key={index}
             className="absolute text-xs opacity-20"
             style={{
@@ -190,13 +190,13 @@ export function ParallaxBackground() {
                 {Math.random() > 0.5 ? '1' : '0'}
               </div>
             ))}
-          </motion.div>
+          </m.div>
         ))}
       </div>
 
       {/* Pulsing Energy Cores */}
       {Array.from({ length: 5 }).map((_, index) => (
-        <motion.div
+        <m.div
           key={index}
           className="absolute w-2 h-2 rounded-full"
           style={{

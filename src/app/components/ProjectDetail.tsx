@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { MotionFadeIn } from '../motions/MotionFadeIn';
 import { ArrowLeft, ExternalLink, Github, Calendar, Users, Zap, X } from 'lucide-react';
 import { Button } from '../ui/button';
@@ -48,7 +48,7 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
     <div className={`relative ${isModal ? 'p-0' : 'min-h-screen py-32 px-4'} overflow-hidden`}>
       {/* Background effects - only for full page view */}
       {!isModal && (
-        <motion.div
+        <m.div
           className="absolute inset-0 opacity-5"
           style={{
             transform: `translateY(${scrollY * 0.1}px)`,
@@ -128,7 +128,7 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
         >
           {/* Project Image */}
           <div className="relative">
-            <motion.div
+            <m.div
               className={`relative ${isModal ? 'h-64' : 'h-80'} rounded-xl overflow-hidden cyber-glass`}
               whileHover={{ scale: isModal ? 1.02 : 1.05 }}
               transition={{ duration: 0.3 }}
@@ -152,13 +152,13 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
 
           {/* Project Info */}
           <div className="space-y-6">
             <div>
-              <motion.h1 
+              <m.h1 
                 className={`${isModal ? 'text-2xl' : 'text-4xl'} font-bold mb-4 holographic`}
                 animate={{
                   x: mouseXPercent * (isModal ? 1 : 2),
@@ -166,7 +166,7 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
                 transition={{ type: 'spring', stiffness: 150, damping: 20 }}
               >
                 {project.title}
-              </motion.h1>
+              </m.h1>
               <p 
                 className={`${isModal ? 'text-sm' : 'text-lg'} leading-relaxed`}
                 style={{ color: 'rgba(255, 255, 255, 0.9)' }}
@@ -215,7 +215,7 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
               </h3>
               <div className="flex flex-wrap gap-2">
                 {project.technologies.map((tech, index) => (
-                  <motion.span
+                  <m.span
                     key={index}
                     className={`px-3 py-1 ${isModal ? 'text-xs' : 'text-sm'} rounded-full border`}
                     style={{
@@ -229,7 +229,7 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
                     }}
                   >
                     {tech}
-                  </motion.span>
+                  </m.span>
                 ))}
               </div>
             </div>
@@ -269,7 +269,7 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
             </h3>
             <div className="space-y-2">
               {project.features.map((feature, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   className="flex items-start gap-3"
                   initial={{ opacity: 0, x: -20 }}
@@ -286,7 +286,7 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
                   >
                     {feature}
                   </p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </MotionFadeIn>
@@ -302,7 +302,7 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
               </h3>
               <div className="space-y-2">
                 {project.challenges.map((challenge, index) => (
-                  <motion.div
+                  <m.div
                     key={index}
                     className="flex items-start gap-3"
                     initial={{ opacity: 0, x: -20 }}
@@ -316,7 +316,7 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
                     <p style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
                       {challenge}
                     </p>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
             </MotionFadeIn>
@@ -332,7 +332,7 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
             </h3>
             <div className="space-y-2">
               {project.results.map((result, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   className="flex items-start gap-3"
                   initial={{ opacity: 0, x: -20 }}
@@ -349,7 +349,7 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
                   >
                     {result}
                   </p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </MotionFadeIn>
