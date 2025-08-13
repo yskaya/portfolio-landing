@@ -1,4 +1,5 @@
 "use client";
+
 import { ReactNode, ElementType } from "react";
 import { m } from "motion/react";
 import { fadeInUp, slowSpring } from "./animationPresets";
@@ -24,7 +25,8 @@ export function MotionFadeIn({ as = "div", className, children, delay = 0, once 
       initial="initial"
       whileInView="animate"
       viewport={{ once }}
-      transition={{ ...slowSpring, delay }}
+      transition={{ ...slowSpring, duration: 0.6, delay }}
+      style={{ willChange: "opacity, transform" }}
     >
       {children}
     </Component>
