@@ -10,7 +10,7 @@ import { WorkHistory } from "./components/WorkHistory";
 import { Projects } from "./components/Projects";
 import { ProjectDetail } from "./components/ProjectDetail";
 import { Contact } from "./components/Contact";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { projectsData } from "./components/ProjectData";
 import { MotionBackground } from "./motions/MotionBackground";
 import { MotionNav } from "./motions/MotionNav";

@@ -342,9 +342,9 @@ export function WorkHistory() {
                       <h4 className="text-lg font-semibold mb-3" style={{ color: '#ffffff' }}>
                         Role Overview
                       </h4>
-                      <div className="space-y-2">
+                      <div className="space-y-2" style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
                         {exp.description.map((desc, descIndex) => (
-                          <p key={descIndex} style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
+                          <p key={descIndex}>
                             • {desc}
                           </p>
                         ))}
@@ -386,7 +386,7 @@ export function WorkHistory() {
           viewport={{ once: true }}
         >
           <div className="cyber-glass-purple rounded-xl p-8">
-            <h3 className="text-xl font-bold mb-4" style={{ color: '#ffffff' }}>
+            <h3 className="text-xl font-bold mb-4 text-white">
               Career Highlights
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">

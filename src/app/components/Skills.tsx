@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { MotionFadeIn } from "../motions/MotionFadeIn";
-import { Badge } from "./ui/badge";
+import { Badge } from "../ui/badge";
 import { useMousePosition } from '../hooks/useMousePosition';
 import { Code, Database, Cloud, Zap, Wrench, TestTube } from 'lucide-react';
 

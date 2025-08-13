@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from 'motion/react';
 import { MotionFadeIn } from '../motions/MotionFadeIn';
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { ArrowDown, Github, Linkedin, Mail, Terminal } from "lucide-react";
 import { useMousePosition } from '../hooks/useMousePosition';
 

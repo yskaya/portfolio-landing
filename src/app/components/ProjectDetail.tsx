@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { MotionFadeIn } from '../motions/MotionFadeIn';
 import { ArrowLeft, ExternalLink, Github, Calendar, Users, Zap, X } from 'lucide-react';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import { useMousePosition } from '../hooks/useMousePosition';
 
 interface Project {
