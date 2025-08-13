@@ -4,8 +4,10 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Mail, MapPin, Linkedin } from "lucide-react";
 import { m } from 'motion/react';
+import { useData } from '../context/DataContext';
 
 export function Contact() {
+  const { intro } = useData();
   return (
     <section className="py-20 px-4 bg-black/20">
       <div className="max-w-6xl mx-auto">
@@ -28,17 +30,12 @@ export function Contact() {
           >
             <h3 className="text-2xl font-semibold mb-6 text-white">Get In Touch</h3>
             <p className="text-gray-300 mb-8 leading-relaxed">
-              I'm seeking a long-term <strong>Senior / Staff Software Engineer</strong> role — with a Frontend focus — 
-              where <strong>architectural leadership</strong> and <strong>hands-on contribution</strong> are both valued. 
-              I'm drawn to teams that prioritize <strong>modular systems, scalable architecture</strong>, and 
-              <strong>clear, maintainable code</strong>.
+              {intro.about || 'TBD'}
             </p>
 
             <div className="mb-8">
               <p className="text-gray-300 mb-4">
-                I want to join a culture that respects thoughtful decision-making and long-term craft. 
-                I'm not looking for just a job — I'm looking for a new chapter: a place where product and people are built to last… 
-                and <strong>equity don't expire before the mission is done</strong>.
+                {intro.short_description || 'TBD'}
               </p>
             </div>
             
@@ -49,8 +46,8 @@ export function Contact() {
                 transition={{ type: 'spring', stiffness: 400, damping: 25 }}
               >
                 <Mail className="h-5 w-5" />
-                <a href="mailto:yulia.kanapatskaya@gmail.com" className="hover:text-white transition-colors">
-                  yulia.kanapatskaya@gmail.com
+                <a href={intro.links?.email ? `mailto:${intro.links.email}` : '#'} className="hover:text-white transition-colors">
+                  {intro.links?.email || 'TBD'}
                 </a>
               </m.div>
               <m.div 
@@ -59,13 +56,13 @@ export function Contact() {
                 transition={{ type: 'spring', stiffness: 400, damping: 25 }}
               >
                 <Linkedin className="h-5 w-5" />
-                <a 
-                  href="https://linkedin.com/in/yskaya" 
-                  target="_blank" 
+                <a
+                  href={intro.links?.linkedin || '#'}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-white transition-colors"
                 >
-                  linkedin.com/in/yskaya
+                  {intro.links?.linkedin || 'TBD'}
                 </a>
               </m.div>
               <m.div 
@@ -74,7 +71,7 @@ export function Contact() {
                 transition={{ type: 'spring', stiffness: 400, damping: 25 }}
               >
                 <MapPin className="h-5 w-5" />
-                <span>Los Angeles, CA</span>
+                <span>{intro.location || 'TBD'}</span>
               </m.div>
             </div>
 
@@ -147,23 +144,23 @@ export function Contact() {
             Ready to build something that lasts?
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="bg-white text-black hover:bg-gray-200"
               asChild
             >
-              <a href="mailto:yulia.kanapatskaya@gmail.com">
+              <a href={intro.links?.email ? `mailto:${intro.links.email}` : '#'}>
                 <Mail className="mr-2 h-5 w-5" />
                 Email Me
               </a>
             </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
+            <Button
+              variant="outline"
+              size="lg"
               className="bg-transparent border-white/20 text-white hover:bg-white/10"
               asChild
             >
-              <a href="https://linkedin.com/in/yskaya" target="_blank" rel="noopener noreferrer">
+              <a href={intro.links?.linkedin || '#'} target="_blank" rel="noopener noreferrer">
                 <Linkedin className="mr-2 h-5 w-5" />
                 Connect on LinkedIn
               </a>

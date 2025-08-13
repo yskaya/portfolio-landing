@@ -4,10 +4,12 @@ import { MotionFadeIn } from "../motions/MotionFadeIn";
 import { Badge } from "../ui/badge";
 import { useMousePosition } from '../hooks/useMousePosition';
 import { Code, Database, Cloud, Zap, Wrench, TestTube } from 'lucide-react';
+import { useData } from '../context/DataContext';
 
 export function Skills() {
   const [scrollY, setScrollY] = useState(0);
   const mousePosition = useMousePosition();
+  const { skills } = useData();
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -18,44 +20,28 @@ export function Skills() {
   const mouseXPercent = (mousePosition.x / window.innerWidth - 0.5) * 2;
   const mouseYPercent = (mousePosition.y / window.innerHeight - 0.5) * 2;
 
-  const skillCategories = [
-    {
-      title: "Languages & Core",
-      icon: Code,
-      skills: ["JavaScript (ES6+)", "TypeScript", "React", "Next.js", "CSS", "HTML"],
-      color: "from-blue-500/20 to-cyan-500/20"
-    },
-    {
-      title: "Backend & APIs",
-      icon: Database,
-      skills: ["Node.js", "NestJS", "Express", "MySQL", "REST", "GraphQL", "WebSocket", "gRPC", "Redis"],
-      color: "from-green-500/20 to-emerald-500/20"
-    },
-    {
-      title: "Build & DevOps",
-      icon: Wrench,
-      skills: ["Webpack", "Vite", "Rollup", "npm", "Yarn", "Drone", "Jenkins", "Travis CI", "GitHub Actions"],
-      color: "from-orange-500/20 to-red-500/20"
-    },
-    {
-      title: "Cloud & Infrastructure",
-      icon: Cloud,
-      skills: ["AWS", "Docker", "OAuth", "Microservices", "Monorepo", "SPA", "MPA"],
-      color: "from-purple-500/20 to-pink-500/20"
-    },
-    {
-      title: "Testing & Quality",
-      icon: TestTube,
-      skills: ["Jest", "Enzyme", "Jasmine", "Karma", "Integration Testing", "Cypress", "e2e", "Selenium", "Chromatic"],
-      color: "from-yellow-500/20 to-orange-500/20"
-    },
-    {
-      title: "AI & Emerging",
-      icon: Zap,
-      skills: ["OpenAI", "LLM workflows", "AI Integration", "Vue.js", "Angular", "Ruby on Rails", "PHP"],
-      color: "from-indigo-500/20 to-purple-500/20"
-    }
-  ];
+  const iconMap: Record<string, any> = {
+    'Languages & Core': Code,
+    'Frontend': Code,
+    'Backend': Database,
+    'APIs': Database,
+    'Architecture patterns': Cloud,
+    'CI/CD': Wrench,
+    'Cloud & Infra': Cloud,
+    'Build': Wrench,
+    'Markup & Styling': Code,
+    'AI Integration': Zap,
+    'Testing': TestTube,
+    'Other FE Frameworks': Zap,
+    'Other Backend': Database,
+  };
+
+  const skillCategories = skills.skills.map((cat) => ({
+    title: cat.category_name,
+    icon: iconMap[cat.category_name] || Code,
+    skills: cat.technologies,
+    color: 'from-blue-500/20 to-cyan-500/20',
+  }));
 
   return (
     <section className="relative py-32 px-4 overflow-hidden">
@@ -105,8 +91,9 @@ export function Skills() {
           className="text-center text-gray-400 mb-16 max-w-2xl mx-auto"
           delay={0.3}
         >
-          15 years of web development with deep JavaScript expertise and a frontend focus.
-          Skilled in React, Node.js, NestJS, and Next.js across monoliths, SPAs, microservices, and monorepos.
+          {skills.qualification && skills.qualification.length > 0
+            ? skills.qualification.slice(0, 2).join(' ')
+            : 'TBD'}
         </MotionFadeIn>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

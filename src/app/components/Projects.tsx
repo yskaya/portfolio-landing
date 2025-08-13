@@ -4,24 +4,24 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Badge } from "../ui/badge";
 import { ExternalLink, Github, ArrowRight } from "lucide-react";
-import { projectsData } from "./ProjectData";
+import { ProjectDetail } from "./ProjectDetail";
 import { MotionFadeIn } from "../motions/MotionFadeIn";
+import { useData } from "../context/DataContext";
 
 
 interface ProjectsProps {
-  onProjectSelect?: (projectId: string) => void;
   showAll?: boolean;
 }
 
-export function Projects({ onProjectSelect, showAll = false }: ProjectsProps) {
+export function Projects({ showAll = false }: ProjectsProps) {
   const [selectedProjectId, setSelectedProjectId] = useState<string>("");
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+  const { projects } = useData();
+  const displayProjects = showAll ? projects : projects.slice(0, 4);
 
-  const displayProjects = showAll ? projectsData : projectsData.slice(0, 4);
-  
   const selectedProject = useMemo(
-    () => projectsData.find((p) => p.id === selectedProjectId),
-    [selectedProjectId]
+    () => projects.find((p) => p.id === selectedProjectId),
+    [selectedProjectId, projects]
   );
 
   const handleProjectSelect = useCallback((projectId: string) => {
@@ -80,22 +80,24 @@ export function Projects({ onProjectSelect, showAll = false }: ProjectsProps) {
                   )}
                 </div>
                 <div className="flex gap-2">
-                  {onProjectSelect && (
-                    <Button 
-                      onClick={() => onProjectSelect(project.id)}
-                      className="bg-white text-black hover:bg-gray-200"
-                    >
-                      <ArrowRight className="mr-2 h-4 w-4" />
-                      View Details
-                    </Button>
-                  )}
-                  <Button variant="outline" size="sm" className="bg-transparent border-white/20 text-white hover:bg-white/10">
-                    <Github className="mr-2 h-4 w-4" />
-                    Code
+                  <Button
+                    onClick={() => handleProjectSelect(project.id)}
+                    className="bg-white text-black hover:bg-gray-200"
+                  >
+                    <ArrowRight className="mr-2 h-4 w-4" />
+                    View Details
                   </Button>
-                  <Button variant="outline" size="sm" className="bg-transparent border-white/20 text-white hover:bg-white/10">
-                    <ExternalLink className="mr-2 h-4 w-4" />
-                    Demo
+                  <Button variant="outline" size="sm" className="bg-transparent border-white/20 text-white hover:bg-white/10" asChild>
+                    <a href={project.github || '#'} target="_blank" rel="noopener noreferrer">
+                      <Github className="mr-2 h-4 w-4" />
+                      Code
+                    </a>
+                  </Button>
+                  <Button variant="outline" size="sm" className="bg-transparent border-white/20 text-white hover:bg-white/10" asChild>
+                    <a href={project.demo || '#'} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="mr-2 h-4 w-4" />
+                      Demo
+                    </a>
                   </Button>
                 </div>
               </CardContent>
@@ -106,9 +108,8 @@ export function Projects({ onProjectSelect, showAll = false }: ProjectsProps) {
         
         {!showAll && (
           <div className="text-center mt-8">
-            <Button 
-              onClick={() => onProjectSelect?.('all')} 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="bg-transparent border-white/20 text-white hover:bg-white/10"
             >
               View All Projects
