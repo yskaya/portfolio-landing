@@ -212,7 +212,7 @@
 
 .cyber-glass {
   background: rgba(18, 18, 24, 0.1);
-  backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%) ;
   border: 1px solid rgba(0, 212, 255, 0.2);
   box-shadow: 
     0 8px 32px rgba(0, 0, 0, 0.3),

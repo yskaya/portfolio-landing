@@ -30,7 +30,7 @@ export function MotionSection({
       viewport={{ once, margin }}
       transition={{ ...slowSpring, duration: 0.8 }}
       style={{ willChange: "transform" }}
-      animate={animateStyle}
+      animate={{...animateStyle}}
     >
       {children}
     </m.section>

@@ -85,7 +85,7 @@ export function Hero() {
         <MotionFadeIn
           className="mb-8 text-left"
           style={{
-            fontFamily: 'JetBrains Mono, monospace',
+            fontFamily: '"JetBrains Mono", monospace',
             fontSize: '0.9rem',
             color: '#00ff41',
           }}
@@ -93,6 +93,7 @@ export function Hero() {
           <div className="bg-black/50 rounded-lg p-4 border" style={{
             borderColor: '#00ff41',
             boxShadow: '0 0 20px rgba(0, 255, 65, 0.2)',
+            color: '#00ff41',
           }}>
             <div className="flex items-center gap-2 mb-2">
               <Terminal size={16} />

@@ -63,8 +63,8 @@ export default function App() {
     <div className="min-h-screen relative overflow-hidden app-bg">
       <LazyMotion features={domAnimation} strict>
         
-        {/*<ParallaxBackground />*/}
-        
+        <ParallaxBackground />
+
         {/* NAV */}
         <MotionNav
           items={NAV_ITEMS}
