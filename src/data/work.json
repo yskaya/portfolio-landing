@@ -1,0 +1,92 @@
+[
+  {
+    "position": "Staff Frontend Engineer / Senior Full-stack Engineer",
+    "company": "WeTransfer",
+    "start": "Sept 2020",
+    "end": "Oct 2024",
+    "desc": "Driving architecture and delivery of design systems, shared modules, and internal libraries across the org.",
+    "location": "NYC (remote)",
+    "team_size": "N/A",
+    "addon": "",
+    "responsibilities": [
+      "Designing scalable modules and setting technical direction for cross-product platforms",
+      "Defining development processes: CI/CD workflows, build systems, quality tooling, and documentation",
+      "Collaborating with product, design, and engineering leadership to align roadmaps and execution",
+      "Supporting hiring through technical interviews, problem design, and candidate evaluation",
+      "Scaling large-scale, graphically rich products (Paste, Portals, Transfer) with performant, modular code",
+      "Translating product initiatives into scoped technical plans and delivery milestones",
+      "Owning and implementing features across the stack (30% BE / 70% FE) using Next.js, NestJS, and React",
+      "Leading refactoring efforts and enforcing coding standards for modularization and maintainability"
+    ],
+    "achievements": "",
+    "link": "https://wetransfer.com"
+  },
+  {
+    "position": "Senior Software Engineer - Full-stack / Frontend",
+    "company": "Namely",
+    "start": "Sept 2018",
+    "end": "Sept 2020",
+    "desc": "Scaling HR platform with tools, features, product integrations, and internal design systems.",
+    "location": "NYC (hybrid)",
+    "team_size": "N/A",
+    "addon": "",
+    "responsibilities": [
+      "Owning product-critical modules and ensuring performance, delivery, and scalability",
+      "Delivering React-based UIs and contributing to Go-based REST APIs",
+      "Building and documenting a shared Design System for use across teams",
+      "Mentoring developers and collaborating across functions"
+    ],
+    "achievements": "",
+    "link": ""
+  },
+  {
+    "position": "Tech Lead - Frontend",
+    "company": "Candena",
+    "start": "Jan 2018",
+    "end": "Jan 2019",
+    "desc": "Leading SaaS modernization from a monolithic RoR app to an API-driven React SPA",
+    "location": "Berlin (remote)",
+    "team_size": "N/A",
+    "addon": "",
+    "responsibilities": [
+      "Defining architecture and implementation strategy for the greenfield React app",
+      "Defining dev workflows, CI pipelines, and coding standards",
+      "Mentoring engineers through code reviews, documentation, and onboarding support"
+    ],
+    "achievements": "",
+    "link": "https://candena.digital"
+  },
+  {
+    "position": "AI Software Engineer",
+    "company": "IPSoft",
+    "start": "Sept 2017",
+    "end": "Sept 2018",
+    "desc": "Building Amelia, an AI-powered interface transforming natural language into structured actions.",
+    "location": "NYC (on-site)",
+    "team_size": "N/A",
+    "addon": "",
+    "responsibilities": [
+      "Designing frontend and data systems for managing dialog flows via BPMN workflows",
+      "Developing React interfaces and reusable components for enterprise use"
+    ],
+    "achievements": "",
+    "link": "https://amelia.ai"
+  },
+  {
+    "position": "Full-stack / Frontend Engineer",
+    "company": "Various Companies",
+    "start": "Jul 2009",
+    "end": "Mar 2015",
+    "desc": "Growing through hands-on experience across eCommerce, education, and media platforms.",
+    "location": "Eastern Europe (on-site / remote)",
+    "team_size": "N/A",
+    "addon": "",
+    "responsibilities": [
+      "Coding backend features and CMS architecture using PHP and Ruby on Rails",
+      "Building interactive UI components with jQuery and JavaScript Module Pattern",
+      "Designing responsive, accessible layouts with BEM, branding, and theming focus"
+    ],
+    "achievements": "",
+    "link": ""
+  }
+]

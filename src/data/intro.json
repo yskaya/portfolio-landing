@@ -1,0 +1,20 @@
+{
+  "name": "Yulia Kanapatskaya",
+  "links": {
+    "linkedin": "https://linkedin.com/in/yskaya",
+    "email": "yulia.kanapatskaya@gmail.com",
+    "personal_websites": [
+      "https://amelia.ai",
+      "https://wetransfer.com",
+      "https://candena.digital",
+      "https://www.namely.com/",
+      "https://www.sophia.org/"
+    ]
+  },
+  "positions": [
+    "Senior / Staff Software Engineer (Frontend / Full-stack)"
+  ],
+  "location": "Los Angeles",
+  "short_description": "~15 years in web development with deep JavaScript expertise and a frontend focus.",
+  "about": "Skilled in React, Node.js, NestJS, and Next.js. Experienced in building systems from scratch and maintaining legacy codebases across monoliths, SPAs, microservices, and monorepos. Proficient with Docker, Kubernetes, and CI/CD. Strong track record in shaping technical direction, setting roadmaps, and leading cross-functional collaboration. Master's in Computer Systems Engineering."
+}

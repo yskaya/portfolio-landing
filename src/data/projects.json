@@ -1,0 +1,84 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "name": "WeTransfer Platform",
+      "description": "Large-scale file transfer platform with graphically rich products including Paste, Portals, and Transfer. Built scalable design systems and shared modules across the organization.",
+      "details": "Led architecture and delivery of design systems, shared modules, and internal libraries across the organization. Scaled large-scale, graphically rich products with performant, modular code. Owned and implemented features across the stack (30% BE / 70% FE) using Next.js, NestJS, and React.",
+      "links": {
+        "live": "https://wetransfer.com",
+        "github": ""
+      },
+      "tech_stack": ["TypeScript", "React", "Node.js", "Next.js", "NestJS", "Monorepo", "Microservices"],
+      "role": "Staff Frontend Engineer / Senior Full-stack Engineer",
+      "date": "Sept 2020 - Oct 2024",
+      "location": "NYC (remote)",
+      "image": "/images/wetransfer-project.jpg",
+      "achievements": [
+        "Designed scalable modules and set technical direction for cross-product platforms",
+        "Defined development processes: CI/CD workflows, build systems, quality tooling",
+        "Led refactoring efforts and enforced coding standards for modularization"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Namely HR Platform",
+      "description": "Comprehensive HR platform with integrated tools, features, and product integrations. Built internal design systems and scalable React-based interfaces.",
+      "details": "Scaled HR platform with tools, features, product integrations, and internal design systems. Owned product-critical modules ensuring performance, delivery, and scalability. Built and documented a shared Design System for use across teams.",
+      "links": {
+        "live": "https://www.namely.com/",
+        "github": ""
+      },
+      "tech_stack": ["JavaScript", "TypeScript", "ES6-7", "JSX", "React", "Redux", "GraphQL", "Node.js", "Redis", "gRPC", "SCSS"],
+      "role": "Senior Software Engineer - Full-stack / Frontend",
+      "date": "Sept 2018 - Sept 2020",
+      "location": "NYC (hybrid)",
+      "image": "/images/namely-project.jpg",
+      "achievements": [
+        "Delivered React-based UIs and contributed to Go-based REST APIs",
+        "Built and documented shared Design System for cross-team use",
+        "Mentored developers and collaborated across functions"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Amelia AI Platform",
+      "description": "AI-powered conversational interface that transforms natural language into structured actions. Enterprise-grade cognitive agent for customer service and business process automation.",
+      "details": "Built Amelia, an AI-powered interface transforming natural language into structured actions. Designed frontend and data systems for managing dialog flows via BPMN workflows. Developed React interfaces and reusable components for enterprise use.",
+      "links": {
+        "live": "https://amelia.ai",
+        "github": ""
+      },
+      "tech_stack": ["React", "Redux", "JavaScript", "SCSS", "CSS", "HTML", "JSX", "ES6", "BPM/BPMN"],
+      "role": "AI Software Engineer",
+      "date": "Sept 2017 - Sept 2018",
+      "location": "NYC (on-site)",
+      "image": "/images/amelia-ai-project.jpg",
+      "achievements": [
+        "Designed frontend and data systems for managing dialog flows via BPMN workflows",
+        "Developed React interfaces and reusable components for enterprise use",
+        "Built AI-powered natural language processing interface"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Sophia.org Learning Platform",
+      "description": "Educational technology platform providing online courses and learning resources. Built scalable frontend architecture and interactive learning experiences.",
+      "details": "Contributed to building educational technology platform with focus on scalable frontend architecture and user experience. Developed interactive learning interfaces and educational content delivery systems.",
+      "links": {
+        "live": "https://www.sophia.org/",
+        "github": ""
+      },
+      "tech_stack": ["JavaScript", "React", "CSS", "HTML", "PHP", "MySQL"],
+      "role": "Full-stack / Frontend Engineer",
+      "date": "Jul 2009 - Mar 2015",
+      "location": "Eastern Europe (remote)",
+      "image": "/images/sophia-project.jpg",
+      "achievements": [
+        "Built interactive UI components with JavaScript Module Pattern",
+        "Designed responsive, accessible layouts with BEM methodology",
+        "Contributed to educational content delivery systems"
+      ]
+    }
+  ]
+}
