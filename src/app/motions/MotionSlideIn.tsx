@@ -1,41 +1,39 @@
 "use client";
-import { ReactNode } from "react";
+import { ReactNode, CSSProperties } from "react";
 import { m } from "motion/react";
+import { slowSpring } from "./animationPresets";
 
-type ElementKey = keyof typeof m;
+type Direction = "left" | "right" | "up" | "down";
 
 type Props = {
   children: ReactNode;
   className?: string;
-  as?: ElementKey;
   delay?: number;
-  duration?: number;
-  offset?: number;
-  direction?: "left" | "right";
-  once?: boolean;
+  direction?: Direction;
+  distance?: number;
+  style?: CSSProperties;
 };
 
 export function MotionSlideIn({
   children,
   className,
-  as = "div",
   delay = 0,
-  duration = 0.6,
-  offset = 30,
   direction = "left",
-  once = true,
+  distance = 20,
+  style,
 }: Props) {
-  const Component = m[as];
-  const x = direction === "left" ? -offset : offset;
+  const x = direction === "left" ? -distance : direction === "right" ? distance : 0;
+  const y = direction === "up" ? -distance : direction === "down" ? distance : 0;
+
   return (
-    <Component
+    <m.div
       className={className}
-      initial={{ opacity: 0, x }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration, delay }}
-      viewport={{ once }}
+      initial={{ opacity: 0, x, y }}
+      animate={{ opacity: 1, x: 0, y: 0 }}
+      transition={{ ...slowSpring, delay }}
+      style={{ willChange: "transform", ...style }}
     >
       {children}
-    </Component>
+    </m.div>
   );
 }

@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Calendar, MapPin, Users, TrendingUp, ExternalLink, Building } from 'lucide-react';
-import { Button } from './ui/button';
 import { useMousePosition } from '../hooks/useMousePosition';
+import { MotionSection } from '../motions/MotionSection';
+import { MotionFadeIn } from '../motions/MotionFadeIn';
+import { MotionSlideIn } from '../motions/MotionSlideIn';
 
 interface WorkExperience {
   id: string;
@@ -156,7 +158,7 @@ export function WorkHistory() {
   };
 
   return (
-    <section className="relative py-32 px-4 overflow-hidden">
+    <MotionSection id="work-history" className="relative py-32 px-4 overflow-hidden">
       {/* Background pattern */}
       <motion.div
         className="absolute inset-0 opacity-5"
@@ -204,15 +206,10 @@ export function WorkHistory() {
 
         <div className="space-y-8">
           {experiences.map((exp, index) => (
-            <motion.div
+            <MotionFadeIn
               key={exp.id}
               className="relative"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              animate={{
-                x: mouseXPercent * (index % 2 === 0 ? 2 : -2),
-              }}
+              animateStyle={{ x: mouseXPercent * (index % 2 === 0 ? 2 : -2) }}
               transition={{ type: 'spring', stiffness: 200, damping: 25 }}
             >
               <motion.div
@@ -361,22 +358,22 @@ export function WorkHistory() {
                       </h4>
                       <div className="space-y-2">
                         {exp.achievements.map((achievement, achIndex) => (
-                          <motion.p
+                          <MotionSlideIn
                             key={achIndex}
-                            style={{ color: 'rgba(255, 255, 255, 0.8)' }}
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: achIndex * 0.1 }}
+                            delay={achIndex * 0.1}
+                            direction="left"
                           >
-                            🚀 {achievement}
-                          </motion.p>
+                            <p style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
+                              🚀 {achievement}
+                            </p>
+                          </MotionSlideIn>
                         ))}
                       </div>
                     </div>
                   </div>
                 </motion.div>
               </motion.div>
-            </motion.div>
+            </MotionFadeIn>
           ))}
         </div>
 
@@ -413,6 +410,6 @@ export function WorkHistory() {
           </div>
         </motion.div>
       </div>
-    </section>
+    </MotionSection>
   );
 }

@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/
 import { Badge } from "./ui/badge";
 import { ExternalLink, Github, ArrowRight } from "lucide-react";
 import { projectsData } from "./ProjectData";
+import { MotionFadeIn } from "../motions/MotionFadeIn";
 
 interface ProjectsProps {
   onProjectSelect?: (projectId: string) => void;
@@ -15,16 +16,19 @@ export function Projects({ onProjectSelect, showAll = false }: ProjectsProps) {
   return (
     <section className="py-20 px-4">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">
-          {showAll ? "All Projects" : "Featured Projects"}
-        </h2>
+        <MotionFadeIn>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">
+            {showAll ? "All Projects" : "Featured Projects"}
+          </h2>
+        </MotionFadeIn>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {displayProjects.map((project, index) => (
-            <Card key={index} className="bg-white/5 border-white/10 text-white hover:bg-white/10 transition-colors">
-              <CardHeader>
-                <div className="flex justify-between items-start">
-                  <CardTitle className="text-xl text-white">{project.title}</CardTitle>
+            <MotionFadeIn key={index} delay={index * 0.1}>
+              <Card className="bg-white/5 border-white/10 text-white hover:bg-white/10 transition-colors">
+                <CardHeader>
+                  <div className="flex justify-between items-start">
+                    <CardTitle className="text-xl text-white">{project.title}</CardTitle>
                   {project.featured && (
                     <Badge className="bg-white text-black">Featured</Badge>
                   )}
@@ -74,6 +78,7 @@ export function Projects({ onProjectSelect, showAll = false }: ProjectsProps) {
                 </div>
               </CardContent>
             </Card>
+            </MotionFadeIn>
           ))}
         </div>
         
