@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
+import { MotionFadeIn } from "../motions/MotionFadeIn";
 import { Badge } from "./ui/badge";
 import { useMousePosition } from '../hooks/useMousePosition';
 import { Code, Database, Cloud, Zap, Wrench, TestTube } from 'lucide-react';
@@ -75,16 +76,13 @@ export function Skills() {
       />
 
       <div className="max-w-6xl mx-auto relative z-10">
-        <motion.h2 
+        <MotionFadeIn
+          as="h2"
           className="text-4xl md:text-5xl font-bold text-center mb-4 text-white relative"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
           style={{ transform: `translateY(${scrollY * -0.03}px)` }}
         >
           Tech Stack
-          
+
           {/* Animated circuit lines */}
           <motion.div
             className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-32 h-1"
@@ -100,18 +98,16 @@ export function Skills() {
               delay: 0.5,
             }}
           />
-        </motion.h2>
+        </MotionFadeIn>
 
-        <motion.p
+        <MotionFadeIn
+          as="p"
           className="text-center text-gray-400 mb-16 max-w-2xl mx-auto"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
+          delay={0.3}
         >
-          15 years of web development with deep JavaScript expertise and a frontend focus. 
+          15 years of web development with deep JavaScript expertise and a frontend focus.
           Skilled in React, Node.js, NestJS, and Next.js across monoliths, SPAs, microservices, and monorepos.
-        </motion.p>
+        </MotionFadeIn>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skillCategories.map((category, index) => {
