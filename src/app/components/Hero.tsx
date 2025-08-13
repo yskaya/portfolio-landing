@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from 'motion/react';
 import { Button } from "./ui/button";
 import { ArrowDown, Github, Linkedin, Mail, Terminal } from "lucide-react";
-import { useMousePosition } from './hooks/useMousePosition';
+import { useMousePosition } from '../hooks/useMousePosition';
 
 export function Hero() {
   const [scrollY, setScrollY] = useState(0);

@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { useScrollEffects } from './hooks/useScrollEffects';
-import { useMousePosition } from './hooks/useMousePosition';
+import { useScrollEffects } from '../hooks/useScrollEffects';
+import { useMousePosition } from '../hooks/useMousePosition';
 
 // Pre-calculated random values for consistent performance
 const RANDOM_VALUES = Array.from({ length: 100 }, () => Math.random());

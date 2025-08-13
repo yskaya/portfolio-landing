@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft, ExternalLink, Github, Calendar, Users, Zap, X } from 'lucide-react';
 import { Button } from './ui/button';
-import { useMousePosition } from './hooks/useMousePosition';
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { useMousePosition } from '../hooks/useMousePosition';
 
 interface Project {
   id: string;

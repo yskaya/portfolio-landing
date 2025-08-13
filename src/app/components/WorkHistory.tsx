@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Calendar, MapPin, Users, TrendingUp, ExternalLink, Building } from 'lucide-react';
 import { Button } from './ui/button';
-import { useMousePosition } from './hooks/useMousePosition';
+import { useMousePosition } from '../hooks/useMousePosition';
 
 interface WorkExperience {
   id: string;

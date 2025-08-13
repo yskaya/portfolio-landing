@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Badge } from "./ui/badge";
-import { useMousePosition } from './hooks/useMousePosition';
+import { useMousePosition } from '../hooks/useMousePosition';
 import { Code, Database, Cloud, Zap, Wrench, TestTube } from 'lucide-react';
 
 export function Skills() {

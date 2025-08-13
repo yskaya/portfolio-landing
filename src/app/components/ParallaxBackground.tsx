@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
-import { useMousePosition } from './hooks/useMousePosition';
+import { useMousePosition } from '../hooks/useMousePosition';
 
 export function ParallaxBackground() {
   const [scrollY, setScrollY] = useState(0);

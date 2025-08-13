@@ -1,7 +1,14 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { useMousePosition } from './hooks/useMousePosition';
+import { useMousePosition } from '../hooks/useMousePosition';
 import { Code2, Globe, Award, Users } from 'lucide-react';
+
+const highlights = [
+  { icon: Code2, title: "15+ Years Experience", desc: "Full-stack mastery" },
+  { icon: Globe, title: "Global Journey", desc: "Belarus → Berlin → NYC → LA" },
+  { icon: Award, title: "AI Innovation", desc: "Cutting-edge solutions" },
+  { icon: Users, title: "Team Leadership", desc: "Mentoring & scaling" }
+];
 
 export function About() {
   const [scrollY, setScrollY] = useState(0);
@@ -16,12 +23,6 @@ export function About() {
   const mouseXPercent = (mousePosition.x / window.innerWidth - 0.5) * 2;
   const mouseYPercent = (mousePosition.y / window.innerHeight - 0.5) * 2;
 
-  const highlights = [
-    { icon: Code2, title: "15+ Years Experience", desc: "Full-stack mastery" },
-    { icon: Globe, title: "Global Journey", desc: "Belarus → Berlin → NYC → LA" },
-    { icon: Award, title: "AI Innovation", desc: "Cutting-edge solutions" },
-    { icon: Users, title: "Team Leadership", desc: "Mentoring & scaling" }
-  ];
 
   return (
     <section className="relative py-32 px-4 overflow-hidden">
@@ -57,7 +58,7 @@ export function About() {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              The Evolution: Engineering in roots, global growth
+              The Evolution
               {/* Animated accent */}
               <motion.div
                 className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-white via-gray-400 to-transparent"
