@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
+import { MotionFadeIn } from '../motions/MotionFadeIn';
 import { ArrowLeft, ExternalLink, Github, Calendar, Users, Zap, X } from 'lucide-react';
 import { Button } from './ui/button';
 import { useMousePosition } from '../hooks/useMousePosition';
@@ -64,11 +65,9 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
 
       <div className={`${isModal ? '' : 'max-w-6xl mx-auto'} relative z-10`}>
         {/* Header */}
-        <motion.div
+        <MotionFadeIn
           className={`${isModal ? 'mb-6' : 'mb-12'} flex items-center justify-between`}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          duration={0.6}
         >
           <Button
             variant="outline"
@@ -120,14 +119,12 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
               </Button>
             )}
           </div>
-        </motion.div>
+        </MotionFadeIn>
 
         {/* Project Overview */}
-        <motion.div
+        <MotionFadeIn
           className={`grid grid-cols-1 lg:grid-cols-2 gap-${isModal ? '6' : '12'} ${isModal ? 'mb-6' : 'mb-16'}`}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          delay={0.2}
         >
           {/* Project Image */}
           <div className="relative">
@@ -237,16 +234,14 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
               </div>
             </div>
           </div>
-        </motion.div>
+        </MotionFadeIn>
 
         {/* Detailed Sections */}
         <div className={`grid grid-cols-1 ${isModal ? 'gap-4' : 'lg:grid-cols-2 gap-8'}`}>
           {/* Project Description */}
-          <motion.div
+          <MotionFadeIn
             className="cyber-glass-purple rounded-xl p-6"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            delay={0.4}
           >
             <h3 className={`${isModal ? 'text-lg' : 'text-xl'} font-bold mb-4`} style={{ color: '#ffffff' }}>
               Project Overview
@@ -262,14 +257,12 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
                 </p>
               ))}
             </div>
-          </motion.div>
+          </MotionFadeIn>
 
           {/* Key Features */}
-          <motion.div
+          <MotionFadeIn
             className="cyber-glass rounded-xl p-6"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
+            delay={0.5}
           >
             <h3 className={`${isModal ? 'text-lg' : 'text-xl'} font-bold mb-4`} style={{ color: '#ffffff' }}>
               Key Features
@@ -296,15 +289,13 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
                 </motion.div>
               ))}
             </div>
-          </motion.div>
+          </MotionFadeIn>
 
           {/* Challenges & Solutions */}
           {!isModal && (
-            <motion.div
+            <MotionFadeIn
               className="cyber-glass-pink rounded-xl p-6"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
+              delay={0.6}
             >
               <h3 className="text-xl font-bold mb-4" style={{ color: '#ffffff' }}>
                 Technical Challenges
@@ -328,15 +319,13 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
                   </motion.div>
                 ))}
               </div>
-            </motion.div>
+            </MotionFadeIn>
           )}
 
           {/* Results & Impact */}
-          <motion.div
+          <MotionFadeIn
             className="cyber-glass-purple rounded-xl p-6"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: isModal ? 0.6 : 0.7 }}
+            delay={isModal ? 0.6 : 0.7}
           >
             <h3 className={`${isModal ? 'text-lg' : 'text-xl'} font-bold mb-4`} style={{ color: '#ffffff' }}>
               Results & Impact
@@ -363,16 +352,16 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
                 </motion.div>
               ))}
             </div>
-          </motion.div>
+          </MotionFadeIn>
         </div>
 
         {/* Action Buttons - only in modal */}
         {isModal && (project.demoUrl || project.githubUrl) && (
-          <motion.div
+          <MotionFadeIn
             className="flex justify-center gap-4 mt-6 pt-6 border-t border-white/10"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
+            y={20}
+            duration={0.6}
+            delay={0.8}
           >
             {project.demoUrl && (
               <Button
@@ -401,7 +390,7 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
                 </a>
               </Button>
             )}
-          </motion.div>
+          </MotionFadeIn>
         )}
       </div>
     </div>

@@ -1,27 +1,32 @@
 "use client";
-import { ComponentPropsWithoutRef, ElementType } from "react";
+
+import { ReactNode, ElementType } from "react";
 import { m } from "motion/react";
+import { fadeInUp, slowSpring } from "./animationPresets";
 
-interface MotionFadeInProps<T extends ElementType = "div"> extends ComponentPropsWithoutRef<T> {
-  as?: T;
+type MotionTag = keyof typeof m;
+
+type Props = {
+  as?: MotionTag;
+  className?: string;
+  children: ReactNode;
   delay?: number;
-}
+  once?: boolean;
+  style?: React.CSSProperties;
+};
 
-export function MotionFadeIn<T extends ElementType = "div">({
-  as,
-  delay = 0,
-  className,
-  children,
-  ...rest
-}: MotionFadeInProps<T>) {
-  const Component = (m as any)[as || "div"] as ElementType;
+export function MotionFadeIn({ as = "div", className, children, delay = 0, once = true, style }: Props) {
+  const Component = (m as Record<MotionTag, ElementType>)[as];
   return (
     <Component
       className={className}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay }}
-      {...rest}
+      style={style}
+      variants={fadeInUp}
+      initial="initial"
+      whileInView="animate"
+      viewport={{ once }}
+      transition={{ ...slowSpring, duration: 0.6, delay }}
+      style={{ willChange: "opacity, transform" }}
     >
       {children}
     </Component>

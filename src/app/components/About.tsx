@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
+import { MotionFadeIn } from "../motions/MotionFadeIn";
 import { useMousePosition } from '../hooks/useMousePosition';
 import { Code2, Globe, Award, Users } from 'lucide-react';
 
@@ -70,40 +71,25 @@ export function About() {
             </motion.h2>
             
             <div className="space-y-6 text-gray-300 leading-relaxed">
-              <motion.p
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
-              >
-                I earned a <strong>Master's in Computer Design Engineering</strong> — not in software, but in systems, structure, and logic. 
-                That mindset has shaped a <strong>15-year journey</strong> across web development: from backend frameworks to CI/CD 
-                pipelines and infrastructure. I've lived and worked in <strong>Belarus, Berlin, New York</strong>, and now <strong>Los Angeles</strong> — 
+              <MotionFadeIn as="p" delay={0.2}>
+                I earned a <strong>Master's in Computer Design Engineering</strong> — not in software, but in systems, structure, and logic.
+                That mindset has shaped a <strong>15-year journey</strong> across web development: from backend frameworks to CI/CD
+                pipelines and infrastructure. I've lived and worked in <strong>Belarus, Berlin, New York</strong>, and now <strong>Los Angeles</strong> —
                 contributing across tech stacks and product stages in early-stage startups and global organizations.
-              </motion.p>
-              
-              <motion.p
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                viewport={{ once: true }}
-              >
-                I've grown with <strong>the web</strong> — from no-syntax editors and hand-coded HTML to modern UIs and scalable microservices; 
-                from raw SQL and on-prem development to cloud infrastructures, Docker and Kubernetes; from tightly coupled 
+              </MotionFadeIn>
+
+              <MotionFadeIn as="p" delay={0.4}>
+                I've grown with <strong>the web</strong> — from no-syntax editors and hand-coded HTML to modern UIs and scalable microservices;
+                from raw SQL and on-prem development to cloud infrastructures, Docker and Kubernetes; from tightly coupled
                 monoliths to modular, distributed systems. Each shift has refined <strong>how I build</strong> — and <strong>how I rebuild better</strong>.
-              </motion.p>
-              
-              <motion.p
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                viewport={{ once: true }}
-              >
-                As a <strong>Staff Frontend Engineer</strong>, I've helped to <strong>form engineering teams, shape hiring practices</strong>, and 
-                <strong>drive development strategies</strong> at scale. I've led <strong>legacy decoupling, defined architectural evolution</strong>, 
-                and <strong>established coding standards</strong> across cross-functional teams. I've worked closely with product and platform teams, 
+              </MotionFadeIn>
+
+              <MotionFadeIn as="p" delay={0.6}>
+                As a <strong>Staff Frontend Engineer</strong>, I've helped to <strong>form engineering teams, shape hiring practices</strong>, and
+                <strong>drive development strategies</strong> at scale. I've led <strong>legacy decoupling, defined architectural evolution</strong>,
+                and <strong>established coding standards</strong> across cross-functional teams. I've worked closely with product and platform teams,
                 <strong>mentored engineers</strong>, and remained <strong>a consistent contributor</strong> to the codebase — combining strategy with hands-on execution.
-              </motion.p>
+              </MotionFadeIn>
             </div>
           </motion.div>
           
