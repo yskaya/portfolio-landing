@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from 'motion/react';
+import { MotionFadeIn } from '../motions/MotionFadeIn';
 import { Button } from "./ui/button";
 import { ArrowDown, Github, Linkedin, Mail, Terminal } from "lucide-react";
 import { useMousePosition } from '../hooks/useMousePosition';
@@ -81,16 +82,13 @@ export function Hero() {
       {/* Main Content */}
       <div className="relative max-w-4xl mx-auto text-center z-10">
         {/* Terminal-style intro */}
-        <motion.div
+        <MotionFadeIn
           className="mb-8 text-left"
           style={{
             fontFamily: 'JetBrains Mono, monospace',
             fontSize: '0.9rem',
             color: '#00ff41',
           }}
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
         >
           <div className="bg-black/50 rounded-lg p-4 border" style={{
             borderColor: '#00ff41',
@@ -110,7 +108,7 @@ export function Hero() {
               <span style={{ color: '#00d4ff' }}>cat</span> about.me
             </div>
           </div>
-        </motion.div>
+        </MotionFadeIn>
 
         {/* Name with holographic effect */}
         <motion.div
@@ -124,18 +122,17 @@ export function Hero() {
           }}
           transition={{ type: 'spring', stiffness: 150, damping: 20 }}
         >
-          <motion.h1 
+          <MotionFadeIn
+            as="h1"
             className="text-6xl md:text-8xl font-bold mb-6 relative holographic"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
+            delay={0.2}
             style={{
               fontFamily: 'Inter, sans-serif',
               fontWeight: 700,
             }}
           >
             Yulia Kanapatskaya
-            
+
             {/* Glitch effect overlay */}
             <motion.div
               className="absolute inset-0"
@@ -153,7 +150,7 @@ export function Hero() {
                 repeatDelay: 3,
               }}
             />
-          </motion.h1>
+          </MotionFadeIn>
           
           {/* Rotating subtitle with typewriter effect */}
           <motion.div
@@ -163,18 +160,16 @@ export function Hero() {
             }}
             transition={{ type: 'spring', stiffness: 200, damping: 25 }}
           >
-            <motion.h2 
+            <MotionFadeIn
+              as="h2"
+              key={textIndex}
               className="text-2xl md:text-3xl mb-6 relative z-10"
               style={{
                 fontFamily: 'JetBrains Mono, monospace',
                 color: '#00d4ff',
                 textShadow: '0 0 20px rgba(0, 212, 255, 0.5)',
               }}
-              key={textIndex}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
             >
               {rotatingTitles[textIndex]}
               <motion.span
@@ -184,7 +179,7 @@ export function Hero() {
               >
                 _
               </motion.span>
-            </motion.h2>
+            </MotionFadeIn>
             
             {/* Animated underline with circuit pattern */}
             <motion.div
@@ -205,28 +200,25 @@ export function Hero() {
           </motion.div>
 
           {/* Bio with cyber styling */}
-          <motion.p 
+          <MotionFadeIn
+            as="p"
             className="text-lg max-w-2xl mx-auto leading-relaxed"
             style={{
               color: 'rgba(255, 255, 255, 0.9)',
               fontFamily: 'Inter, sans-serif',
             }}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.4 }}
+            delay={0.4}
           >
             <span style={{ color: '#ff006e' }}>15 years</span> crafting scalable web solutions across global markets.
             <br />
             From <span style={{ color: '#00d4ff' }}>Belarus</span> to <span style={{ color: '#00d4ff' }}>Berlin</span>, <span style={{ color: '#00d4ff' }}>New York</span> to <span style={{ color: '#00d4ff' }}>Los Angeles</span> — building the future with <span style={{ color: '#00ff41' }}>React</span>, <span style={{ color: '#00ff41' }}>TypeScript</span>, and innovation.
-          </motion.p>
+          </MotionFadeIn>
         </motion.div>
         
         {/* Social Links with cyberpunk styling */}
-        <motion.div 
+        <MotionFadeIn
           className="flex justify-center gap-6 mb-12"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.6 }}
+          delay={0.6}
         >
           {[
             { icon: Github, label: "GitHub", href: "#", color: "#00d4ff" },
@@ -275,16 +267,14 @@ export function Hero() {
               </Button>
             </motion.div>
           ))}
-        </motion.div>
+        </MotionFadeIn>
         
         {/* Location badge with AI styling */}
-        <motion.div
+        <MotionFadeIn
           className="mb-12"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
+          delay={0.8}
         >
-          <div 
+          <div
             className="inline-flex items-center px-6 py-3 rounded-full border backdrop-blur-md"
             style={{
               background: 'rgba(0, 255, 65, 0.05)',
@@ -306,7 +296,7 @@ export function Hero() {
               ●
             </motion.span>
           </div>
-        </motion.div>
+        </MotionFadeIn>
         
         {/* Animated scroll indicator with cyberpunk styling */}
         <motion.div 
