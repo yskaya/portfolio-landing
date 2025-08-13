@@ -5,6 +5,7 @@ import { useMousePosition } from '../hooks/useMousePosition';
 import { MotionSection } from '../motions/MotionSection';
 import { MotionFadeIn } from '../motions/MotionFadeIn';
 import { MotionSlideIn } from '../motions/MotionSlideIn';
+import { useData } from '../context/DataContext';
 
 interface WorkExperience {
   id: string;
@@ -34,124 +35,22 @@ export function WorkHistory() {
 
   const mouseXPercent = (mousePosition.x / window.innerWidth - 0.5) * 2;
   const mouseYPercent = (mousePosition.y / window.innerHeight - 0.5) * 2;
+  const { work } = useData();
 
-  const experiences: WorkExperience[] = [
-    {
-      id: 'wetransfer',
-      company: 'WeTransfer',
-      companyUrl: 'https://wetransfer.com',
-      position: 'Staff Frontend Engineer',
-      period: '2020 - Present',
-      location: 'Los Angeles, CA / Remote',
-      type: 'Full-time',
-      description: [
-        'Leading frontend architecture and development for file transfer platform serving millions of users globally',
-        'Spearheading technical initiatives and mentoring engineering teams across multiple product areas',
-        'Driving adoption of modern React patterns, TypeScript, and performance optimization strategies'
-      ],
-      achievements: [
-        'Architected and implemented new file upload system increasing success rate by 35%',
-        'Led team of 5+ engineers in rebuilding core platform features with modern tech stack',
-        'Established frontend engineering standards and best practices adopted company-wide',
-        'Reduced bundle size by 40% through advanced code splitting and optimization techniques'
-      ],
-      technologies: ['React', 'TypeScript', 'Next.js', 'GraphQL', 'Node.js', 'AWS', 'Docker'],
-      teamSize: '5+ Engineers',
-      impact: 'Millions of users'
-    },
-    {
-      id: 'namely',
-      company: 'Namely',
-      companyUrl: 'https://namely.com',
-      position: 'Senior Software Engineer',
-      period: '2018 - 2020',
-      location: 'New York, NY',
-      type: 'Full-time',
-      description: [
-        'Developed and maintained HR platform features for mid-market companies',
-        'Built responsive web applications using React and Redux for complex workforce management',
-        'Collaborated with product and design teams to deliver user-centered solutions'
-      ],
-      achievements: [
-        'Delivered key payroll and benefits management features used by 200,000+ employees',
-        'Improved application performance by 50% through React optimization and lazy loading',
-        'Led migration from legacy jQuery codebase to modern React architecture',
-        'Mentored junior developers and conducted technical interviews'
-      ],
-      technologies: ['React', 'Redux', 'JavaScript', 'Ruby on Rails', 'PostgreSQL', 'CSS3'],
-      teamSize: '3-4 Engineers',
-      impact: '200,000+ employees'
-    },
-    {
-      id: 'movinga',
-      company: 'Movinga',
-      companyUrl: 'https://www.movinga.de',
-      position: 'Frontend Developer',
-      period: '2017 - 2018',
-      location: 'Berlin, Germany',
-      type: 'Full-time',
-      description: [
-        'Built customer-facing web applications for moving and logistics platform',
-        'Implemented responsive designs and interactive booking flows',
-        'Worked in agile environment with international team across multiple time zones'
-      ],
-      achievements: [
-        'Developed complete booking system frontend increasing conversion rate by 25%',
-        'Created reusable component library reducing development time by 30%',
-        'Implemented multi-language support for German and English markets',
-        'Optimized mobile experience leading to 40% increase in mobile bookings'
-      ],
-      technologies: ['React', 'JavaScript', 'Sass', 'Webpack', 'PHP', 'MySQL'],
-      teamSize: '2-3 Engineers',
-      impact: 'European market'
-    },
-    {
-      id: 'freelance',
-      company: 'Independent Contractor',
-      companyUrl: '',
-      position: 'Full-stack Developer',
-      period: '2015 - 2017',
-      location: 'Belarus / Remote',
-      type: 'Freelance',
-      description: [
-        'Delivered end-to-end web solutions for startups and small businesses',
-        'Specialized in React frontend development and Node.js backend integration',
-        'Managed complete project lifecycle from requirements to deployment'
-      ],
-      achievements: [
-        'Successfully delivered 15+ projects ranging from e-commerce to SaaS platforms',
-        'Built and maintained client relationships across US and European markets',
-        'Developed expertise in full-stack JavaScript and modern deployment practices',
-        'Achieved 100% client satisfaction rate with all projects delivered on time'
-      ],
-      technologies: ['React', 'Node.js', 'Express', 'MongoDB', 'JavaScript', 'CSS3'],
-      teamSize: 'Solo developer',
-      impact: '15+ successful projects'
-    },
-    {
-      id: 'epam',
-      company: 'EPAM Systems',
-      companyUrl: 'https://www.epam.com',
-      position: 'Software Engineer',
-      period: '2009 - 2015',
-      location: 'Minsk, Belarus',
-      type: 'Full-time',
-      description: [
-        'Started career as junior developer and progressed to senior engineer',
-        'Worked on enterprise applications for Fortune 500 clients',
-        'Gained experience across multiple technologies and development methodologies'
-      ],
-      achievements: [
-        'Progressed from Junior to Senior Engineer within 6 years',
-        'Led development of critical features for major financial services client',
-        'Contributed to multiple successful project deliveries worth $10M+',
-        'Received "Outstanding Performance" award for exceptional client satisfaction'
-      ],
-      technologies: ['Java', 'JavaScript', 'Spring', 'Hibernate', 'Oracle', 'HTML/CSS'],
-      teamSize: '8-12 Engineers',
-      impact: 'Enterprise scale'
-    }
-  ];
+  const experiences: WorkExperience[] = work.map((item, index) => ({
+    id: `work-${index}`,
+    company: item.company,
+    companyUrl: item.link || '',
+    position: item.position,
+    period: `${item.start} - ${item.end}`,
+    location: item.location,
+    type: 'TBD',
+    description: [item.desc, ...(item.responsibilities || [])],
+    achievements: item.achievements ? [item.achievements] : [],
+    technologies: [],
+    teamSize: item.team_size || 'TBD',
+    impact: 'TBD',
+  }));
 
   const toggleExpanded = (id: string) => {
     setExpandedId(expandedId === id ? '' : id);
