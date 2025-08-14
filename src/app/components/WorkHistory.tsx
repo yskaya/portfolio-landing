@@ -8,7 +8,7 @@ import { MotionFadeIn } from '../graphs/MotionFadeIn';
 import { MotionSlideIn } from '../graphs/MotionSlideIn';
 import { useData } from '../context/DataContext';
 import { AnimatedWorkHistory } from '../graphs';
-import { HoverGlowCard } from './HoverGlowCard';
+import { HoverGlowCard } from '../graphs/HoverGlowCard';
 
 interface WorkExperience {
   id: string;

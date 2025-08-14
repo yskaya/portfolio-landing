@@ -7,7 +7,7 @@ import { ExternalLink, Github, ArrowRight } from "lucide-react";
 import { ProjectDetail } from "./ProjectDetail";
 import { MotionFadeIn } from "../graphs/MotionFadeIn";
 import { useData } from "../context/DataContext";
-import { HoverGlowCard } from './HoverGlowCard';
+import { HoverGlowCard } from '../graphs/HoverGlowCard';
 
 
 interface ProjectsProps {

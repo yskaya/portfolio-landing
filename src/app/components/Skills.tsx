@@ -6,7 +6,7 @@ import { useMousePosition } from '../hooks/useMousePosition';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 import { Code, Database, Cloud, Zap, Wrench, TestTube } from 'lucide-react';
 import { useData } from '../context/DataContext';
-import { HoverGlowCard } from './HoverGlowCard';
+import { HoverGlowCard } from '../graphs/HoverGlowCard';
 
 export function Skills() {
   const scrollY = useScrollPosition();

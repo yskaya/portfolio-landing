@@ -3,7 +3,7 @@ import { MotionFadeIn } from "../graphs/MotionFadeIn";
 import { useMousePosition } from '../hooks/useMousePosition';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 import { Code2, Globe, Award, Users } from 'lucide-react';
-import { HoverGlowCard } from './HoverGlowCard';
+import { HoverGlowCard } from '../graphs/HoverGlowCard';
 
 const highlights = [
   { icon: Code2, title: "15+ Years Experience", desc: "Full-stack mastery" },
@@ -75,17 +75,12 @@ export function About() {
               className="relative w-full h-96 rounded-2xl overflow-hidden"
               style={{
                 background: 'rgba(255, 255, 255, 0.02)',
-                backdropFilter: 'blur(20px)',
                 border: '1px solid rgba(255, 255, 255, 0.1)',
               }}
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              whileHover={{ 
-                scale: 1.02,
-                boxShadow: '0 25px 50px rgba(255,255,255,0.1)',
-              }}
             >
               
          

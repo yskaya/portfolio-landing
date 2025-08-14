@@ -12,9 +12,9 @@ export function HoverGlowCard({
 }: HoverGlowCardProps) {
   return (
     <m.div
-      className={`cursor-pointer transition-all duration-300 ${className}`}
+      className={`cursor-pointer transition-all duration-100 ${className}`}
       whileHover={{
-        scale: 1.02,
+        scale: 1.05,
         boxShadow: '0 0 40px rgba(131, 56, 236, 0.3)',
         ...(customHover as object),
       }}
