@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { MotionFadeIn } from "../motions/MotionFadeIn";
 import { useMousePosition } from '../hooks/useMousePosition';
 import { Code2, Globe, Award, Users } from 'lucide-react';
@@ -28,12 +28,10 @@ export function About() {
   return (
     <section className="relative py-32 px-4 overflow-hidden">
       {/* Background layers */}
-      <motion.div
+      <m.div
         className="absolute inset-0 opacity-5"
         style={{
           transform: `translateY(${scrollY * 0.1}px)`,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff'%3E%3Cpath d='M20 0 L30 10 L20 20 L10 10 Z' fill='none' stroke='%23ffffff' stroke-width='0.5'/%3E%3Ccircle cx='20' cy='20' r='8' fill='none' stroke='%23ffffff' stroke-width='0.5'/%3E%3C/g%3E%3C/svg%3E")`,
-          backgroundSize: '80px 80px',
         }}
         animate={{
           x: mouseXPercent * -3,
@@ -45,14 +43,14 @@ export function About() {
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Text Content */}
-          <motion.div
+          <m.div
             style={{ transform: `translateY(${scrollY * -0.05}px)` }}
             animate={{
               x: mouseXPercent * 5,
             }}
             transition={{ type: 'spring', stiffness: 150, damping: 20 }}
           >
-            <motion.h2 
+            <m.h2 
               className="text-4xl md:text-5xl font-bold mb-8 text-white relative"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -61,14 +59,14 @@ export function About() {
             >
               The Evolution
               {/* Animated accent */}
-              <motion.div
+              <m.div
                 className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-white via-gray-400 to-transparent"
                 initial={{ width: 0 }}
                 whileInView={{ width: '60%' }}
                 transition={{ duration: 1, delay: 0.5 }}
                 viewport={{ once: true }}
               />
-            </motion.h2>
+            </m.h2>
             
             <div className="space-y-6 text-gray-300 leading-relaxed">
               <MotionFadeIn as="p" delay={0.2}>
@@ -91,10 +89,10 @@ export function About() {
                 <strong>mentored engineers</strong>, and remained <strong>a consistent contributor</strong> to the codebase — combining strategy with hands-on execution.
               </MotionFadeIn>
             </div>
-          </motion.div>
+          </m.div>
           
           {/* Visual Content */}
-          <motion.div 
+          <m.div 
             className="relative"
             style={{ transform: `translateY(${scrollY * 0.02}px)` }}
             animate={{
@@ -104,7 +102,7 @@ export function About() {
             transition={{ type: 'spring', stiffness: 120, damping: 25 }}
           >
             {/* Main image container with glassmorphism */}
-            <motion.div
+            <m.div
               className="relative w-full h-96 rounded-2xl overflow-hidden"
               style={{
                 background: 'rgba(255, 255, 255, 0.02)',
@@ -132,7 +130,7 @@ export function About() {
               {/* World map dots representing her journey */}
               <div className="absolute inset-0 pointer-events-none">
                 {/* Belarus */}
-                <motion.div
+                <m.div
                   className="absolute w-2 h-2 bg-blue-400 rounded-full"
                   style={{ top: '30%', left: '60%' }}
                   animate={{
@@ -142,7 +140,7 @@ export function About() {
                   transition={{ duration: 2, repeat: Infinity, delay: 0 }}
                 />
                 {/* Berlin */}
-                <motion.div
+                <m.div
                   className="absolute w-2 h-2 bg-green-400 rounded-full"
                   style={{ top: '25%', left: '52%' }}
                   animate={{
@@ -152,7 +150,7 @@ export function About() {
                   transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
                 />
                 {/* New York */}
-                <motion.div
+                <m.div
                   className="absolute w-2 h-2 bg-yellow-400 rounded-full"
                   style={{ top: '35%', left: '25%' }}
                   animate={{
@@ -162,7 +160,7 @@ export function About() {
                   transition={{ duration: 2, repeat: Infinity, delay: 1 }}
                 />
                 {/* Los Angeles */}
-                <motion.div
+                <m.div
                   className="absolute w-2 h-2 bg-purple-400 rounded-full"
                   style={{ top: '45%', left: '15%' }}
                   animate={{
@@ -174,7 +172,7 @@ export function About() {
               </div>
               
               {/* Floating elements */}
-              <motion.div
+              <m.div
                 className="absolute top-4 right-4 w-8 h-8 bg-white/5 rounded-full"
                 animate={{
                   y: [0, -10, 0],
@@ -185,7 +183,7 @@ export function About() {
                   rotate: { duration: 10, repeat: Infinity, ease: 'linear' }
                 }}
               />
-              <motion.div
+              <m.div
                 className="absolute bottom-4 left-4 w-6 h-6 border border-white/20"
                 animate={{
                   rotate: [0, 90, 180, 270, 360],
@@ -196,12 +194,12 @@ export function About() {
                   ease: 'linear'
                 }}
               />
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
 
         {/* Highlights Grid */}
-        <motion.div 
+        <m.div 
           className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -209,7 +207,7 @@ export function About() {
           viewport={{ once: true }}
         >
           {highlights.map((item, index) => (
-            <motion.div
+            <m.div
               key={index}
               className="text-center p-6 rounded-xl relative"
               style={{
@@ -226,34 +224,20 @@ export function About() {
               }}
               transition={{ type: 'spring', stiffness: 200, damping: 25 }}
             >
-              <motion.div
+              <m.div
                 className="w-12 h-12 mx-auto mb-3 flex items-center justify-center rounded-full bg-white/10"
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.5 }}
               >
                 <item.icon className="h-6 w-6 text-white" />
-              </motion.div>
+              </m.div>
               <h4 className="text-white font-semibold mb-1">{item.title}</h4>
               <p className="text-gray-400 text-sm">{item.desc}</p>
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
 
-        {/* Quote section */}
-        <motion.div
-          className="mt-20 text-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <blockquote className="text-xl text-gray-300 italic max-w-3xl mx-auto relative">
-            <span className="text-4xl text-white/20 absolute -top-4 -left-4">"</span>
-            Let's build something that lasts
-            <span className="text-4xl text-white/20 absolute -bottom-4 -right-4">"</span>
-          </blockquote>
-          <p className="text-gray-500 mt-4">— Yulia —</p>
-        </motion.div>
+       
       </div>
     </section>
   );

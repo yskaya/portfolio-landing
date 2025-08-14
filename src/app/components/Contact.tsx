@@ -1,13 +1,15 @@
-import { Button } from "./ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
+import { Button } from "../ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
 import { Mail, MapPin, Linkedin } from "lucide-react";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { MotionFadeIn } from "../motions/MotionFadeIn";
 import { MotionSlideIn } from "../motions/MotionSlideIn";
+import { useData } from '../context/DataContext';
 
 export function Contact() {
+  const { intro } = useData();
   return (
     <section className="py-20 px-4 bg-black/20">
       <div className="max-w-6xl mx-auto">
@@ -38,7 +40,7 @@ export function Contact() {
             </div>
             
             <div className="space-y-4">
-              <motion.div 
+              <m.div 
                 className="flex items-center gap-3 text-gray-300"
                 whileHover={{ x: 5 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 25 }}
@@ -47,8 +49,8 @@ export function Contact() {
                 <a href="mailto:yulia.kanapatskaya@gmail.com" className="hover:text-white transition-colors">
                   yulia.kanapatskaya@gmail.com
                 </a>
-              </motion.div>
-              <motion.div 
+              </m.div>
+              <m.div 
                 className="flex items-center gap-3 text-gray-300"
                 whileHover={{ x: 5 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 25 }}
@@ -62,15 +64,15 @@ export function Contact() {
                 >
                   linkedin.com/in/yskaya
                 </a>
-              </motion.div>
-              <motion.div 
+              </m.div>
+              <m.div 
                 className="flex items-center gap-3 text-gray-300"
                 whileHover={{ x: 5 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 25 }}
               >
                 <MapPin className="h-5 w-5" />
                 <span>Los Angeles, CA</span>
-              </motion.div>
+              </m.div>
             </div>
 
             <MotionFadeIn
@@ -123,6 +125,8 @@ export function Contact() {
           </MotionSlideIn>
         </div>
 
+        
+
         {/* Call to action */}
         <MotionFadeIn className="text-center mt-16" delay={0.4}>
           <p className="text-xl text-gray-300 mb-6">
@@ -134,18 +138,18 @@ export function Contact() {
               className="bg-white text-black hover:bg-gray-200"
               asChild
             >
-              <a href="mailto:yulia.kanapatskaya@gmail.com">
+              <a href={intro.links?.email ? `mailto:${intro.links.email}` : '#'}>
                 <Mail className="mr-2 h-5 w-5" />
                 Email Me
               </a>
             </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
+            <Button
+              variant="outline"
+              size="lg"
               className="bg-transparent border-white/20 text-white hover:bg-white/10"
               asChild
             >
-              <a href="https://linkedin.com/in/yskaya" target="_blank" rel="noopener noreferrer">
+              <a href={intro.links?.linkedin || '#'} target="_blank" rel="noopener noreferrer">
                 <Linkedin className="mr-2 h-5 w-5" />
                 Connect on LinkedIn
               </a>

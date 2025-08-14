@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { MotionFadeIn } from "../motions/MotionFadeIn";
-import { Badge } from "./ui/badge";
+import { Badge } from "../ui/badge";
 import { useMousePosition } from '../hooks/useMousePosition';
 import { Code, Database, Cloud, Zap, Wrench, TestTube } from 'lucide-react';
+import { useData } from '../context/DataContext';
 
 export function Skills() {
   const [scrollY, setScrollY] = useState(0);
   const mousePosition = useMousePosition();
+  const { skills } = useData();
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -18,62 +20,32 @@ export function Skills() {
   const mouseXPercent = (mousePosition.x / window.innerWidth - 0.5) * 2;
   const mouseYPercent = (mousePosition.y / window.innerHeight - 0.5) * 2;
 
-  const skillCategories = [
-    {
-      title: "Languages & Core",
-      icon: Code,
-      skills: ["JavaScript (ES6+)", "TypeScript", "React", "Next.js", "CSS", "HTML"],
-      color: "from-blue-500/20 to-cyan-500/20"
-    },
-    {
-      title: "Backend & APIs",
-      icon: Database,
-      skills: ["Node.js", "NestJS", "Express", "MySQL", "REST", "GraphQL", "WebSocket", "gRPC", "Redis"],
-      color: "from-green-500/20 to-emerald-500/20"
-    },
-    {
-      title: "Build & DevOps",
-      icon: Wrench,
-      skills: ["Webpack", "Vite", "Rollup", "npm", "Yarn", "Drone", "Jenkins", "Travis CI", "GitHub Actions"],
-      color: "from-orange-500/20 to-red-500/20"
-    },
-    {
-      title: "Cloud & Infrastructure",
-      icon: Cloud,
-      skills: ["AWS", "Docker", "OAuth", "Microservices", "Monorepo", "SPA", "MPA"],
-      color: "from-purple-500/20 to-pink-500/20"
-    },
-    {
-      title: "Testing & Quality",
-      icon: TestTube,
-      skills: ["Jest", "Enzyme", "Jasmine", "Karma", "Integration Testing", "Cypress", "e2e", "Selenium", "Chromatic"],
-      color: "from-yellow-500/20 to-orange-500/20"
-    },
-    {
-      title: "AI & Emerging",
-      icon: Zap,
-      skills: ["OpenAI", "LLM workflows", "AI Integration", "Vue.js", "Angular", "Ruby on Rails", "PHP"],
-      color: "from-indigo-500/20 to-purple-500/20"
-    }
-  ];
+  const iconMap: Record<string, any> = {
+    'Languages & Core': Code,
+    'Frontend': Code,
+    'Backend': Database,
+    'APIs': Database,
+    'Architecture patterns': Cloud,
+    'CI/CD': Wrench,
+    'Cloud & Infra': Cloud,
+    'Build': Wrench,
+    'Markup & Styling': Code,
+    'AI Integration': Zap,
+    'Testing': TestTube,
+    'Other FE Frameworks': Zap,
+    'Other Backend': Database,
+  };
+
+  const skillCategories = skills.skills.map((cat) => ({
+    title: cat.category_name,
+    icon: iconMap[cat.category_name] || Code,
+    skills: cat.technologies,
+    color: 'from-blue-500/20 to-cyan-500/20',
+  }));
 
   return (
     <section className="relative py-32 px-4 overflow-hidden">
-      {/* Technical background pattern */}
-      <motion.div
-        className="absolute inset-0 opacity-5"
-        style={{
-          transform: `translateY(${scrollY * 0.05}px)`,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%23ffffff' stroke-width='1'%3E%3Cpath d='M30 0v60M0 30h60'/%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3Cpath d='M10 10l40 40M10 50l40-40'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          backgroundSize: '120px 120px',
-        }}
-        animate={{
-          x: mouseXPercent * -2,
-          y: mouseYPercent * -1,
-          rotate: mouseXPercent * 0.5,
-        }}
-        transition={{ type: 'spring', stiffness: 100, damping: 20 }}
-      />
+      
 
       <div className="max-w-6xl mx-auto relative z-10">
         <MotionFadeIn
@@ -84,7 +56,7 @@ export function Skills() {
           Tech Stack
 
           {/* Animated circuit lines */}
-          <motion.div
+          <m.div
             className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-32 h-1"
             style={{
               background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
@@ -105,15 +77,16 @@ export function Skills() {
           className="text-center text-gray-400 mb-16 max-w-2xl mx-auto"
           delay={0.3}
         >
-          15 years of web development with deep JavaScript expertise and a frontend focus.
-          Skilled in React, Node.js, NestJS, and Next.js across monoliths, SPAs, microservices, and monorepos.
+          {skills.qualification && skills.qualification.length > 0
+            ? skills.qualification.slice(0, 2).join(' ')
+            : 'TBD'}
         </MotionFadeIn>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skillCategories.map((category, index) => {
             const Icon = category.icon;
             return (
-              <motion.div
+              <m.div
                 key={index}
                 className="relative group"
                 style={{ transform: `translateY(${scrollY * (index % 2 === 0 ? -0.02 : 0.02)}px)` }}
@@ -138,37 +111,29 @@ export function Skills() {
                     backdropFilter: 'blur(20px)',
                   }}
                 >
-                  {/* Background pattern */}
-                  <div 
-                    className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-500"
-                    style={{
-                      backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff'%3E%3Cpath d='M10 0 L15 5 L10 10 L5 5 Z' opacity='0.3'/%3E%3C/g%3E%3C/svg%3E")`,
-                      backgroundSize: '40px 40px',
-                    }}
-                  />
 
                   {/* Icon with rotation effect */}
-                  <motion.div
+                  <m.div
                     className="flex items-center mb-4"
                     whileHover={{ x: 5 }}
                     transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                   >
-                    <motion.div
+                    <m.div
                       className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mr-3"
                       whileHover={{ rotate: 360, scale: 1.1 }}
                       transition={{ duration: 0.5 }}
                     >
                       <Icon className="h-5 w-5 text-white" />
-                    </motion.div>
+                    </m.div>
                     <h3 className="text-lg font-semibold text-white">
                       {category.title}
                     </h3>
-                  </motion.div>
+                  </m.div>
 
                   {/* Skills with staggered animation */}
                   <div className="flex flex-wrap gap-2">
                     {category.skills.map((skill, skillIndex) => (
-                      <motion.div
+                      <m.div
                         key={skillIndex}
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
@@ -190,7 +155,7 @@ export function Skills() {
                           className="bg-white/10 text-white border-white/20 hover:bg-white/20 transition-all duration-300 cursor-default relative overflow-hidden text-xs"
                         >
                           {/* Shine effect */}
-                          <motion.div
+                          <m.div
                             className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
                             initial={{ x: '-100%' }}
                             whileHover={{ x: '100%' }}
@@ -198,13 +163,13 @@ export function Skills() {
                           />
                           <span className="relative z-10">{skill}</span>
                         </Badge>
-                      </motion.div>
+                      </m.div>
                     ))}
                   </div>
 
                   {/* Floating particles */}
                   {Array.from({ length: 2 }).map((_, particleIndex) => (
-                    <motion.div
+                    <m.div
                       key={particleIndex}
                       className="absolute w-1 h-1 bg-white/30 rounded-full"
                       style={{
@@ -224,41 +189,12 @@ export function Skills() {
                     />
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>
 
-        {/* Experience highlight */}
-        <motion.div 
-          className="mt-20 text-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <div className="max-w-4xl mx-auto p-8 rounded-2xl" style={{
-            background: 'rgba(255, 255, 255, 0.02)',
-            backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-          }}>
-            <h3 className="text-2xl font-semibold text-white mb-4">Key Qualifications</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-              <ul className="space-y-2 text-gray-300">
-                <li>• Driving frontend architecture for large-scale platforms</li>
-                <li>• Building reusable modules and internal libraries</li>
-                <li>• Leading modernization efforts — from monolith-to-SPA transitions</li>
-                <li>• Defining engineering workflows including CI/CD pipelines</li>
-              </ul>
-              <ul className="space-y-2 text-gray-300">
-                <li>• Owning delivery across the stack (primarily frontend)</li>
-                <li>• Mentoring engineers through code reviews and POCs</li>
-                <li>• Collaborating internationally across hybrid teams</li>
-                <li>• Contributing to hiring and process improvements</li>
-              </ul>
-            </div>
-          </div>
-        </motion.div>
+       
       </div>
     </section>
   );
