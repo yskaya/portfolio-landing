@@ -4,10 +4,11 @@ import { MotionFadeIn } from '../motions/MotionFadeIn';
 import { Button } from "../ui/button";
 import { ArrowDown, Github, Linkedin, Mail, Terminal } from "lucide-react";
 import { useMousePosition } from '../hooks/useMousePosition';
+import { useScrollPosition } from '../hooks/useScrollPosition';
 import { useData } from '../context/DataContext';
 
 export function Hero() {
-  const [scrollY, setScrollY] = useState(0);
+  const scrollY = useScrollPosition();
   const [textIndex, setTextIndex] = useState(0);
   const mousePosition = useMousePosition();
   const { intro } = useData();
@@ -21,17 +22,11 @@ export function Hero() {
   ];
 
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
     const interval = setInterval(() => {
       setTextIndex((prev) => (prev + 1) % rotatingTitles.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [rotatingTitles.length]);
 
   // Calculate mouse movement effects
   const mouseXPercent = (mousePosition.x / window.innerWidth - 0.5) * 2;

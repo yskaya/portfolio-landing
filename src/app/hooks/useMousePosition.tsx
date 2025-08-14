@@ -1,56 +1,21 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+"use client";
+import { useState } from "react";
+import { useMotionValueEvent } from "motion/react";
+import { useMouseMV } from "./useMotionValues";
 
 interface MousePosition {
   x: number;
   y: number;
 }
 
+// Expose mouse coordinates as plain numbers
 export function useMousePosition() {
-  const [mousePosition, setMousePosition] = useState<MousePosition>({ x: 0, y: 0 });
-  const rafRef = useRef<number>();
-  const lastUpdate = useRef(0);
-  const isThrottled = useRef(false);
+  const { x, y } = useMouseMV();
+  const [pos, setPos] = useState<MousePosition>({ x: 0, y: 0 });
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (isThrottled.current) return;
-    
-    const now = Date.now();
-    // Throttle to ~60fps max
-    if (now - lastUpdate.current < 16) return;
-    
-    isThrottled.current = true;
-    
-    if (rafRef.current) {
-      cancelAnimationFrame(rafRef.current);
-    }
+  useMotionValueEvent(x, "change", (latest) => setPos((p) => ({ ...p, x: latest })));
+  useMotionValueEvent(y, "change", (latest) => setPos((p) => ({ ...p, y: latest })));
 
-    rafRef.current = requestAnimationFrame(() => {
-      setMousePosition(prevPosition => {
-        // Skip tiny movements to reduce updates
-        if (Math.abs(prevPosition.x - e.clientX) < 3 && 
-            Math.abs(prevPosition.y - e.clientY) < 3) {
-          isThrottled.current = false;
-          return prevPosition;
-        }
-        
-        lastUpdate.current = now;
-        isThrottled.current = false;
-        return { x: e.clientX, y: e.clientY };
-      });
-    });
-  }, []);
-
-  useEffect(() => {
-    // Use passive listener and capture for better performance
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current);
-      }
-    };
-  }, [handleMouseMove]);
-
-  return mousePosition;
+  return pos;
 }
+
