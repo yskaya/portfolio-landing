@@ -32,8 +32,6 @@ export function About() {
         className="absolute inset-0 opacity-5"
         style={{
           transform: `translateY(${scrollY * 0.1}px)`,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff'%3E%3Cpath d='M20 0 L30 10 L20 20 L10 10 Z' fill='none' stroke='%23ffffff' stroke-width='0.5'/%3E%3Ccircle cx='20' cy='20' r='8' fill='none' stroke='%23ffffff' stroke-width='0.5'/%3E%3C/g%3E%3C/svg%3E")`,
-          backgroundSize: '80px 80px',
         }}
         animate={{
           x: mouseXPercent * -3,

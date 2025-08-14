@@ -106,16 +106,7 @@ export function Projects({ showAll = false }: ProjectsProps) {
           ))}
         </div>
         
-        {!showAll && (
-          <div className="text-center mt-8">
-            <Button
-              variant="outline"
-              className="bg-transparent border-white/20 text-white hover:bg-white/10"
-            >
-              View All Projects
-            </Button>
-          </div>
-        )}
+       
       </div>
       <Dialog open={isProjectModalOpen} onOpenChange={setIsProjectModalOpen}>
           <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto cyber-glass border-2">

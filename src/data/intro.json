@@ -12,9 +12,12 @@
     ]
   },
   "positions": [
-    "Senior / Staff Software Engineer (Frontend / Full-stack)"
+    "Senior / Staff Software Engineer",
+    "Frontend Architect",
+    "Full-Stack JavaScript",
+    "Tech Lead"
   ],
   "location": "Los Angeles",
   "short_description": "~15 years in web development with deep JavaScript expertise and a frontend focus.",
-  "about": "Skilled in React, Node.js, NestJS, and Next.js. Experienced in building systems from scratch and maintaining legacy codebases across monoliths, SPAs, microservices, and monorepos. Proficient with Docker, Kubernetes, and CI/CD. Strong track record in shaping technical direction, setting roadmaps, and leading cross-functional collaboration. Master's in Computer Systems Engineering."
+  "about": "Skilled in React, Node.js, NestJS, and Next.js. Experienced in building systems from scratch and maintaining legacy codebases across monoliths, SPAs, microservices, and monorepos. Master's in Computer Systems Engineering."
 }

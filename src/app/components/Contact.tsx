@@ -28,53 +28,6 @@ export function Contact() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl font-semibold mb-6 text-white">Get In Touch</h3>
-            <p className="text-gray-300 mb-8 leading-relaxed">
-              {intro.about || 'TBD'}
-            </p>
-
-            <div className="mb-8">
-              <p className="text-gray-300 mb-4">
-                {intro.short_description || 'TBD'}
-              </p>
-            </div>
-            
-            <div className="space-y-4">
-              <m.div 
-                className="flex items-center gap-3 text-gray-300"
-                whileHover={{ x: 5 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-              >
-                <Mail className="h-5 w-5" />
-                <a href={intro.links?.email ? `mailto:${intro.links.email}` : '#'} className="hover:text-white transition-colors">
-                  {intro.links?.email || 'TBD'}
-                </a>
-              </m.div>
-              <m.div 
-                className="flex items-center gap-3 text-gray-300"
-                whileHover={{ x: 5 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-              >
-                <Linkedin className="h-5 w-5" />
-                <a
-                  href={intro.links?.linkedin || '#'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
-                >
-                  {intro.links?.linkedin || 'TBD'}
-                </a>
-              </m.div>
-              <m.div 
-                className="flex items-center gap-3 text-gray-300"
-                whileHover={{ x: 5 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-              >
-                <MapPin className="h-5 w-5" />
-                <span>{intro.location || 'TBD'}</span>
-              </m.div>
-            </div>
-
             <m.div 
               className="mt-8 p-4 rounded-lg bg-white/5 border border-white/10"
               initial={{ opacity: 0 }}
@@ -89,48 +42,9 @@ export function Contact() {
               <p className="text-gray-500 text-xs mt-2">— From my cover letter</p>
             </m.div>
           </m.div>
-          
-          <m.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <Card className="bg-white/5 border-white/10">
-              <CardHeader>
-                <CardTitle className="text-white">Send a Message</CardTitle>
-                <CardDescription className="text-gray-300">
-                  Let's discuss opportunities and collaborations
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Input 
-                    placeholder="Your Name" 
-                    className="bg-white/5 border-white/20 text-white placeholder:text-gray-400"
-                  />
-                  <Input 
-                    placeholder="Your Email" 
-                    type="email"
-                    className="bg-white/5 border-white/20 text-white placeholder:text-gray-400"
-                  />
-                </div>
-                <Input 
-                  placeholder="Subject" 
-                  className="bg-white/5 border-white/20 text-white placeholder:text-gray-400"
-                />
-                <Textarea 
-                  placeholder="Tell me about the role, your team, and what you're building..." 
-                  rows={4}
-                  className="bg-white/5 border-white/20 text-white placeholder:text-gray-400"
-                />
-                <Button className="w-full bg-white text-black hover:bg-gray-200">
-                  Send Message
-                </Button>
-              </CardContent>
-            </Card>
-          </m.div>
         </div>
+
+        
 
         {/* Call to action */}
         <m.div 

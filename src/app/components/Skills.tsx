@@ -45,21 +45,7 @@ export function Skills() {
 
   return (
     <section className="relative py-32 px-4 overflow-hidden">
-      {/* Technical background pattern */}
-      <m.div
-        className="absolute inset-0 opacity-5"
-        style={{
-          transform: `translateY(${scrollY * 0.05}px)`,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%23ffffff' stroke-width='1'%3E%3Cpath d='M30 0v60M0 30h60'/%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3Cpath d='M10 10l40 40M10 50l40-40'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          backgroundSize: '120px 120px',
-        }}
-        animate={{
-          x: mouseXPercent * -2,
-          y: mouseYPercent * -1,
-          rotate: mouseXPercent * 0.5,
-        }}
-        transition={{ type: 'spring', stiffness: 100, damping: 20 }}
-      />
+      
 
       <div className="max-w-6xl mx-auto relative z-10">
         <MotionFadeIn
@@ -125,14 +111,6 @@ export function Skills() {
                     backdropFilter: 'blur(20px)',
                   }}
                 >
-                  {/* Background pattern */}
-                  <div 
-                    className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-500"
-                    style={{
-                      backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff'%3E%3Cpath d='M10 0 L15 5 L10 10 L5 5 Z' opacity='0.3'/%3E%3C/g%3E%3C/svg%3E")`,
-                      backgroundSize: '40px 40px',
-                    }}
-                  />
 
                   {/* Icon with rotation effect */}
                   <m.div
@@ -216,36 +194,7 @@ export function Skills() {
           })}
         </div>
 
-        {/* Experience highlight */}
-        <m.div 
-          className="mt-20 text-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <div className="max-w-4xl mx-auto p-8 rounded-2xl" style={{
-            background: 'rgba(255, 255, 255, 0.02)',
-            backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-          }}>
-            <h3 className="text-2xl font-semibold text-white mb-4">Key Qualifications</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-              <ul className="space-y-2 text-gray-300">
-                <li>• Driving frontend architecture for large-scale platforms</li>
-                <li>• Building reusable modules and internal libraries</li>
-                <li>• Leading modernization efforts — from monolith-to-SPA transitions</li>
-                <li>• Defining engineering workflows including CI/CD pipelines</li>
-              </ul>
-              <ul className="space-y-2 text-gray-300">
-                <li>• Owning delivery across the stack (primarily frontend)</li>
-                <li>• Mentoring engineers through code reviews and POCs</li>
-                <li>• Collaborating internationally across hybrid teams</li>
-                <li>• Contributing to hiring and process improvements</li>
-              </ul>
-            </div>
-          </div>
-        </m.div>
+       
       </div>
     </section>
   );

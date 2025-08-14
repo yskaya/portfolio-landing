@@ -6,6 +6,7 @@ import { AnimatePresence, LazyMotion, domAnimation } from "motion/react";
 import { Hero } from "./components/Hero";
 import { About } from "./components/About";
 import { Skills } from "./components/Skills";
+import { Qualification } from "./components/Qualification";
 import { WorkHistory } from "./components/WorkHistory";
 import { Projects } from "./components/Projects";
 import { Contact } from "./components/Contact";
@@ -79,12 +80,16 @@ export default function App() {
         <main className="relative z-10">
           <AnimatePresence mode="wait">
             <div key="home-content">
-              <MotionSection id={SECTION.HERO} className="cyber-glass">
+              <MotionSection id={SECTION.HERO} className="cyber-glass-green">
                 <Hero />
               </MotionSection>
 
-              <MotionSection id={SECTION.ABOUT} className="cyber-glass">
+              <MotionSection id={SECTION.ABOUT} className="cyber-glass-blue">
                 <About />
+              </MotionSection>
+
+              <MotionSection id={SECTION.PROJECTS} className="cyber-glass-green2">
+                <Projects />
               </MotionSection>
 
               <MotionSection id={SECTION.EXPERIENCE} className="cyber-glass-purple">
@@ -94,12 +99,12 @@ export default function App() {
               <MotionSection id={SECTION.SKILLS} className="cyber-glass-pink">
                 <Skills />
               </MotionSection>
-
-              <MotionSection id={SECTION.PROJECTS} className="cyber-glass">
-                <Projects />
+              
+              <MotionSection id={SECTION.SKILLS} className="cyber-glass-green2">
+                <Qualification />
               </MotionSection>
 
-              <MotionSection id={SECTION.CONTACT} className="cyber-glass-purple">
+              <MotionSection id={SECTION.CONTACT} className="cyber-glass-green">
                 <Contact />
               </MotionSection>
             </div>
@@ -109,7 +114,7 @@ export default function App() {
         <footer className="relative py-12 px-4 border-t footer-shell">
           <div className="max-w-6xl mx-auto text-center">
             <p className="text-sm small-note">
-              &copy; 2024 {intro.name || 'TBD'}
+              &copy; 2025 {intro.name || 'TBD'}
               <span style={{ color: "#00ff41" }}> // </span>
               <span style={{ color: "#00d4ff" }}>Engineered with precision</span>
               <span style={{ color: "#ff006e" }}> &amp; passion</span>

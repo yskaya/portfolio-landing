@@ -112,7 +112,7 @@ export function WorkHistory() {
               transition={{ type: 'spring', stiffness: 200, damping: 25 }}
             >
               <m.div
-                className="cyber-glass-purple rounded-xl p-8 cursor-pointer transition-all duration-300"
+                className="cyber-glass-purple cyber-glass-purple-box cyber-glass-box rounded-xl p-8 cursor-pointer transition-all duration-300"
                 whileHover={{
                   scale: 1.02,
                   boxShadow: '0 0 40px rgba(131, 56, 236, 0.3)',
@@ -284,7 +284,7 @@ export function WorkHistory() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <div className="cyber-glass-purple rounded-xl p-8">
+          <div className="cyber-glass-purple cyber-glass-purple-box rounded-xl p-8">
             <h3 className="text-xl font-bold mb-4 text-white">
               Career Highlights
             </h3>

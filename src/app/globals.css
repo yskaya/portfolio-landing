@@ -210,8 +210,26 @@
   text-shadow: 0 0 10px var(--matrix-green);
 }
 
-.cyber-glass {
-  background: rgba(18, 18, 24, 0.1);
+.cyber-glass, .cyber-glass-green {
+  background: rgb(8 72 87 / 17%);
+  backdrop-filter: saturate(180%) ;
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.cyber-glass-green2 {
+  background: rgb(4 67 45 / 16%);
+  backdrop-filter: blur(5px) saturate(180%) ;
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.cyber-glass-blue {
+  background: rgb(11 39 90 / 25%);
   backdrop-filter: blur(20px) saturate(180%) ;
   border: 1px solid rgba(0, 212, 255, 0.2);
   box-shadow: 
@@ -220,7 +238,7 @@
 }
 
 .cyber-glass-pink {
-  background: rgba(255, 0, 110, 0.05);
+  background: rgb(71 33 71 / 15%);
   backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 0, 110, 0.2);
   box-shadow: 
@@ -228,13 +246,18 @@
     inset 0 1px 0 rgba(255, 0, 110, 0.1);
 }
 
+
 .cyber-glass-purple {
-  background: rgba(131, 56, 236, 0.05);
-  backdrop-filter: blur(20px) saturate(180%);
+  background: rgb(43 12 85 / 5%);
+  backdrop-filter: blur(5px) saturate(180%);
   border: 1px solid rgba(131, 56, 236, 0.2);
   box-shadow: 
     0 8px 32px rgba(131, 56, 236, 0.1),
     inset 0 1px 0 rgba(131, 56, 236, 0.1);
+}
+
+.cyber-glass-purple-box {
+  background: rgb(28 3 44 / 15%);
 }
 
 .cyber-grid {

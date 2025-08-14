@@ -85,7 +85,7 @@ export function Hero() {
       <div className="relative max-w-4xl mx-auto text-center z-10">
         {/* Terminal-style intro */}
         <MotionFadeIn
-          className="mb-8 text-left"
+          className="mb-16 mt-16 text-left"
           style={{
             fontFamily: '"JetBrains Mono", monospace',
             fontSize: '0.9rem',
