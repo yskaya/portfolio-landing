@@ -11,5 +11,3 @@ export { MotionSection } from './MotionSection';
 export { MotionSlideIn } from './MotionSlideIn';
 
 export { ParallaxBackground } from './ParallaxBackground';
-export { AnimatedHeadline } from './AnimatedHeadline';
-export { AnimatedIcon } from './AnimatedIcon';

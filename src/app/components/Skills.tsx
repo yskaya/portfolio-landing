@@ -1,7 +1,5 @@
 import { m } from 'motion/react';
 import { MotionFadeIn } from "../graphs/MotionFadeIn";
-import { AnimatedHeadline } from "../graphs/AnimatedHeadline";
-import { AnimatedIcon } from "../graphs/AnimatedIcon";
 import { Badge } from "../ui/badge";
 import { useMousePosition } from '../hooks/useMousePosition';
 import { useScrollPosition } from '../hooks/useScrollPosition';
@@ -44,11 +42,13 @@ export function Skills() {
       
 
       <div className="max-w-6xl mx-auto relative z-10">
-        <AnimatedHeadline
+        <MotionFadeIn
+          as="h2"
           className="text-4xl md:text-5xl font-bold text-center mb-4 text-white relative"
           style={{ transform: `translateY(${scrollY * -0.03}px)` }}
         >
           Tech Stack
+
           {/* Animated circuit lines */}
           <m.div
             className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-32 h-1"
@@ -64,7 +64,7 @@ export function Skills() {
               delay: 0.5,
             }}
           />
-        </AnimatedHeadline>
+        </MotionFadeIn>
 
         <MotionFadeIn
           as="p"
@@ -111,13 +111,13 @@ export function Skills() {
                     whileHover={{ x: 5 }}
                     transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                   >
-                    <AnimatedIcon
-                      icon={Icon}
+                    <m.div
                       className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mr-3"
-                      iconClassName="h-5 w-5 text-white"
                       whileHover={{ rotate: 360, scale: 1.1 }}
                       transition={{ duration: 0.5 }}
-                    />
+                    >
+                      <Icon className="h-5 w-5 text-white" />
+                    </m.div>
                     <h3 className="text-lg font-semibold text-white">
                       {category.title}
                     </h3>
