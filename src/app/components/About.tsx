@@ -21,29 +21,11 @@ export function About() {
 
   return (
     <section className="relative py-32 px-4 overflow-hidden">
-      {/* Background layers */}
-      <m.div
-        className="absolute inset-0 opacity-5"
-        style={{
-          transform: `translateY(${scrollY * 0.1}px)`,
-        }}
-        animate={{
-          x: mouseXPercent * -3,
-          y: mouseYPercent * -2,
-        }}
-        transition={{ type: 'spring', stiffness: 100, damping: 20 }}
-      />
 
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Text Content */}
-          <m.div
-            style={{ transform: `translateY(${scrollY * -0.05}px)` }}
-            animate={{
-              x: mouseXPercent * 5,
-            }}
-            transition={{ type: 'spring', stiffness: 150, damping: 20 }}
-          >
+          
+          <div>
             <m.h2 
               className="text-4xl md:text-5xl font-bold mb-8 text-white relative"
               initial={{ opacity: 0, x: -50 }}
@@ -52,7 +34,7 @@ export function About() {
               viewport={{ once: true }}
             >
               The Evolution
-              {/* Animated accent */}
+              
               <m.div
                 className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-white via-gray-400 to-transparent"
                 initial={{ width: 0 }}
@@ -83,18 +65,10 @@ export function About() {
                 <strong>mentored engineers</strong>, and remained <strong>a consistent contributor</strong> to the codebase — combining strategy with hands-on execution.
               </MotionFadeIn>
             </div>
-          </m.div>
+          </div>
           
           {/* Image */}
-          <m.div 
-            className="relative"
-            style={{ transform: `translateY(${scrollY * 0.02}px)` }}
-            animate={{
-              x: mouseXPercent * -3,
-              y: mouseYPercent * 2,
-            }}
-            transition={{ type: 'spring', stiffness: 120, damping: 25 }}
-          >
+          <div className="relative">
             {/* Main image container with glassmorphism */}
             <m.div
               className="relative w-full h-96 rounded-2xl overflow-hidden"
@@ -115,7 +89,7 @@ export function About() {
               
          
             </m.div>
-          </m.div>
+          </div>
         </div>
 
         {/* Highlights Grid */}
