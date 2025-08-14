@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { m } from 'motion/react';
 import { Calendar, MapPin, Users, TrendingUp, ExternalLink, Building } from 'lucide-react';
 import { useMousePosition } from '../hooks/useMousePosition';
+import { useScrollPosition } from '../hooks/useScrollPosition';
 import { MotionSection } from '../motions/MotionSection';
 import { MotionFadeIn } from '../motions/MotionFadeIn';
 import { MotionSlideIn } from '../motions/MotionSlideIn';
@@ -24,15 +25,9 @@ interface WorkExperience {
 }
 
 export function WorkHistory() {
-  const [scrollY, setScrollY] = useState(0);
+  const scrollY = useScrollPosition();
   const [expandedId, setExpandedId] = useState<string>('');
   const mousePosition = useMousePosition();
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const mouseXPercent = (mousePosition.x / window.innerWidth - 0.5) * 2;
   const mouseYPercent = (mousePosition.y / window.innerHeight - 0.5) * 2;

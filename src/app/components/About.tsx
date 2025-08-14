@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
 import { m } from 'motion/react';
 import { MotionFadeIn } from "../motions/MotionFadeIn";
 import { useMousePosition } from '../hooks/useMousePosition';
+import { useScrollPosition } from '../hooks/useScrollPosition';
 import { Code2, Globe, Award, Users } from 'lucide-react';
 
 const highlights = [
@@ -12,14 +12,8 @@ const highlights = [
 ];
 
 export function About() {
-  const [scrollY, setScrollY] = useState(0);
+  const scrollY = useScrollPosition();
   const mousePosition = useMousePosition();
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const mouseXPercent = (mousePosition.x / window.innerWidth - 0.5) * 2;
   const mouseYPercent = (mousePosition.y / window.innerHeight - 0.5) * 2;

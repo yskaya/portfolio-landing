@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
 import { m } from 'motion/react';
 import { useMousePosition } from '../hooks/useMousePosition';
+import { useScrollPosition } from '../hooks/useScrollPosition';
 import {
   GraphCyberCircuit,
   GraphDigitalMatrix,
@@ -8,14 +8,8 @@ import {
 } from '../graphs';
 
 export function ParallaxBackground() {
-  const [scrollY, setScrollY] = useState(0);
+  const scrollY = useScrollPosition();
   const mousePosition = useMousePosition();
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Calculate mouse movement effects
   const mouseXPercent = (mousePosition.x / window.innerWidth - 0.5) * 100;

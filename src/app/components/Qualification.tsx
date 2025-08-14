@@ -1,21 +1,15 @@
-import { useState, useEffect } from 'react';
 import { m } from 'motion/react';
 import { MotionFadeIn } from "../motions/MotionFadeIn";
 import { Badge } from "../ui/badge";
 import { useMousePosition } from '../hooks/useMousePosition';
+import { useScrollPosition } from '../hooks/useScrollPosition';
 import { Code, Database, Cloud, Zap, Wrench, TestTube } from 'lucide-react';
 import { useData } from '../context/DataContext';
 
 export function Qualification() {
-  const [scrollY, setScrollY] = useState(0);
+  const scrollY = useScrollPosition();
   const mousePosition = useMousePosition();
   const { skills } = useData();
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const mouseXPercent = (mousePosition.x / window.innerWidth - 0.5) * 2;
   const mouseYPercent = (mousePosition.y / window.innerHeight - 0.5) * 2;
