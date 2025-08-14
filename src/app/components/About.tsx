@@ -1,5 +1,5 @@
 import { m } from 'motion/react';
-import { MotionFadeIn } from "../motions/MotionFadeIn";
+import { MotionFadeIn } from "../graphs/MotionFadeIn";
 import { useMousePosition } from '../hooks/useMousePosition';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 import { Code2, Globe, Award, Users } from 'lucide-react';
