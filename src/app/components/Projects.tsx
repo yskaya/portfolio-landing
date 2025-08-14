@@ -6,7 +6,6 @@ import { Badge } from "../ui/badge";
 import { ExternalLink, Github, ArrowRight } from "lucide-react";
 import { ProjectDetail } from "./ProjectDetail";
 import { MotionFadeIn } from "../graphs/MotionFadeIn";
-import { AnimatedHeadline } from "../graphs/AnimatedHeadline";
 import { useData } from "../context/DataContext";
 
 
@@ -39,9 +38,11 @@ export function Projects({ showAll = false }: ProjectsProps) {
     <>
     <section className="py-20 px-4">
       <div className="max-w-6xl mx-auto">
-        <AnimatedHeadline className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">
-          {showAll ? "All Projects" : "Featured Projects"}
-        </AnimatedHeadline>
+        <MotionFadeIn>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">
+            {showAll ? "All Projects" : "Featured Projects"}
+          </h2>
+        </MotionFadeIn>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {displayProjects.map((project, index) => (
