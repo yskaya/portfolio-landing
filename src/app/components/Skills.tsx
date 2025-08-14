@@ -1,5 +1,6 @@
 import { m } from 'motion/react';
 import { MotionFadeIn } from "../graphs/MotionFadeIn";
+import { AnimatedHeadline } from '../graphs/AnimatedHeadline';
 import { Badge } from "../ui/badge";
 import { useMousePosition } from '../hooks/useMousePosition';
 import { useScrollPosition } from '../hooks/useScrollPosition';
@@ -42,29 +43,9 @@ export function Skills() {
       
 
       <div className="max-w-6xl mx-auto relative z-10">
-        <MotionFadeIn
-          as="h2"
-          className="text-4xl md:text-5xl font-bold text-center mb-4 text-white relative"
-          style={{ transform: `translateY(${scrollY * -0.03}px)` }}
-        >
+        <AnimatedHeadline>
           Tech Stack
-
-          {/* Animated circuit lines */}
-          <m.div
-            className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-32 h-1"
-            style={{
-              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
-            }}
-            animate={{
-              scaleX: [0, 1, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              delay: 0.5,
-            }}
-          />
-        </MotionFadeIn>
+        </AnimatedHeadline>
 
         <MotionFadeIn
           as="p"

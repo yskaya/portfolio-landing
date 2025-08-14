@@ -8,6 +8,11 @@ import { MotionFadeIn } from "../graphs/MotionFadeIn";
 import { MotionSlideIn } from "../graphs/MotionSlideIn";
 import { useData } from '../context/DataContext';
 
+const links = [
+  { label: 'yulia.kanapatskaya@gmail.com', link: 'mailto:yulia.kanapatskaya@gmail.com', component: Mail},
+  { label: 'linkedin.com/in/yskaya', link: 'https://linkedin.com/in/yskaya', component: Linkedin}
+];
+
 export function Contact() {
   const { intro } = useData();
   return (
@@ -16,7 +21,6 @@ export function Contact() {
         <MotionFadeIn
           as="h2"
           className="text-3xl md:text-4xl font-bold text-center mb-12 text-white"
-          duration={0.8}
         >
           Let's Build Something Together
         </MotionFadeIn>
@@ -40,52 +44,26 @@ export function Contact() {
             </div>
             
             <div className="space-y-4">
-              <m.div 
-                className="flex items-center gap-3 text-gray-300"
-                whileHover={{ x: 5 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-              >
-                <Mail className="h-5 w-5" />
-                <a href="mailto:yulia.kanapatskaya@gmail.com" className="hover:text-white transition-colors">
-                  yulia.kanapatskaya@gmail.com
-                </a>
-              </m.div>
-              <m.div 
-                className="flex items-center gap-3 text-gray-300"
-                whileHover={{ x: 5 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-              >
-                <Linkedin className="h-5 w-5" />
-                <a 
-                  href="https://linkedin.com/in/yskaya" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
+              {links.map(l => { const Component = l.component; return (
+                <m.div 
+                  className="flex items-center gap-3 text-gray-300"
+                  whileHover={{ x: 5 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                 >
-                  linkedin.com/in/yskaya
-                </a>
-              </m.div>
-              <m.div 
-                className="flex items-center gap-3 text-gray-300"
-                whileHover={{ x: 5 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-              >
-                <MapPin className="h-5 w-5" />
-                <span>Los Angeles, CA</span>
-              </m.div>
+                  <Component className="h-5 w-5" />
+                  <a
+                    href={l.link}
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="hover:text-white transition-colors"
+                  >
+                    {l.label}
+                  </a>
+                </m.div>
+              )})}
             </div>
 
-            <MotionFadeIn
-              className="mt-8 p-4 rounded-lg bg-white/5 border border-white/10"
-              delay={0.3}
-              y={0}
-            >
-              <p className="text-gray-400 text-sm italic">
-                "Whether guiding a team, untangling a legacy system, or building something from scratch,
-                I bring clarity to complexity — and momentum to code."
-              </p>
-              <p className="text-gray-500 text-xs mt-2">— From my cover letter</p>
-            </MotionFadeIn>
+            
           </MotionSlideIn>
 
           <MotionSlideIn direction="right" delay={0.2}>
@@ -124,8 +102,19 @@ export function Contact() {
             </Card>
           </MotionSlideIn>
         </div>
-
         
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <MotionFadeIn
+            className="mt-8 p-4 rounded-lg bg-white/5 border border-white/10"
+            delay={0.3}
+          >
+            <p className="text-gray-400 text-sm italic">
+              "Whether guiding a team, untangling a legacy system, or building something from scratch,
+              I bring clarity to complexity — and momentum to code."
+            </p>
+            <p className="text-gray-500 text-xs mt-2">— From my cover letter</p>
+          </MotionFadeIn>
+        </div>
 
         {/* Call to action */}
         <MotionFadeIn className="text-center mt-16" delay={0.4}>
@@ -156,6 +145,8 @@ export function Contact() {
             </Button>
           </div>
         </MotionFadeIn>
+
+        
       </div>
     </section>
   );
