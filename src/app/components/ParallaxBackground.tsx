@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 import { m } from 'motion/react';
 import { useMousePosition } from '../hooks/useMousePosition';
+import {
+  GraphCyberCircuit,
+  GraphDigitalMatrix,
+  GraphCyberpunkHexagon,
+} from '../graphs';
 
 export function ParallaxBackground() {
   const [scrollY, setScrollY] = useState(0);
@@ -19,38 +24,17 @@ export function ParallaxBackground() {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
       {/* Cyberpunk Circuit Grid Layer */}
-      <m.div
-        className="absolute inset-0 opacity-10"
-        style={{
-          transform: `translateY(${scrollY * 0.1}px)`,
-          backgroundImage: `
-            linear-gradient(rgba(0, 212, 255, 0.3) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 212, 255, 0.3) 1px, transparent 1px),
-            linear-gradient(rgba(255, 0, 110, 0.2) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 0, 110, 0.2) 1px, transparent 1px)
-          `,
-          backgroundSize: '100px 100px, 100px 100px, 50px 50px, 50px 50px',
-        }}
-        animate={{
-          x: mouseXPercent * 0.02,
-          y: mouseYPercent * 0.02,
-        }}
-        transition={{ type: 'spring', stiffness: 150, damping: 15 }}
+      <GraphCyberCircuit
+        scrollY={scrollY}
+        mouseXPercent={mouseXPercent}
+        mouseYPercent={mouseYPercent}
       />
 
       {/* Digital Matrix Pattern */}
-      <m.div
-        className="absolute inset-0 opacity-5"
-        style={{
-          transform: `translateY(${scrollY * -0.15}px)`,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300ff41' fill-opacity='1'%3E%3Cpath d='M30 0v60M0 30h60'/%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3Cpath d='M15 15h30v30H15z' stroke='%2300ff41' stroke-width='0.5' fill='none'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          backgroundSize: '120px 120px',
-        }}
-        animate={{
-          x: mouseXPercent * -0.01,
-          y: mouseYPercent * -0.01,
-        }}
-        transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+      <GraphDigitalMatrix
+        scrollY={scrollY}
+        mouseXPercent={mouseXPercent}
+        mouseYPercent={mouseYPercent}
       />
 
       {/* Floating Holographic Elements */}
@@ -127,19 +111,10 @@ export function ParallaxBackground() {
       />
 
       {/* Cyberpunk Hexagon Pattern */}
-      <m.div
-        className="absolute inset-0 opacity-5 mix-blend-screen"
-        style={{
-          transform: `translateY(${scrollY * 0.05}px)`,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%2300d4ff' stroke-width='0.5'%3E%3Cpath d='M50 10 L75 30 L75 70 L50 90 L25 70 L25 30 Z'/%3E%3Cpath d='M50 25 L65 40 L65 60 L50 75 L35 60 L35 40 Z'/%3E%3Ccircle cx='50' cy='50' r='8'/%3E%3Cline x1='35' y1='35' x2='65' y2='65'/%3E%3Cline x1='35' y1='65' x2='65' y2='35'/%3E%3C/g%3E%3C/svg%3E")`,
-          backgroundSize: '200px 200px',
-        }}
-        animate={{
-          x: mouseXPercent * 0.01,
-          y: mouseYPercent * 0.01,
-          rotate: scrollY * 0.01,
-        }}
-        transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+      <GraphCyberpunkHexagon
+        scrollY={scrollY}
+        mouseXPercent={mouseXPercent}
+        mouseYPercent={mouseYPercent}
       />
 
       {/* Dynamic Light Rays */}
