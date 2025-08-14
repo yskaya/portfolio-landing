@@ -72,18 +72,18 @@ export function About() {
           <div className="relative">
             {/* Main image container with glassmorphism */}
             <m.div
-              className="relative w-full h-96 rounded-2xl overflow-hidden"
+              className="relative h-full rounded-2xl overflow-hidden"
               style={{
                 background: 'rgba(255, 255, 255, 0.02)',
                 border: '1px solid rgba(255, 255, 255, 0.1)',
               }}
               initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              whileInView={{ opacity: 0.6, scale: 1 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
               
-         
+              <img src="./T__08280.JPG" />
             </m.div>
           </div>
         </div>
@@ -113,13 +113,7 @@ export function About() {
               }}
               transition={{ type: 'spring', stiffness: 200, damping: 25 }}
             >
-              <m.div
-                className="w-12 h-12 mx-auto mb-3 flex items-center justify-center rounded-full bg-white/10"
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.5 }}
-              >
-                <item.icon className="h-6 w-6 text-white" />
-              </m.div>
+              <item.icon className="h-6 w-6 text-white" />
               <h4 className="text-white font-semibold mb-1">{item.title}</h4>
               <p className="text-gray-400 text-sm">{item.desc}</p>
             </HoverGlowCard>
