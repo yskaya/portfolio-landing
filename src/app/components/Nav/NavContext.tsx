@@ -1,8 +1,8 @@
 "use client";
 
 import { createContext, ReactNode, useContext } from "react";
-import { useMousePosition } from "../hooks/useMousePosition";
-import { useScrollEffects } from "../hooks/useScrollEffects";
+import { useMousePosition } from "../../hooks/useMousePosition";
+import { useScrollEffects } from "./useScrollEffects";
 
 export interface NavContextType {
   activeId: string;

@@ -102,7 +102,7 @@ export function Skills() {
                   className={`relative p-6 rounded-2xl backdrop-blur-md border border-white/10 overflow-hidden transition-all duration-500 group-hover:border-white/20 h-full`}
                   style={{
                     background: `linear-gradient(135deg, ${category.color.split(' ')[0].replace('from-', 'rgba(')} 0%, rgba(0,0,0,0.1) 100%)`,
-                    backdropFilter: 'blur(20px)',
+                    //backdropFilter: 'blur(20px)',
                   }}
                 >
 

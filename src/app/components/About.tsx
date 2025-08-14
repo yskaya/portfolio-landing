@@ -1,5 +1,5 @@
 import { m } from 'motion/react';
-import { MotionFadeIn } from "../graphs/MotionFadeIn";
+import { MotionFadeIn } from "../motions/MotionFadeIn";
 import { useMousePosition } from '../hooks/useMousePosition';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 import { Code2, Globe, Award, Users } from 'lucide-react';
@@ -85,7 +85,7 @@ export function About() {
             </div>
           </m.div>
           
-          {/* Visual Content */}
+          {/* Image */}
           <m.div 
             className="relative"
             style={{ transform: `translateY(${scrollY * 0.02}px)` }}
@@ -112,82 +112,8 @@ export function About() {
                 boxShadow: '0 25px 50px rgba(255,255,255,0.1)',
               }}
             >
-              <div className="flex items-center justify-center h-full">
-                <div className="text-center">
-                  <div className="w-32 h-32 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-4xl">👩‍💻</span>
-                  </div>
-                  <p className="text-gray-400">Professional photo would go here</p>
-                </div>
-              </div>
               
-              {/* World map dots representing her journey */}
-              <div className="absolute inset-0 pointer-events-none">
-                {/* Belarus */}
-                <m.div
-                  className="absolute w-2 h-2 bg-blue-400 rounded-full"
-                  style={{ top: '30%', left: '60%' }}
-                  animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [0.7, 1, 0.7],
-                  }}
-                  transition={{ duration: 2, repeat: Infinity, delay: 0 }}
-                />
-                {/* Berlin */}
-                <m.div
-                  className="absolute w-2 h-2 bg-green-400 rounded-full"
-                  style={{ top: '25%', left: '52%' }}
-                  animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [0.7, 1, 0.7],
-                  }}
-                  transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-                />
-                {/* New York */}
-                <m.div
-                  className="absolute w-2 h-2 bg-yellow-400 rounded-full"
-                  style={{ top: '35%', left: '25%' }}
-                  animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [0.7, 1, 0.7],
-                  }}
-                  transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-                />
-                {/* Los Angeles */}
-                <m.div
-                  className="absolute w-2 h-2 bg-purple-400 rounded-full"
-                  style={{ top: '45%', left: '15%' }}
-                  animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [0.7, 1, 0.7],
-                  }}
-                  transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}
-                />
-              </div>
-              
-              {/* Floating elements */}
-              <m.div
-                className="absolute top-4 right-4 w-8 h-8 bg-white/5 rounded-full"
-                animate={{
-                  y: [0, -10, 0],
-                  rotate: 360,
-                }}
-                transition={{
-                  y: { duration: 2, repeat: Infinity },
-                  rotate: { duration: 10, repeat: Infinity, ease: 'linear' }
-                }}
-              />
-              <m.div
-                className="absolute bottom-4 left-4 w-6 h-6 border border-white/20"
-                animate={{
-                  rotate: [0, 90, 180, 270, 360],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: 'linear'
-                }}
-              />
+         
             </m.div>
           </m.div>
         </div>

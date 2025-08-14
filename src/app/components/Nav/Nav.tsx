@@ -1,7 +1,7 @@
 "use client";
 import { m } from "motion/react";
-import { fastSpring, opacityPulse, shimmerLine } from "../graphs/animationPresets";
-import { useNav } from "../context/NavContext";
+import { fastSpring, opacityPulse, shimmerLine } from "../../graphs/animationPresets";
+import { useNav } from "./NavContext";
 
 type Item = { label: string; id: string };
 
@@ -9,7 +9,27 @@ type Props = {
   items: Item[];
 };
 
-export function MotionNav({ items }: Props) {
+export const SECTION = {
+  HERO: "hero",
+  ABOUT: "about",
+  EXPERIENCE: "experience",
+  SKILLS: "skills",
+  PROJECTS: "projects",
+  CONTACT: "contact",
+} as const;
+
+export type SectionId = typeof SECTION[keyof typeof SECTION];
+
+export const NAV_ITEMS: { label: string; id: SectionId, hidden?: boolean }[] = [
+  { label: "Hero", id: SECTION.HERO, hidden: true },
+  { label: "About", id: SECTION.ABOUT },
+  { label: "Projects", id: SECTION.PROJECTS },
+  { label: "Experience", id: SECTION.EXPERIENCE },
+  { label: "Skills", id: SECTION.SKILLS },
+  { label: "Contact", id: SECTION.CONTACT },
+];
+
+export function Nav({ items = NAV_ITEMS }: Props) {
   const {
     activeId,
     scrollToSection,

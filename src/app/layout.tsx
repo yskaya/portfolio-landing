@@ -1,6 +1,6 @@
 import "./globals.css";
 import { DataProvider } from "./context/DataContext";
-import { NavProvider } from "./context/NavContext";
+import { NavProvider } from "./components/Nav/NavContext";
 
 export default function RootLayout({
   children,

@@ -10,9 +10,9 @@ import { WorkHistory } from "./components/WorkHistory";
 import { Projects } from "./components/Projects";
 import { Contact } from "./components/Contact";
 import { ParallaxBackground } from "./graphs/ParallaxBackground";
-import { MotionNav } from "./components/Nav";
+import { Nav } from "./components/Nav/Nav";
 import { MotionSection } from "./graphs/MotionSection";
-import { NAV_ITEMS, SECTION } from "./utils/paths";
+import { NAV_ITEMS, SECTION } from "./components/Nav/Nav";
 import { useData } from "./context/DataContext";
 
 export default function App() {
@@ -26,7 +26,7 @@ export default function App() {
       <LazyMotion features={domAnimation} strict>
         <ParallaxBackground />
 
-        <MotionNav items={NAV_ITEMS} />
+        <Nav />
 
         <main className="relative z-10">
           <AnimatePresence mode="wait">
