@@ -1,7 +1,7 @@
 "use client";
 
 import "./page.css";
-import { useMemo, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { AnimatePresence, LazyMotion, domAnimation } from "motion/react";
 import { Hero } from "./components/Hero";
 import { About } from "./components/About";
@@ -13,10 +13,7 @@ import { Contact } from "./components/Contact";
 import { ParallaxBackground } from "./graphs/ParallaxBackground";
 import { MotionNav } from "./components/Nav";
 import { MotionSection } from "./graphs/MotionSection";
-import { AnimatedCursor } from "./graphs/AnimatedCursor";
-import { useMouseMV, useScrollMV } from "./hooks/useMotionValues";
 import { NAV_ITEMS, SECTION } from "./utils/paths";
-import { fastSpring } from "./graphs/animationPresets";
 import { useData } from "./context/DataContext";
 
 type Page = "home" | "projects";
@@ -25,20 +22,10 @@ export default function App() {
   const isClient = typeof window !== "undefined";
   const [currentPage, setCurrentPage] = useState<Page>("home");
   const { intro } = useData();
-  
 
-  const { x, y } = useMouseMV();
-  const { y: scrollYMV, vy: scrollVeloMV, dir } = useScrollMV();
-  const scrollY = scrollYMV.get();     // OK to read occasionally
-  const scrollVelocity = scrollVeloMV.get();
-  const scrollDirection = dir.get();
-
-  // Use a plain number to avoid calling .to on non-MotionValues during SSR/hydration
-  const mouseXPercentNumber = (() => {
-    const w = typeof window !== "undefined" ? window.innerWidth : 1;
-    const xNow = typeof x?.get === "function" ? x.get() : 0;
-    return (xNow / w - 0.5) * 2;
-  })();
+  const mouseXPercentNumber = 0;
+  const scrollVelocity = 0;
+  const scrollDirection: "up" | "down" = "down";
 
   
 
@@ -120,8 +107,6 @@ export default function App() {
             </p>
           </div>
         </footer>
-
-        <AnimatedCursor x={x} y={y} />
       </LazyMotion>
     </div>
   );
