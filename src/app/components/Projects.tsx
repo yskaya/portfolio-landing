@@ -54,7 +54,7 @@ export function Projects({ showAll = false }: ProjectsProps) {
                     <div className="flex justify-between items-start">
                       <CardTitle className="text-xl text-white">{project.title}</CardTitle>
                       {project.featured && (
-                        <Badge className="bg-white text-black">Featured</Badge>
+                        <Badge className="bg-white text-black transition-none">Featured</Badge>
                       )}
                     </div>
                     <CardDescription className="text-gray-300">
@@ -67,7 +67,7 @@ export function Projects({ showAll = false }: ProjectsProps) {
                         <Badge
                           key={techIndex}
                           variant="outline"
-                          className="border-white/20 text-gray-300"
+                          className="border-white/20 text-gray-300 transition-none"
                         >
                           {tech}
                         </Badge>
@@ -75,7 +75,7 @@ export function Projects({ showAll = false }: ProjectsProps) {
                       {project.technologies.length > 4 && (
                         <Badge
                           variant="outline"
-                          className="border-white/20 text-gray-300"
+                          className="border-white/20 text-gray-300 transition-none"
                         >
                           +{project.technologies.length - 4}
                         </Badge>
