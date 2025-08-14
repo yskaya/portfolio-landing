@@ -3,6 +3,7 @@ import { MotionFadeIn } from "../graphs/MotionFadeIn";
 import { useMousePosition } from '../hooks/useMousePosition';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 import { Code2, Globe, Award, Users } from 'lucide-react';
+import { HoverGlowCard } from './HoverGlowCard';
 
 const highlights = [
   { icon: Code2, title: "15+ Years Experience", desc: "Full-stack mastery" },
@@ -101,7 +102,7 @@ export function About() {
           viewport={{ once: true }}
         >
           {highlights.map((item, index) => (
-            <m.div
+            <HoverGlowCard
               key={index}
               className="text-center p-6 rounded-xl relative"
               style={{
@@ -109,8 +110,7 @@ export function About() {
                 backdropFilter: 'blur(10px)',
                 border: '1px solid rgba(255, 255, 255, 0.05)',
               }}
-              whileHover={{ 
-                scale: 1.05,
+              whileHover={{
                 background: 'rgba(255, 255, 255, 0.05)',
               }}
               animate={{
@@ -127,7 +127,7 @@ export function About() {
               </m.div>
               <h4 className="text-white font-semibold mb-1">{item.title}</h4>
               <p className="text-gray-400 text-sm">{item.desc}</p>
-            </m.div>
+            </HoverGlowCard>
           ))}
         </m.div>
 
