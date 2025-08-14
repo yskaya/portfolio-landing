@@ -8,6 +8,7 @@ import { MotionFadeIn } from '../graphs/MotionFadeIn';
 import { MotionSlideIn } from '../graphs/MotionSlideIn';
 import { useData } from '../context/DataContext';
 import { AnimatedWorkHistory } from '../graphs';
+import { HoverGlowCard } from './HoverGlowCard';
 
 interface WorkExperience {
   id: string;
@@ -99,12 +100,8 @@ export function WorkHistory() {
               animateStyle={{ x: mouseXPercent * (index % 2 === 0 ? 2 : -2) }}
               transition={{ type: 'spring', stiffness: 200, damping: 25 }}
             >
-              <m.div
-                className="cyber-glass-purple cyber-glass-purple-box cyber-glass-box rounded-xl p-8 cursor-pointer transition-all duration-300"
-                whileHover={{
-                  scale: 1.02,
-                  boxShadow: '0 0 40px rgba(131, 56, 236, 0.3)',
-                }}
+              <HoverGlowCard
+                className="cyber-glass-purple cyber-glass-purple-box cyber-glass-box rounded-xl p-8 cursor-pointer"
                 onClick={() => toggleExpanded(exp.id)}
               >
                 {/* Header */}
@@ -259,7 +256,7 @@ export function WorkHistory() {
                     </div>
                   </div>
                 </m.div>
-              </m.div>
+              </HoverGlowCard>
             </MotionFadeIn>
           ))}
         </div>

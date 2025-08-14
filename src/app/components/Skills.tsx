@@ -6,6 +6,7 @@ import { useMousePosition } from '../hooks/useMousePosition';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 import { Code, Database, Cloud, Zap, Wrench, TestTube } from 'lucide-react';
 import { useData } from '../context/DataContext';
+import { HoverGlowCard } from './HoverGlowCard';
 
 export function Skills() {
   const scrollY = useScrollPosition();
@@ -61,7 +62,7 @@ export function Skills() {
           {skillCategories.map((category, index) => {
             const Icon = category.icon;
             return (
-              <m.div
+              <HoverGlowCard
                 key={index}
                 className="relative group"
                 style={{ transform: `translateY(${scrollY * (index % 2 === 0 ? -0.02 : 0.02)}px)` }}
@@ -73,8 +74,7 @@ export function Skills() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                whileHover={{ 
-                  scale: 1.02,
+                whileHover={{
                   rotateY: index % 2 === 0 ? 2 : -2,
                 }}
               >
@@ -163,7 +163,7 @@ export function Skills() {
                     />
                   ))}
                 </div>
-              </m.div>
+              </HoverGlowCard>
             );
           })}
         </div>

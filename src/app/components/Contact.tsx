@@ -44,23 +44,27 @@ export function Contact() {
             </div>
             
             <div className="space-y-4">
-              {links.map(l => { const Component = l.component; return (
-                <m.div 
-                  className="flex items-center gap-3 text-gray-300"
-                  whileHover={{ x: 5 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                >
-                  <Component className="h-5 w-5" />
-                  <a
-                    href={l.link}
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="hover:text-white transition-colors"
+              {links.map((l, index) => {
+                const Component = l.component;
+                return (
+                  <m.div
+                    key={index}
+                    className="flex items-center gap-3 text-gray-300"
+                    whileHover={{ x: 5 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                   >
-                    {l.label}
-                  </a>
-                </m.div>
-              )})}
+                    <Component className="h-5 w-5" />
+                    <a
+                      href={l.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-white transition-colors"
+                    >
+                      {l.label}
+                    </a>
+                  </m.div>
+                );
+              })}
             </div>
 
             
