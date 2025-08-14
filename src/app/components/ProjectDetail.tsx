@@ -200,7 +200,7 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
               </h3>
               <div className="flex flex-wrap gap-2">
                 {project.technologies.map((tech, index) => (
-                  <m.span
+                  <span
                     key={index}
                     className={`px-3 py-1 ${isModal ? 'text-xs' : 'text-sm'} rounded-full border`}
                     style={{
@@ -208,13 +208,9 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
                       color: '#00d4ff',
                       borderColor: 'rgba(0, 212, 255, 0.3)',
                     }}
-                    whileHover={{
-                      background: 'rgba(0, 212, 255, 0.2)',
-                      scale: 1.05,
-                    }}
                   >
                     {tech}
-                  </m.span>
+                  </span>
                 ))}
               </div>
             </div>
