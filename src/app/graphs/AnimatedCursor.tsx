@@ -8,7 +8,7 @@ type Props = {
   speed?: number;
 };
 
-export function MotionCursor({ x, y, speed = 0.05 }: Props) {
+export function AnimatedCursor({ x, y, speed = 0.05 }: Props) {
   // translate keeping the center
   return (
     <>

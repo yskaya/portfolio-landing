@@ -7,7 +7,7 @@ type Props = {
   scrollVelocity: number;
 };
 
-export function MotionBackground({ scrollY, scrollVelocity }: Props) {
+export function AnimatedBackground({ scrollY, scrollVelocity }: Props) {
   return (
     <m.div
       className="fixed inset-0 cyber-grid pointer-events-none"

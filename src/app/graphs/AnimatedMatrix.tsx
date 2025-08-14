@@ -1,23 +1,23 @@
 import { m } from 'motion/react';
 
-interface GraphWorkHistoryProps {
+interface AnimatedMatrixProps {
   scrollY: number;
   mouseXPercent: number;
   mouseYPercent: number;
 }
 
-export function GraphWorkHistory({ scrollY, mouseXPercent, mouseYPercent }: GraphWorkHistoryProps) {
+export function AnimatedMatrix({ scrollY, mouseXPercent, mouseYPercent }: AnimatedMatrixProps) {
   return (
     <m.div
       className="absolute inset-0 opacity-5"
       style={{
-        transform: `translateY(${scrollY * 0.1}px)`,
-        backgroundImage: "url('/graphs/work-history-bg.svg')",
+        transform: `translateY(${scrollY * -0.15}px)`,
+        backgroundImage: "url('/graphs/digital-matrix.svg')",
         backgroundSize: '120px 120px',
       }}
       animate={{
-        x: mouseXPercent * -2,
-        y: mouseYPercent * -1,
+        x: mouseXPercent * -0.01,
+        y: mouseYPercent * -0.01,
       }}
       transition={{ type: 'spring', stiffness: 100, damping: 20 }}
     />

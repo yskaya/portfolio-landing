@@ -1,12 +1,12 @@
 import { m } from 'motion/react';
 
-interface GraphProjectDetailProps {
+interface AnimatedProjectDetailProps {
   scrollY: number;
   mouseXPercent: number;
   mouseYPercent: number;
 }
 
-export function GraphProjectDetail({ scrollY, mouseXPercent, mouseYPercent }: GraphProjectDetailProps) {
+export function AnimatedProjectDetail({ scrollY, mouseXPercent, mouseYPercent }: AnimatedProjectDetailProps) {
   return (
     <m.div
       className="absolute inset-0 opacity-5"

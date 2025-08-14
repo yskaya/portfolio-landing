@@ -1,6 +1,6 @@
 "use client";
 import { m } from "motion/react";
-import { fastSpring, opacityPulse, shimmerLine } from "./animationPresets";
+import { fastSpring, opacityPulse, shimmerLine } from "../graphs/animationPresets";
 
 type Item = { label: string; id: string };
 

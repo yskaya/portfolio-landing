@@ -3,11 +3,11 @@ import { m } from 'motion/react';
 import { Calendar, MapPin, Users, TrendingUp, ExternalLink, Building } from 'lucide-react';
 import { useMousePosition } from '../hooks/useMousePosition';
 import { useScrollPosition } from '../hooks/useScrollPosition';
-import { MotionSection } from '../motions/MotionSection';
-import { MotionFadeIn } from '../motions/MotionFadeIn';
-import { MotionSlideIn } from '../motions/MotionSlideIn';
+import { MotionSection } from '../graphs/MotionSection';
+import { MotionFadeIn } from '../graphs/MotionFadeIn';
+import { MotionSlideIn } from '../graphs/MotionSlideIn';
 import { useData } from '../context/DataContext';
-import { GraphWorkHistory } from '../graphs';
+import { AnimatedWorkHistory } from '../graphs';
 
 interface WorkExperience {
   id: string;
@@ -55,7 +55,7 @@ export function WorkHistory() {
   return (
     <div id="work-history" className="relative py-32 px-4 overflow-hidden">
       {/* Background pattern */}
-      <GraphWorkHistory
+      <AnimatedWorkHistory
         scrollY={scrollY}
         mouseXPercent={mouseXPercent}
         mouseYPercent={mouseYPercent}

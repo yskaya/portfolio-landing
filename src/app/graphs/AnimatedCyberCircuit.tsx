@@ -1,12 +1,12 @@
 import { m } from 'motion/react';
 
-interface GraphCyberCircuitProps {
+interface AnimatedCyberCircuitProps {
   scrollY: number;
   mouseXPercent: number;
   mouseYPercent: number;
 }
 
-export function GraphCyberCircuit({ scrollY, mouseXPercent, mouseYPercent }: GraphCyberCircuitProps) {
+export function AnimatedCyberCircuit({ scrollY, mouseXPercent, mouseYPercent }: AnimatedCyberCircuitProps) {
   return (
     <m.div
       className="absolute inset-0 opacity-10"

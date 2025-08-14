@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Badge } from "../ui/badge";
 import { ExternalLink, Github, ArrowRight } from "lucide-react";
 import { ProjectDetail } from "./ProjectDetail";
-import { MotionFadeIn } from "../motions/MotionFadeIn";
+import { MotionFadeIn } from "../graphs/MotionFadeIn";
 import { useData } from "../context/DataContext";
 
 

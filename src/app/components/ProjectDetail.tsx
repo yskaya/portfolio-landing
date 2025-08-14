@@ -1,5 +1,5 @@
 import { m } from 'motion/react';
-import { MotionFadeIn } from '../motions/MotionFadeIn';
+import { MotionFadeIn } from '../graphs/MotionFadeIn';
 import { ArrowLeft, ExternalLink, Github, Calendar, Users, Zap, X } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useMousePosition } from '../hooks/useMousePosition';

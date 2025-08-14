@@ -4,8 +4,8 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Mail, MapPin, Linkedin } from "lucide-react";
 import { m } from "motion/react";
-import { MotionFadeIn } from "../motions/MotionFadeIn";
-import { MotionSlideIn } from "../motions/MotionSlideIn";
+import { MotionFadeIn } from "../graphs/MotionFadeIn";
+import { MotionSlideIn } from "../graphs/MotionSlideIn";
 import { useData } from '../context/DataContext';
 
 export function Contact() {

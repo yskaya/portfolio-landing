@@ -10,14 +10,13 @@ import { Qualification } from "./components/Qualification";
 import { WorkHistory } from "./components/WorkHistory";
 import { Projects } from "./components/Projects";
 import { Contact } from "./components/Contact";
-import { ParallaxBackground } from "./components/ParallaxBackground";
-import { MotionBackground } from "./motions/MotionBackground";
-import { MotionNav } from "./motions/MotionNav";
-import { MotionSection } from "./motions/MotionSection";
-import { MotionCursor } from "./motions/MotionCursor";
+import { ParallaxBackground } from "./graphs/ParallaxBackground";
+import { MotionNav } from "./components/Nav";
+import { MotionSection } from "./graphs/MotionSection";
+import { AnimatedCursor } from "./graphs/AnimatedCursor";
 import { useMouseMV, useScrollMV } from "./hooks/useMotionValues";
 import { NAV_ITEMS, SECTION } from "./utils/paths";
-import { fastSpring } from "./motions/animationPresets";
+import { fastSpring } from "./graphs/animationPresets";
 import { useData } from "./context/DataContext";
 
 type Page = "home" | "projects";
@@ -65,7 +64,7 @@ export default function App() {
         
         <ParallaxBackground />
 
-        {/* NAV */}
+        
         <MotionNav
           items={NAV_ITEMS}
           activeId={SECTION.HERO}      // or derive from your scroll observer if you keep it
@@ -78,35 +77,35 @@ export default function App() {
         />
 
         <main className="relative z-10">
-          <AnimatePresence mode="wait">
-            <div key="home-content">
-              <MotionSection id={SECTION.HERO} className="cyber-glass-green">
-                <Hero />
-              </MotionSection>
+          <AnimatePresence  mode="wait">
+            <div key="main">
+            <MotionSection id={SECTION.HERO} className="cyber-glass-green">
+              <Hero />
+            </MotionSection>
 
-              <MotionSection id={SECTION.ABOUT} className="cyber-glass-blue">
-                <About />
-              </MotionSection>
+            <MotionSection id={SECTION.ABOUT} className="cyber-glass-blue">
+              <About />
+            </MotionSection>
 
-              <MotionSection id={SECTION.PROJECTS} className="cyber-glass-green2">
-                <Projects />
-              </MotionSection>
+            <MotionSection id={SECTION.PROJECTS} className="cyber-glass-green2">
+              <Projects />
+            </MotionSection>
 
-              <MotionSection id={SECTION.EXPERIENCE} className="cyber-glass-purple">
-                <WorkHistory />
-              </MotionSection>
+            <MotionSection id={SECTION.EXPERIENCE} className="cyber-glass-purple">
+              <WorkHistory />
+            </MotionSection>
 
-              <MotionSection id={SECTION.SKILLS} className="cyber-glass-pink">
-                <Skills />
-              </MotionSection>
-              
-              <MotionSection id={SECTION.SKILLS} className="cyber-glass-green2">
-                <Qualification />
-              </MotionSection>
+            <MotionSection id={SECTION.SKILLS} className="cyber-glass-pink">
+              <Skills />
+            </MotionSection>
+            
+            <MotionSection id={SECTION.SKILLS} className="cyber-glass-green2">
+              <Qualification />
+            </MotionSection>
 
-              <MotionSection id={SECTION.CONTACT} className="cyber-glass-green">
-                <Contact />
-              </MotionSection>
+            <MotionSection id={SECTION.CONTACT} className="cyber-glass-green">
+              <Contact />
+            </MotionSection>
             </div>
           </AnimatePresence>
         </main>
@@ -122,7 +121,7 @@ export default function App() {
           </div>
         </footer>
 
-        <MotionCursor x={x} y={y} />
+        <AnimatedCursor x={x} y={y} />
       </LazyMotion>
     </div>
   );

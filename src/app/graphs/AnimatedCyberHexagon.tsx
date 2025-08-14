@@ -1,12 +1,12 @@
 import { m } from 'motion/react';
 
-interface GraphCyberpunkHexagonProps {
+interface AnimatedCyberHexagonProps {
   scrollY: number;
   mouseXPercent: number;
   mouseYPercent: number;
 }
 
-export function GraphCyberpunkHexagon({ scrollY, mouseXPercent, mouseYPercent }: GraphCyberpunkHexagonProps) {
+export function AnimatedCyberHexagon({ scrollY, mouseXPercent, mouseYPercent }: AnimatedCyberHexagonProps) {
   return (
     <m.div
       className="absolute inset-0 opacity-5 mix-blend-screen"

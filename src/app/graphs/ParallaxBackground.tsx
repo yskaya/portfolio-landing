@@ -2,10 +2,10 @@ import { m } from 'motion/react';
 import { useMousePosition } from '../hooks/useMousePosition';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 import {
-  GraphCyberCircuit,
-  GraphDigitalMatrix,
-  GraphCyberpunkHexagon,
-} from '../graphs';
+  AnimatedCyberCircuit,
+  AnimatedMatrix,
+  AnimatedCyberHexagon,
+} from './index';
 
 export function ParallaxBackground() {
   const scrollY = useScrollPosition();
@@ -18,14 +18,14 @@ export function ParallaxBackground() {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
       {/* Cyberpunk Circuit Grid Layer */}
-      <GraphCyberCircuit
+      <AnimatedCyberCircuit
         scrollY={scrollY}
         mouseXPercent={mouseXPercent}
         mouseYPercent={mouseYPercent}
       />
 
       {/* Digital Matrix Pattern */}
-      <GraphDigitalMatrix
+      <AnimatedMatrix
         scrollY={scrollY}
         mouseXPercent={mouseXPercent}
         mouseYPercent={mouseYPercent}
@@ -105,7 +105,7 @@ export function ParallaxBackground() {
       />
 
       {/* Cyberpunk Hexagon Pattern */}
-      <GraphCyberpunkHexagon
+      <AnimatedCyberHexagon
         scrollY={scrollY}
         mouseXPercent={mouseXPercent}
         mouseYPercent={mouseYPercent}

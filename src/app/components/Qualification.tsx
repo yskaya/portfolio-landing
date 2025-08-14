@@ -1,5 +1,5 @@
 import { m } from 'motion/react';
-import { MotionFadeIn } from "../motions/MotionFadeIn";
+import { MotionFadeIn } from "../graphs/MotionFadeIn";
 import { Badge } from "../ui/badge";
 import { useMousePosition } from '../hooks/useMousePosition';
 import { useScrollPosition } from '../hooks/useScrollPosition';
