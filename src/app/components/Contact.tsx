@@ -5,6 +5,7 @@ import { Textarea } from "../ui/textarea";
 import { Mail, MapPin, Linkedin } from "lucide-react";
 import { m } from "motion/react";
 import { MotionFadeIn } from "../graphs/MotionFadeIn";
+import { AnimatedHeadline } from "../graphs/AnimatedHeadline";
 import { MotionSlideIn } from "../graphs/MotionSlideIn";
 import { useData } from '../context/DataContext';
 
@@ -13,13 +14,9 @@ export function Contact() {
   return (
     <section className="py-20 px-4 bg-black/20">
       <div className="max-w-6xl mx-auto">
-        <MotionFadeIn
-          as="h2"
-          className="text-3xl md:text-4xl font-bold text-center mb-12 text-white"
-          duration={0.8}
-        >
+        <AnimatedHeadline className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">
           Let's Build Something Together
-        </MotionFadeIn>
+        </AnimatedHeadline>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <MotionSlideIn direction="left">

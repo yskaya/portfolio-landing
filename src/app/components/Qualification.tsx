@@ -1,15 +1,13 @@
 import { m } from 'motion/react';
 import { MotionFadeIn } from "../graphs/MotionFadeIn";
+import { AnimatedHeadline } from "../graphs/AnimatedHeadline";
 
 export function Qualification() {
   
   return (
     <section className="relative py-32 px-4 overflow-hidden">
       <div className="max-w-6xl mx-auto relative z-10">
-        <MotionFadeIn
-          as="h2"
-          className="text-4xl md:text-5xl font-bold text-center mb-4 text-white relative"
-        >
+        <AnimatedHeadline className="text-4xl md:text-5xl font-bold text-center mb-4 text-white relative">
           <m.div
             className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-32 h-1"
             style={{
@@ -25,7 +23,7 @@ export function Qualification() {
             }}
           />
           Qualification
-        </MotionFadeIn>
+        </AnimatedHeadline>
 
         <MotionFadeIn
           as="div"

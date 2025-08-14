@@ -1,5 +1,7 @@
 import { m } from 'motion/react';
 import { MotionFadeIn } from "../graphs/MotionFadeIn";
+import { AnimatedHeadline } from "../graphs/AnimatedHeadline";
+import { AnimatedIcon } from "../graphs/AnimatedIcon";
 import { useMousePosition } from '../hooks/useMousePosition';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 import { Code2, Globe, Award, Users } from 'lucide-react';
@@ -44,23 +46,9 @@ export function About() {
             }}
             transition={{ type: 'spring', stiffness: 150, damping: 20 }}
           >
-            <m.h2 
-              className="text-4xl md:text-5xl font-bold mb-8 text-white relative"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
+            <AnimatedHeadline className="text-4xl md:text-5xl font-bold mb-8 text-white" accent>
               The Evolution
-              {/* Animated accent */}
-              <m.div
-                className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-white via-gray-400 to-transparent"
-                initial={{ width: 0 }}
-                whileInView={{ width: '60%' }}
-                transition={{ duration: 1, delay: 0.5 }}
-                viewport={{ once: true }}
-              />
-            </m.h2>
+            </AnimatedHeadline>
             
             <div className="space-y-6 text-gray-300 leading-relaxed">
               <MotionFadeIn as="p" delay={0.2}>
@@ -144,13 +132,11 @@ export function About() {
               }}
               transition={{ type: 'spring', stiffness: 200, damping: 25 }}
             >
-              <m.div
+              <AnimatedIcon
+                icon={item.icon}
                 className="w-12 h-12 mx-auto mb-3 flex items-center justify-center rounded-full bg-white/10"
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.5 }}
-              >
-                <item.icon className="h-6 w-6 text-white" />
-              </m.div>
+                iconClassName="h-6 w-6 text-white"
+              />
               <h4 className="text-white font-semibold mb-1">{item.title}</h4>
               <p className="text-gray-400 text-sm">{item.desc}</p>
             </m.div>

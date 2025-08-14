@@ -8,6 +8,7 @@ import { MotionFadeIn } from '../graphs/MotionFadeIn';
 import { MotionSlideIn } from '../graphs/MotionSlideIn';
 import { useData } from '../context/DataContext';
 import { AnimatedWorkHistory } from '../graphs';
+import { AnimatedHeadline } from '../graphs/AnimatedHeadline';
 
 interface WorkExperience {
   id: string;
@@ -70,15 +71,9 @@ export function WorkHistory() {
           }}
           transition={{ type: 'spring', stiffness: 150, damping: 20 }}
         >
-          <m.h2 
-            className="mb-6"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
+          <AnimatedHeadline className="mb-6">
             Professional Journey
-          </m.h2>
+          </AnimatedHeadline>
           <m.p 
             className="text-lg max-w-2xl mx-auto"
             style={{ color: 'rgba(255, 255, 255, 0.8)' }}
