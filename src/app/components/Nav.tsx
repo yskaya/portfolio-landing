@@ -1,37 +1,37 @@
 "use client";
 import { m } from "motion/react";
 import { fastSpring, opacityPulse, shimmerLine } from "../graphs/animationPresets";
+import { useNav } from "../context/NavContext";
 
 type Item = { label: string; id: string };
 
 type Props = {
   items: Item[];
-  activeId: string | null;
-  onBackHome: () => void;
-  onClickItem: (id: string) => void;
-  mouseXPercent: number;
-  scrollVelocity: number;
-  scrollDirection: "up" | "down";
 };
 
-export function MotionNav({
-  items,
-  activeId,
-  onBackHome,
-  onClickItem,
-  mouseXPercent,
-  scrollVelocity,
-  scrollDirection,
-}: Props) {
+export function MotionNav({ items }: Props) {
+  const {
+    activeId,
+    scrollToSection,
+    mouseXPercent,
+    scrollVelocity,
+    scrollDirection,
+  } = useNav();
+  const onBackHome = () => scrollToSection("hero");
   return (
     <m.nav
       className="fixed top-0 w-full z-50 nav-shell"
       style={{ willChange: "transform" }}
-      animate={{
-        x:
-          mouseXPercent * 1.5 +
-          scrollVelocity * (scrollDirection === "down" ? 0.5 : -0.5),
-      }}
+        animate={{
+          x:
+            mouseXPercent * 1.5 +
+            scrollVelocity *
+              (scrollDirection === "down"
+                ? 0.5
+                : scrollDirection === "up"
+                ? -0.5
+                : 0),
+        }}
       transition={fastSpring}
     >
       <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
@@ -77,7 +77,7 @@ export function MotionNav({
             return (
               <m.button
                 key={`nav-${item.id}`}
-                onClick={() => onClickItem(item.id)}
+                onClick={() => scrollToSection(item.id)}
                 className="relative group font-medium uppercase tracking-[0.1em] text-[0.9rem]"
                 style={{
                   color: isActive ? "#00d4ff" : "rgba(255,255,255,0.7)",
