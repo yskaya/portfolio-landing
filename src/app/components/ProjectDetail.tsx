@@ -4,6 +4,7 @@ import { MotionFadeIn } from '../motions/MotionFadeIn';
 import { ArrowLeft, ExternalLink, Github, Calendar, Users, Zap, X } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useMousePosition } from '../hooks/useMousePosition';
+import { GraphProjectDetail } from '../graphs';
 
 interface Project {
   id: string;
@@ -48,18 +49,10 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
     <div className={`relative ${isModal ? 'p-0' : 'min-h-screen py-32 px-4'} overflow-hidden`}>
       {/* Background effects - only for full page view */}
       {!isModal && (
-        <m.div
-          className="absolute inset-0 opacity-5"
-          style={{
-            transform: `translateY(${scrollY * 0.1}px)`,
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%2300d4ff' stroke-width='0.5'%3E%3Cpath d='M30 0v60M0 30h60'/%3E%3Ccircle cx='30' cy='30' r='25'/%3E%3Ccircle cx='30' cy='30' r='15'/%3E%3Ccircle cx='30' cy='30' r='5'/%3E%3C/g%3E%3C/svg%3E")`,
-            backgroundSize: '120px 120px',
-          }}
-          animate={{
-            x: mouseXPercent * -1,
-            y: mouseYPercent * -0.5,
-          }}
-          transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+        <GraphProjectDetail
+          scrollY={scrollY}
+          mouseXPercent={mouseXPercent}
+          mouseYPercent={mouseYPercent}
         />
       )}
 

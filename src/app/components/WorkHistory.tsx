@@ -6,6 +6,7 @@ import { MotionSection } from '../motions/MotionSection';
 import { MotionFadeIn } from '../motions/MotionFadeIn';
 import { MotionSlideIn } from '../motions/MotionSlideIn';
 import { useData } from '../context/DataContext';
+import { GraphWorkHistory } from '../graphs';
 
 interface WorkExperience {
   id: string;
@@ -59,18 +60,10 @@ export function WorkHistory() {
   return (
     <div id="work-history" className="relative py-32 px-4 overflow-hidden">
       {/* Background pattern */}
-      <m.div
-        className="absolute inset-0 opacity-5"
-        style={{
-          transform: `translateY(${scrollY * 0.1}px)`,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ff006e' stroke-width='0.5'%3E%3Cpath d='M30 0v60M0 30h60'/%3E%3Ccircle cx='30' cy='30' r='25'/%3E%3Ccircle cx='30' cy='30' r='15'/%3E%3Ccircle cx='30' cy='30' r='5'/%3E%3C/g%3E%3C/svg%3E")`,
-          backgroundSize: '120px 120px',
-        }}
-        animate={{
-          x: mouseXPercent * -2,
-          y: mouseYPercent * -1,
-        }}
-        transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+      <GraphWorkHistory
+        scrollY={scrollY}
+        mouseXPercent={mouseXPercent}
+        mouseYPercent={mouseYPercent}
       />
 
       <div className="max-w-6xl mx-auto">
