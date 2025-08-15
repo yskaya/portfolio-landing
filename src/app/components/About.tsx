@@ -12,6 +12,22 @@ const highlights = [
   { icon: Users, title: "Team Leadership", desc: "Mentoring & scaling" }
 ];
 
+const cl = [
+  { content: `I earned a <strong>Master's in Computer Design Engineering</strong> — not in software, but in systems, structure, and logic.
+                That mindset has shaped a <strong>15-year journey</strong> across web development: from backend frameworks to CI/CD
+                pipelines and infrastructure. I've lived and worked in <strong>Belarus, Berlin, New York</strong>, and now <strong>Los Angeles</strong> —
+                contributing across tech stacks and product stages in early-stage startups and global organizations.`},
+  { content: `I've grown with <strong>the web</strong> — from no-syntax editors and hand-coded HTML to modern UIs and scalable microservices;
+                from raw SQL and on-prem development to cloud infrastructures, Docker and Kubernetes; from tightly coupled
+                monoliths to modular, distributed systems. Each shift has refined <strong>how I build</strong> — and <strong>how I rebuild better</strong>. I’ve worked
+                across diverse products — file-sharing systems, payroll platforms to edtech, collaboration tools, and AI apps.
+                I’ve designed systems from the ground up and restructured legacy code for clarity and scale.`},
+  { content: `As a <strong>Staff Frontend Engineer</strong>, I've helped to <strong>form engineering teams, shape hiring practices</strong>, and
+                <strong>drive development strategies</strong> at scale. I've led <strong>legacy decoupling, defined architectural evolution</strong>,
+                and <strong>established coding standards</strong> across cross-functional teams. I've worked closely with product and platform teams,
+                <strong>mentored engineers</strong>, and remained <strong>a consistent contributor</strong> to the codebase — combining strategy with hands-on execution.`},
+]
+
 export function About() {
   const scrollY = useScrollPosition();
   const mousePosition = useMousePosition();
@@ -26,9 +42,9 @@ export function About() {
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           
-          <div>
+          <div className="space-y-16">
             <m.h2 
-              className="text-4xl md:text-5xl font-bold mb-8 text-white relative"
+              className="text-4xl md:text-5xl font-bold mb-16 text-white relative"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -45,40 +61,20 @@ export function About() {
               />
             </m.h2>
             
-            <div className="space-y-6 text-gray-300 leading-relaxed">
-              <MotionFadeIn as="p" delay={0.2}>
-                I earned a <strong>Master's in Computer Design Engineering</strong> — not in software, but in systems, structure, and logic.
-                That mindset has shaped a <strong>15-year journey</strong> across web development: from backend frameworks to CI/CD
-                pipelines and infrastructure. I've lived and worked in <strong>Belarus, Berlin, New York</strong>, and now <strong>Los Angeles</strong> —
-                contributing across tech stacks and product stages in early-stage startups and global organizations.
-              </MotionFadeIn>
-
-              <MotionFadeIn as="p" delay={0.4}>
-                I've grown with <strong>the web</strong> — from no-syntax editors and hand-coded HTML to modern UIs and scalable microservices;
-                from raw SQL and on-prem development to cloud infrastructures, Docker and Kubernetes; from tightly coupled
-                monoliths to modular, distributed systems. Each shift has refined <strong>how I build</strong> — and <strong>how I rebuild better</strong>.
-              </MotionFadeIn>
-
-              <MotionFadeIn as="p" delay={0.6}>
-                As a <strong>Staff Frontend Engineer</strong>, I've helped to <strong>form engineering teams, shape hiring practices</strong>, and
-                <strong>drive development strategies</strong> at scale. I've led <strong>legacy decoupling, defined architectural evolution</strong>,
-                and <strong>established coding standards</strong> across cross-functional teams. I've worked closely with product and platform teams,
-                <strong>mentored engineers</strong>, and remained <strong>a consistent contributor</strong> to the codebase — combining strategy with hands-on execution.
-              </MotionFadeIn>
+            <div className="space-y-8 text-gray-300">
+              {cl.map((s, index) => (
+                <MotionFadeIn key={index} as="p" delay={(index + 1) * 0.2}>
+                  {s.content}
+                </MotionFadeIn>
+              ))}
             </div>
           </div>
           
-          {/* Image */}
           <div className="relative">
-            {/* Main image container with glassmorphism */}
             <m.div
               className="relative h-full rounded-2xl overflow-hidden"
-              style={{
-                background: 'rgba(255, 255, 255, 0.02)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-              }}
               initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 0.6, scale: 1 }}
+              whileInView={{ opacity: 0.4, scale: 1 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
@@ -100,18 +96,6 @@ export function About() {
             <HoverGlowCard
               key={index}
               className="text-center p-6 rounded-xl relative"
-              style={{
-                background: 'rgba(255, 255, 255, 0.02)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 255, 255, 0.05)',
-              }}
-              whileHover={{
-                background: 'rgba(255, 255, 255, 0.05)',
-              }}
-              animate={{
-                y: mouseYPercent * (index % 2 === 0 ? 2 : -2),
-              }}
-              transition={{ type: 'spring', stiffness: 200, damping: 25 }}
             >
               <item.icon className="h-6 w-6 text-white" />
               <h4 className="text-white font-semibold mb-1">{item.title}</h4>

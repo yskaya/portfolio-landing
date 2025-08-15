@@ -65,18 +65,11 @@ export function Skills() {
               <HoverGlowCard
                 key={index}
                 className="relative group"
-                style={{ transform: `translateY(${scrollY * (index % 2 === 0 ? -0.02 : 0.02)}px)` }}
-                animate={{
-                  x: mouseXPercent * (index % 2 === 0 ? 2 : -2),
-                  y: mouseYPercent * (index % 2 === 0 ? 1 : -1),
-                }}
+                
                 transition={{ type: 'spring', stiffness: 150, damping: 25 }}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                whileHover={{
-                  rotateY: index % 2 === 0 ? 2 : -2,
-                }}
               >
                 {/* Card with glassmorphism */}
                 <div

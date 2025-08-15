@@ -21,7 +21,7 @@ export const SECTION = {
 export type SectionId = typeof SECTION[keyof typeof SECTION];
 
 export const NAV_ITEMS: { label: string; id: SectionId, hidden?: boolean }[] = [
-  { label: "Hero", id: SECTION.HERO, hidden: true },
+  { label: "Hero", id: SECTION.HERO },
   { label: "About", id: SECTION.ABOUT },
   { label: "Projects", id: SECTION.PROJECTS },
   { label: "Experience", id: SECTION.EXPERIENCE },
@@ -29,7 +29,7 @@ export const NAV_ITEMS: { label: string; id: SectionId, hidden?: boolean }[] = [
   { label: "Contact", id: SECTION.CONTACT },
 ];
 
-export function Nav({ items = NAV_ITEMS }: Props) {
+export function Nav() {
   const {
     activeId,
     scrollToSection,
@@ -92,7 +92,7 @@ export function Nav({ items = NAV_ITEMS }: Props) {
         </m.button>
 
         <div className="hidden md:flex gap-8">
-          {items.map((item) => {
+          {NAV_ITEMS.map((item) => {
             const isActive = activeId === item.id;
             return (
               <m.button

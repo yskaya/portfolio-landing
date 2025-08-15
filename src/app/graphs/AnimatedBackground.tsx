@@ -1,22 +1,23 @@
-"use client";
-import { m } from "motion/react";
-import { clamp } from "./animationPresets";
+import { GraphGeometry } from './GraphGeometry';
+import { BgPattern1 } from './BgPattern1';
+import { GraphLights } from './GraphLights';
+import { GraphMatrixRain } from './GraphMatrixRain';
+import { GraphPulsingDots } from './GraphPulsingDots';
 
-type Props = {
-  scrollY: number;
-  scrollVelocity: number;
-};
+export function AnimatedBackground() {
 
-export function AnimatedBackground({ scrollY, scrollVelocity }: Props) {
   return (
-    <m.div
-      className="fixed inset-0 cyber-grid pointer-events-none"
-      style={{ willChange: "transform, opacity" }}
-      animate={{
-        opacity: clamp(0.2 + scrollVelocity * 0.05, 0, 0.3),
-        transform: `translate3d(${scrollY * -0.05}px, ${scrollY * 0.025}px, 0) scale(${1 + scrollVelocity * 0.01})`,
-      }}
-      transition={{ type: "tween", duration: 0.1, ease: "linear" }}
-    />
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      <BgPattern1 />
+
+      <GraphGeometry />
+
+      <GraphLights />
+
+      <GraphMatrixRain />
+
+      <GraphPulsingDots />
+     
+    </div>
   );
 }

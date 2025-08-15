@@ -9,10 +9,9 @@ import { Qualification } from "./components/Qualification";
 import { WorkHistory } from "./components/WorkHistory";
 import { Projects } from "./components/Projects";
 import { Contact } from "./components/Contact";
-import { ParallaxBackground } from "./graphs/ParallaxBackground";
-import { Nav } from "./components/Nav/Nav";
+import { AnimatedBackground } from "./graphs/AnimatedBackground";
+import { Nav, SECTION } from "./components/Nav/Nav";
 import { MotionSection } from "./graphs/MotionSection";
-import { NAV_ITEMS, SECTION } from "./components/Nav/Nav";
 import { useData } from "./context/DataContext";
 
 export default function App() {
@@ -24,7 +23,7 @@ export default function App() {
   return (
     <div className="min-h-screen relative overflow-hidden app-bg">
       <LazyMotion features={domAnimation} strict>
-        <ParallaxBackground />
+        <AnimatedBackground />
 
         <Nav />
 
@@ -65,7 +64,7 @@ export default function App() {
         <footer className="relative py-12 px-4 border-t footer-shell">
           <div className="max-w-6xl mx-auto text-center">
             <p className="text-sm small-note">
-              &copy; 2025 {intro.name || 'TBD'}
+              &copy; 2025 {intro.name}
               <span style={{ color: "#00ff41" }}> // </span>
               <span style={{ color: "#00d4ff" }}>Engineered with precision</span>
               <span style={{ color: "#ff006e" }}> &amp; passion</span>

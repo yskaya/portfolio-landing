@@ -9,6 +9,7 @@ import { MotionSlideIn } from '../graphs/MotionSlideIn';
 import { useData } from '../context/DataContext';
 import { AnimatedWorkHistory } from '../graphs';
 import { HoverGlowCard } from '../graphs/HoverGlowCard';
+import { BgPattern3 } from '../graphs/BgPattern3';
 
 interface WorkExperience {
   id: string;
@@ -55,12 +56,7 @@ export function WorkHistory() {
 
   return (
     <div id="work-history" className="relative py-32 px-4 overflow-hidden">
-      {/* Background pattern */}
-      <AnimatedWorkHistory
-        scrollY={scrollY}
-        mouseXPercent={mouseXPercent}
-        mouseYPercent={mouseYPercent}
-      />
+      <BgPattern3 />
 
       <div className="max-w-6xl mx-auto">
         <m.div
