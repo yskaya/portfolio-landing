@@ -8,13 +8,21 @@ import { MotionFadeIn } from "../graphs/MotionFadeIn";
 import { MotionSlideIn } from "../graphs/MotionSlideIn";
 import { useData } from '../context/DataContext';
 
-const links = [
-  { label: 'yulia.kanapatskaya@gmail.com', link: 'mailto:yulia.kanapatskaya@gmail.com', component: Mail},
-  { label: 'linkedin.com/in/yskaya', link: 'https://linkedin.com/in/yskaya', component: Linkedin}
-];
-
 export function Contact() {
   const { intro } = useData();
+  
+  const links = [
+    { 
+      label: intro.links?.email || 'yulia.kanapatskaya@gmail.com', 
+      link: intro.links?.email ? `mailto:${intro.links.email}` : 'mailto:yulia.kanapatskaya@gmail.com', 
+      component: Mail
+    },
+    { 
+      label: intro.links?.linkedin ? intro.links.linkedin.replace('https://', '') : 'linkedin.com/in/yskaya', 
+      link: intro.links?.linkedin || 'https://linkedin.com/in/yskaya', 
+      component: Linkedin
+    }
+  ];
   return (
     <section className="py-20 px-4 bg-black/20">
       <div className="max-w-6xl mx-auto">

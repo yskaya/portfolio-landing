@@ -3,81 +3,242 @@
     {
       "id": 1,
       "name": "WeTransfer Platform",
-      "description": "Large-scale file transfer platform with graphically rich products including Paste, Portals, and Transfer. Built scalable design systems and shared modules across the organization.",
-      "details": "Led architecture and delivery of design systems, shared modules, and internal libraries across the organization. Scaled large-scale, graphically rich products with performant, modular code. Owned and implemented features across the stack (30% BE / 70% FE) using Next.js, NestJS, and React.",
+      "short_descr": "Global consumer and B2B platform delivering large-scale file sharing and creative collaboration products used by millions of users worldwide.",
+      "long_descr": [
+        {
+          "title": "Company Overview",
+          "content": "WeTransfer is a global technology company best known for its file-sharing platform, serving millions of individual users and creative teams worldwide. Beyond simple file transfer, the company evolved into a multi-product ecosystem focused on creative productivity, collaboration, and content sharing, operating at significant consumer scale with strong emphasis on design quality and performance. During my tenure, WeTransfer supported 1M+ daily active users, with products spanning consumer-facing experiences and internal platform infrastructure shared across teams."
+        },
+        {
+          "title": "Product Area: Paste — Collaborative Presentation Tool",
+          "content": "Paste is a visually rich, real-time collaborative tool for creating and sharing presentations. The product supports simultaneous editing, live updates, and highly interactive user experiences, requiring careful attention to performance, state synchronization, and UI responsiveness at scale. I worked as a Senior Full-Stack Engineer on Paste, owning features end-to-end — from design review and technical scoping to implementation and release. My work focused heavily on frontend architecture, animation quality, interaction smoothness, and progressive modernization of a complex React codebase to improve maintainability and performance."
+        },
+        {
+          "title": "Product Area: App Platform / Shared UI Infrastructure",
+          "content": "In 2022, I became the founding frontend engineer on the App Platform team, formed to unify frontend architecture across five distinct WeTransfer products. This initiative focused on reducing duplication, improving consistency, and enabling teams to move faster through shared UI foundations. I led the design and implementation of a multi-package design system, spanning tokens, utilities, and shared components, adopted by 30+ engineers across multiple product teams. In parallel, I established CI/CD pipelines, publishing workflows, and contribution standards to support platform adoption at scale. This work significantly improved cross-team collaboration and delivery speed, while providing a stable foundation for long-term product evolution."
+        },
+        {
+          "title": "Engineering Context & Impact",
+          "content": "As a Staff Frontend Engineer, I operated at the intersection of product delivery and platform architecture — partnering closely with product managers, designers, backend engineers, and leadership. Alongside architectural ownership, I contributed code, reviewed pull requests, mentored engineers, and supported hiring and onboarding as teams scaled. In late 2024, WeTransfer was acquired by Bending Spoons, marking the end of my tenure and a major transition for the organization."
+        }
+      ],
       "links": {
         "live": "https://wetransfer.com",
         "github": ""
       },
-      "tech_stack": ["TypeScript", "React", "Node.js", "Next.js", "NestJS", "Monorepo", "Microservices"],
-      "role": "Staff Frontend Engineer / Senior Full-stack Engineer",
-      "date": "Sept 2020 - Oct 2024",
+      "tech_stack": ["TypeScript", "React", "Node.js", "Next.js", "NestJS", "GraphQL", "Redis", "Monorepo", "Microservices"],
+      "role": ["Staff Frontend Engineer", "Senior Software Engineer"],
+      "date": "Sep 2020 - Sep 2024",
       "location": "NYC (remote)",
+      "team_size": ["Paste (~15 engineers)", "App Platform team (scaled from 4 to 10 engineers)", "30+ engineers using design system"],
+      "company": "WeTransfer",
+      "company_size": "200+ employees",
       "image": "/images/wetransfer-project.jpg",
       "achievements": [
-        "Designed scalable modules and set technical direction for cross-product platforms",
-        "Defined development processes: CI/CD workflows, build systems, quality tooling",
-        "Led refactoring efforts and enforced coding standards for modularization"
+        "Architected multi-package design system adopted by 30+ engineers across 5 products with 1M+ DAU",
+        "Founded frontend engineering on App Platform team, unifying frontend architecture org-wide",
+        "Contributed to ~30% improvement in delivery speed by reducing duplication and standardizing practices",
+        "Established CI/CD pipelines, publishing workflows, and architecture documentation"
       ]
     },
     {
       "id": 2,
       "name": "Namely HR Platform",
-      "description": "Comprehensive HR platform with integrated tools, features, and product integrations. Built internal design systems and scalable React-based interfaces.",
-      "details": "Scaled HR platform with tools, features, product integrations, and internal design systems. Owned product-critical modules ensuring performance, delivery, and scalability. Built and documented a shared Design System for use across teams.",
+      "short_descr": "B2B HR, payroll, and benefits platform enabling mid-sized companies to manage employee data, compliance, and complex operational workflows.",
+      "long_descr": [
+        {
+          "title": "Company Overview",
+          "content": "Namely is a U.S.-based HR technology company providing an integrated platform for human resources, payroll, benefits administration, and compliance. The product serves mid-sized organizations with diverse workforce structures, requiring systems that can handle complex data models, regulatory constraints, and high expectations for accuracy and reliability. The platform operates in a data-intensive, high-stakes domain where frontend systems must support multi-step workflows, validation-heavy processes, and clear error handling for non-technical business users."
+        },
+        {
+          "title": "Product Area: Integrations Platform",
+          "content": "I joined Namely as a Senior Frontend Engineer and was embedded in a newly formed Integrations team building a greenfield product focused on employee data imports.<br/><br/>This work involved:<br/>• Designing UIs for transforming, validating, and reconciling large datasets<br/>• Mapping external provider schemas into Namely's internal data model<br/>• Building multi-step workflows for error resolution and review<br/>• Close collaboration with backend teams delivering Go-based APIs<br/><br/>I owned frontend architecture and delivery for key workflows, from early product definition through production release, ensuring scalability and clarity in complex data-driven interfaces."
+        },
+        {
+          "title": "Product Area: Benefits & Payroll-Adjacent Workflows",
+          "content": "After the initial integrations launch, I transitioned into a full-stack role, contributing to backend services while continuing frontend ownership. I later supported the Benefits domain — an area requiring particularly robust UI systems due to regulatory complexity and highly variable customer configurations.<br/><br/>This work emphasized:<br/>• Strong validation and state management<br/>• Clear UX for complex, rule-driven data<br/>• Tight alignment between frontend behavior and backend constraints"
+        },
+        {
+          "title": "Engineering Context & Impact",
+          "content": "Frontend engineering at Namely operated as a shared discipline across multiple product teams, aligned on common architecture, tooling, and a growing internal design system. As part of this group, I contributed to shared UI foundations, mentored engineers, and supported consistent frontend practices across teams. This role strengthened my experience building data-heavy platforms, collaborating across product boundaries, and scaling frontend systems in regulated, business-critical environments — a foundation that later informed my Staff-level platform work."
+        }
+      ],
       "links": {
         "live": "https://www.namely.com/",
         "github": ""
       },
-      "tech_stack": ["JavaScript", "TypeScript", "ES6-7", "JSX", "React", "Redux", "GraphQL", "Node.js", "Redis", "gRPC", "SCSS"],
-      "role": "Senior Software Engineer - Full-stack / Frontend",
-      "date": "Sept 2018 - Sept 2020",
+      "tech_stack": ["JavaScript", "TypeScript", "React", "Redux", "GraphQL", "Go", "Node.js", "Redis", "gRPC", "SCSS"],
+      "role": "Senior Full-Stack / Frontend Engineer",
+      "date": "Sep 2018 - Sep 2020",
       "location": "NYC (hybrid)",
+      "team_size": "Integration team, later Benefits team",
+      "company": "Namely",
+      "company_size": "300+ employees",
       "image": "/images/namely-project.jpg",
       "achievements": [
-        "Delivered React-based UIs and contributed to Go-based REST APIs",
-        "Built and documented shared Design System for cross-team use",
-        "Mentored developers and collaborated across functions"
+        "Built complex HR & payroll UIs integrating React frontends with Go-based APIs",
+        "Led frontend architecture for data-heavy workflows and validation tools",
+        "Contributed to and scaled internal design system adopted across teams"
       ]
     },
     {
       "id": 3,
       "name": "Amelia AI Platform",
-      "description": "AI-powered conversational interface that transforms natural language into structured actions. Enterprise-grade cognitive agent for customer service and business process automation.",
-      "details": "Built Amelia, an AI-powered interface transforming natural language into structured actions. Designed frontend and data systems for managing dialog flows via BPMN workflows. Developed React interfaces and reusable components for enterprise use.",
+      "short_descr": "Enterprise conversational AI platform enabling organizations to automate customer and employee interactions across text and voice channels.",
+      "long_descr": [
+        {
+          "title": "Company Overview",
+          "content": "Amelia (formerly IPsoft) is an enterprise AI company focused on intelligent automation and conversational AI solutions for large organizations. The platform enables businesses to deploy virtual assistants across customer service, HR, IT support, and internal operations, integrating with existing enterprise systems and workflows. During this period, Amelia was evolving from early chatbot-style deployments into a highly configurable, enterprise-grade AI platform, supporting complex dialog logic, multi-channel delivery, and strict accessibility and usability requirements."
+        },
+        {
+          "title": "Product Area: Conversational UI & Dialog Configuration",
+          "content": "I worked as a Software Engineer on the UX team, responsible for building React-based interfaces used to design, configure, and manage conversational workflows. These interfaces allowed non-technical users to define complex dialog behavior using structured, BPMN-inspired models. Although the UI was not graphically heavy, the underlying data model was highly complex — requiring close collaboration with Cognitive Engineers who defined conversation logic, states, and transitions. My work focused on translating these models into clear, usable, and scalable frontend systems."
+        },
+        {
+          "title": "Product Area: Enterprise-Ready UI Systems",
+          "content": "The platform was deployed across a wide range of enterprise environments, requiring frontend systems that were:<br/>• Accessible (keyboard navigation, assistive technologies)<br/>• Embeddable across customer platforms<br/>• Customizable for branding and deployment constraints<br/>• Reliable across browsers, devices, and touch-based installations<br/><br/>I designed reusable UI components and interaction patterns that supported these requirements while maintaining consistency and usability at scale."
+        },
+        {
+          "title": "Engineering Context & Impact",
+          "content": "Working at Amelia placed me at the intersection of frontend engineering and applied AI systems. I partnered closely with AI researchers, cognitive engineers, and product teams to ensure that sophisticated conversational logic could be effectively controlled through intuitive user interfaces. This role marked a key transition in my career — from advanced frontend product development into AI-driven, enterprise-scale systems, reinforcing my ability to build interfaces that bridge complex technical domains and real-world user needs."
+        }
+      ],
       "links": {
         "live": "https://amelia.ai",
         "github": ""
       },
       "tech_stack": ["React", "Redux", "JavaScript", "SCSS", "CSS", "HTML", "JSX", "ES6", "BPM/BPMN"],
       "role": "AI Software Engineer",
-      "date": "Sept 2017 - Sept 2018",
+      "date": "Sep 2017 - Sep 2018",
       "location": "NYC (on-site)",
+      "team_size": "Frontend/UI engineering group",
+      "company": "IPsoft (Amelia)",
+      "company_size": "500+ employees",
       "image": "/images/amelia-ai-project.jpg",
       "achievements": [
-        "Designed frontend and data systems for managing dialog flows via BPMN workflows",
-        "Developed React interfaces and reusable components for enterprise use",
-        "Built AI-powered natural language processing interface"
+        "Built React-based conversational UI used by 20+ enterprise clients",
+        "Developed BPMN-style visual configuration tools for dialog workflows",
+        "Helped evolve Amelia from niche conversational UI into highly configurable AI platform"
       ]
     },
     {
       "id": 4,
-      "name": "Sophia.org Learning Platform",
-      "description": "Educational technology platform providing online courses and learning resources. Built scalable frontend architecture and interactive learning experiences.",
-      "details": "Contributed to building educational technology platform with focus on scalable frontend architecture and user experience. Developed interactive learning interfaces and educational content delivery systems.",
+      "name": "Candena Training Platform",
+      "short_descr": "B2B EdTech platform delivering customizable online training systems for enterprises and universities, with white-label theming and modular learning workflows.",
+      "long_descr": [
+        {
+          "title": "Company Overview",
+          "content": "Candena was a Berlin-based EdTech SaaS company building scalable online learning platforms for enterprises and academic institutions. The product supported long-running, mentor-led learning programs with assignments, evaluations, and team-based collaboration, requiring flexible configuration and strong support for client-specific branding. The platform served multiple organizations with distinct requirements, making reusability, configurability, and maintainability core product concerns from an early stage."
+        },
+        {
+          "title": "Product Area: Learning Platform & White-Label System",
+          "content": "I joined Candena as the sole frontend engineer and later transitioned into a formal technical leadership role as the company and product grew. I was responsible for architecting a fully themeable, white-label frontend system that allowed the same platform to be customized and deployed across enterprise and university clients.<br/><br/>This work included:<br/>• Designing configurable UI layers to support multi-brand deployments<br/>• Defining layout systems and interaction patterns reusable across clients<br/>• Balancing customization needs with long-term maintainability"
+        },
+        {
+          "title": "Platform Modernization & Architecture Evolution",
+          "content": "At the time, the product was built as a Ruby on Rails monolith with server-rendered views. I led the frontend modernization strategy — defining a phased transition toward an API-driven architecture while continuing to ship features in the legacy system.<br/><br/>As part of this evolution, I:<br/>• Introduced modular frontend architecture and structural conventions<br/>• Led the migration toward SPA-based systems (initially Vue, later React)<br/>• Defined frontend standards, documentation, and CI workflows<br/><br/>This allowed the team to modernize incrementally without disrupting active customers."
+        },
+        {
+          "title": "Engineering Context & Impact",
+          "content": "As Candena's frontend scope expanded, I supported hiring and onboarding of engineers, mentored team members, and acted as technical lead for frontend planning, reviews, and delivery. With no dedicated design function early on, I also guided many interface and UX decisions to ensure consistency and usability across the platform. This role strengthened my experience in platform ownership, system evolution, and hands-on technical leadership — designing adaptable systems while operating under real product and resource constraints."
+        }
+      ],
+      "links": {
+        "live": "https://candena.digital",
+        "github": ""
+      },
+      "tech_stack": ["React", "Ruby on Rails", "JavaScript", "SCSS", "CSS", "HTML", "BEM"],
+      "role": "Founding Engineer / Technical Lead (Frontend)",
+      "date": "Dec 2013 - Dec 2015",
+      "location": "Berlin (remote)",
+      "team_size": "5-person team",
+      "company": "Candena",
+      "company_size": "10-15 employees",
+      "image": "/images/candena-project.jpg",
+      "achievements": [
+        "Re-architected legacy Rails monolith into modular React SPA",
+        "Delivered themeable UI framework reused by 20+ enterprise and university deployments",
+        "Led 5-person team and introduced CI pipelines, coding standards, and release workflows"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Sophia Learning Platform",
+      "short_descr": "Online education platform delivering scalable, credit-eligible courses with accessible, responsive learning experiences for a broad student audience.",
+      "long_descr": [
+        {
+          "title": "Company Overview",
+          "content": "Sophia Learning is an online education platform offering self-paced, college-level courses designed to be affordable, accessible, and transferable through partnerships with higher-education institutions. The product serves a large and diverse student base, requiring reliable performance, strong accessibility standards, and responsive design across devices. During this period, Sophia Learning was scaling its platform and expanding course offerings, placing increasing demands on frontend architecture, usability, and cross-team coordination."
+        },
+        {
+          "title": "Product Area: Learning Experience & Frontend Architecture",
+          "content": "I worked as a Frontend Engineer as part of a ~25-person cross-functional team distributed between the U.S. and Eastern Europe. My focus was on building modular, interactive JavaScript interfaces layered on top of a Ruby on Rails backend.<br/><br/>Key areas of work included:<br/>• Structuring large, jQuery-based codebases for maintainability and reuse<br/>• Implementing responsive layouts at a time when mobile-first design was still emerging<br/>• Building interactive learning flows supporting assessments, progress tracking, and course navigation"
+        },
+        {
+          "title": "Accessibility & Standards-Driven Development",
+          "content": "Accessibility was treated as a first-class requirement. The platform underwent formal accessibility audits and achieved ADA compliance, shaping both engineering practices and UI design decisions.<br/><br/>I contributed to:<br/>• Implementing accessible UI patterns and semantic markup<br/>• Ensuring keyboard navigation and screen-reader compatibility<br/>• Aligning frontend behavior with evolving accessibility standards<br/><br/>This experience established a long-term foundation for building inclusive, standards-compliant interfaces at scale."
+        },
+        {
+          "title": "Engineering Context & Impact",
+          "content": "Working on Sophia Learning marked a key step in managing frontend complexity in a high-traffic, consumer-facing product. It strengthened my ability to collaborate closely with backend and product teams, balance performance with usability, and deliver resilient frontend systems in a growing platform environment. This role laid important groundwork for my later work in EdTech platforms, design systems, and scalable frontend architecture."
+        }
+      ],
       "links": {
         "live": "https://www.sophia.org/",
         "github": ""
       },
-      "tech_stack": ["JavaScript", "React", "CSS", "HTML", "PHP", "MySQL"],
-      "role": "Full-stack / Frontend Engineer",
-      "date": "Jul 2009 - Mar 2015",
-      "location": "Eastern Europe (remote)",
+      "tech_stack": ["JavaScript", "jQuery", "Ruby on Rails", "CSS", "HTML", "MySQL"],
+      "role": "Full-Stack / Frontend Engineer",
+      "date": "2011 - 2013",
+      "location": "Minsk, Belarus (remote for Minneapolis-based company)",
+      "team_size": "~25-person cross-functional team",
+      "company": "Sophia Learning (via Warecorp)",
+      "company_size": "100+ employees",
       "image": "/images/sophia-project.jpg",
       "achievements": [
-        "Built interactive UI components with JavaScript Module Pattern",
-        "Designed responsive, accessible layouts with BEM methodology",
-        "Contributed to educational content delivery systems"
+        "Platform achieved ADA compliance certification",
+        "Made responsive design a foundational standard",
+        "Delivered high-traffic interfaces with performance, accessibility, and usability as first-class concerns"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "KL82 Commercial Web Projects",
+      "short_descr": "Boutique digital studio delivering custom commercial web projects, interactive experiences, and early CMS-based platforms for local and regional clients.",
+      "long_descr": [
+        {
+          "title": "Company Overview",
+          "content": "Creative Laboratory 82 (KL82) was a Minsk-based digital production studio focused on end-to-end delivery of commercial web projects. The studio worked with local and regional clients across industries, building marketing sites, e-commerce platforms, and interactive experiences during the early evolution of modern web development. Projects were delivered by small, fast-moving teams, requiring engineers to operate across the full stack — from UI and backend logic to deployment and server configuration."
+        },
+        {
+          "title": "Product Area: Commercial Web Projects & CMS Platforms",
+          "content": "I began my career at KL82 as a Full-Stack Engineer, delivering 20+ commercial projects end-to-end. My responsibilities spanned frontend interfaces, PHP/MySQL backends, and production deployment, often within tight timelines and limited tooling.<br/><br/>Key areas of work included:<br/>• Building custom UIs with hand-written HTML, CSS, and JavaScript<br/>• Developing and extending CMS platforms (WordPress, Joomla, Drupal)<br/>• Implementing e-commerce functionality and data-driven pages<br/>• Configuring servers and deployments (Apache-based environments)"
+        },
+        {
+          "title": "Interactive & Campaign-Driven Experiences",
+          "content": "In addition to traditional web projects, KL82 delivered interactive marketing experiences, including Flash-based applications and games built with ActionScript. These projects emphasized animation, user interaction, and performance within the constraints of early browser environments. This work required close collaboration with designers and clients, translating visual concepts into functional, interactive systems without the benefit of modern frameworks or tooling."
+        },
+        {
+          "title": "Engineering Context & Impact",
+          "content": "Working at KL82 established my engineering foundation — treating systems holistically from interface to infrastructure, shipping real products under constraints, and learning to balance speed with maintainability. This period shaped my approach to software engineering: pragmatic problem-solving, ownership from start to finish, and respect for the long-term cost of technical decisions — principles that continue to guide my work today."
+        }
+      ],
+      "links": {
+        "live": "",
+        "github": ""
+      },
+      "tech_stack": ["PHP", "MySQL", "JavaScript", "jQuery", "HTML", "CSS", "ActionScript", "WordPress", "Joomla", "Drupal"],
+      "role": "Full-Stack Engineer",
+      "date": "Jul 2009 - 2011",
+      "location": "Minsk, Belarus (on-site)",
+      "team_size": "10-15 employees",
+      "company": "KL82 (Creative Laboratory 82)",
+      "company_size": "10-15 employees",
+      "image": "/images/kl82-project.jpg",
+      "achievements": [
+        "Shipped 20+ commercial web applications end-to-end",
+        "Built reusable UI components and interactive marketing experiences",
+        "Helped evolve and maintain internal CMS used across client projects"
       ]
     }
   ]

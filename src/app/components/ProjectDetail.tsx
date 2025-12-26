@@ -1,26 +1,30 @@
 import { m } from 'motion/react';
 import { MotionFadeIn } from '../graphs/MotionFadeIn';
-import { ArrowLeft, ExternalLink, Github, Calendar, Users, Zap, X } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Github, Calendar, Users, Zap, X, Building2, Briefcase, MapPin } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useMousePosition } from '../hooks/useMousePosition';
 import { useScrollPosition } from '../hooks/useScrollPosition';
-import { GraphProjectDetail } from '../graphs';
 
 interface Project {
   id: string;
   title: string;
   description: string;
-  longDescription: string[];
+  longDescription: Array<string | { title?: string; content: string }>;
   technologies: string[];
   features: string[];
   challenges: string[];
   outcomes: string[];
+  achievements: string[];
   image?: string;
   demo?: string;
   github?: string;
   duration: string;
   team: string;
-  role: string;
+  team_size?: string | string[];
+  role: string | string[];
+  company?: string;
+  company_size?: string;
+  location?: string;
   category: string;
 }
 
@@ -38,171 +42,177 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
   const mouseYPercent = (mousePosition.y / window.innerHeight - 0.5) * 2;
 
   const content = (
-    <div className={`relative ${isModal ? 'p-0' : 'min-h-screen py-32 px-4'} overflow-hidden`}>
-      {/* Background effects - only for full page view */}
-      {!isModal && (
-        <GraphProjectDetail
-          scrollY={scrollY}
-          mouseXPercent={mouseXPercent}
-          mouseYPercent={mouseYPercent}
-        />
+    <div className={`relative ${isModal ? 'p-10 min-h-full' : 'min-h-screen py-32 px-4'} ${isModal ? '' : 'overflow-hidden'}`}>
+      {/* Background effects for modal */}
+      {isModal && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* Enhanced cyber grid pattern - brighter */}
+          <div 
+            className="absolute inset-0 opacity-[0.25]"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(0, 212, 255, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.3) 1px, transparent 1px),
+                linear-gradient(rgba(131, 56, 236, 0.25) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(131, 56, 236, 0.25) 1px, transparent 1px)
+              `,
+              backgroundSize: '60px 60px, 60px 60px, 30px 30px, 30px 30px',
+            }}
+          />
+          {/* Enhanced glowing orbs - brighter and more prominent */}
+          <div 
+            className="absolute top-0 left-0 w-[500px] h-[500px] rounded-full blur-[100px] opacity-30"
+            style={{
+              background: 'radial-gradient(circle, rgba(131, 56, 236, 0.6) 0%, rgba(131, 56, 236, 0.3) 30%, transparent 70%)',
+              animation: 'matrix-glow 8s ease-in-out infinite alternate',
+            }}
+          />
+          <div 
+            className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full blur-[100px] opacity-30"
+            style={{
+              background: 'radial-gradient(circle, rgba(0, 212, 255, 0.6) 0%, rgba(0, 212, 255, 0.3) 30%, transparent 70%)',
+              animation: 'matrix-glow 10s ease-in-out infinite alternate',
+            }}
+          />
+          <div 
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full blur-[80px] opacity-25"
+            style={{
+              background: 'radial-gradient(circle, rgba(255, 0, 110, 0.5) 0%, rgba(255, 0, 110, 0.2) 30%, transparent 70%)',
+              animation: 'matrix-glow 12s ease-in-out infinite alternate',
+            }}
+          />
+          {/* Subtle scanline effect */}
+          <div 
+            className="absolute inset-0 opacity-[0.05]"
+            style={{
+              background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 212, 255, 0.15) 2px, rgba(0, 212, 255, 0.15) 4px)',
+            }}
+          />
+          {/* Edge glow effect */}
+          <div 
+            className="absolute inset-0"
+            style={{
+              boxShadow: 'inset 0 0 200px rgba(131, 56, 236, 0.15), inset 0 0 300px rgba(0, 212, 255, 0.1)',
+              pointerEvents: 'none',
+            }}
+          />
+        </div>
       )}
 
-      <div className={`${isModal ? '' : 'max-w-6xl mx-auto'} relative z-10`}>
-        {/* Header */}
-        <MotionFadeIn
-          className={`${isModal ? 'mb-6' : 'mb-12'} flex items-center justify-between`}
-          duration={0.6}
-        >
-          <Button
-            variant="outline"
-            onClick={onBack}
-            className="flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-300"
-            style={{
-              background: 'rgba(0, 212, 255, 0.1)',
-              borderColor: '#00d4ff',
-              color: '#00d4ff',
-            }}
-          >
-            {isModal ? <X className="h-4 w-4" /> : <ArrowLeft className="h-4 w-4" />}
-            {isModal ? 'Close' : 'Back to Projects'}
-          </Button>
+      {/* Background effects - only for full page view */}
+      {!isModal && (
+        <div className="absolute inset-0 opacity-20">
+          {/* Background effects placeholder */}
+        </div>
+      )}
 
-          <div className="flex gap-3">
-            {project.demo && (
-              <Button
-                variant="outline"
-                asChild
-                className="flex items-center gap-2 px-4 py-2"
-                style={{
-                  background: 'rgba(0, 255, 136, 0.1)',
-                  borderColor: '#00ff88',
-                  color: '#00ff88',
-                }}
-              >
-                <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                  <ExternalLink className="h-4 w-4" />
-                  {isModal ? 'Demo' : 'Live Demo'}
-                </a>
-              </Button>
-            )}
-            {project.github && (
-              <Button
-                variant="outline"
-                asChild
-                className="flex items-center gap-2 px-4 py-2"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.1)',
-                  borderColor: 'rgba(255, 255, 255, 0.3)',
-                  color: '#ffffff',
-                }}
-              >
-                <a href={project.github} target="_blank" rel="noopener noreferrer">
-                  <Github className="h-4 w-4" />
-                  Code
-                </a>
-              </Button>
-            )}
-          </div>
-        </MotionFadeIn>
+      <div className={`${isModal ? 'max-w-full relative z-10' : 'max-w-6xl mx-auto relative z-10'}`}>
+        {isModal ? (
+          /* Modal Layout: Title -> Role -> Timeline -> Teams -> Company/Product size -> Company -> Description -> Tech Stack */
+          <div>
+            {/* Title */}
+            <h1 className="text-4xl font-bold mb-12" style={{ color: '#ffffff' }}>
+              {project.title}
+            </h1>
 
-        {/* Project Overview */}
-        <MotionFadeIn
-          className={`grid grid-cols-1 lg:grid-cols-2 gap-${isModal ? '6' : '12'} ${isModal ? 'mb-6' : 'mb-16'}`}
-          delay={0.2}
-        >
-          {/* Project Image */}
-          <div className="relative">
-            <m.div
-              className={`relative ${isModal ? 'h-64' : 'h-80'} rounded-xl overflow-hidden cyber-glass`}
-              whileHover={{ scale: isModal ? 1.02 : 1.05 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-900 to-black">
-                <div className="text-center">
-                  <Zap className={`${isModal ? 'w-12 h-12' : 'w-16 h-16'} mx-auto mb-4 text-white/40`} />
-                  <p className="text-white/60 font-medium">{project.category}</p>
-                  <p className="text-white/40 text-sm mt-1">{project.title}</p>
-                </div>
+            {/* Meta Info in new order: Role -> Timeline -> Teams -> Company - Separated with visual divider - More compact */}
+            <div className="space-y-3 text-base pb-12 border-b" style={{ color: 'rgba(255, 255, 255, 0.8)', borderColor: 'rgba(255, 255, 255, 0.1)' }}>
+              {/* Role/Position (display with slash if array) */}
+              <div className="flex items-center gap-3">
+                <Briefcase className="w-4 h-4 flex-shrink-0" style={{ color: '#ff006e' }} />
+                <span>
+                  <strong style={{ color: '#ffffff' }}>Position:</strong> <span style={{ color: 'rgba(255, 255, 255, 0.9)' }}>{Array.isArray(project.role) ? project.role.join(' / ') : project.role}</span>
+                </span>
               </div>
 
-              {/* Overlay effects */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4">
-                <div className="flex justify-between items-end">
-                  <div>
-                    <span className="text-xs px-2 py-1 bg-cyber-blue/20 text-cyber-blue rounded-full border border-cyber-blue/30">
-                      {project.category}
-                    </span>
-                  </div>
-                </div>
+              {/* Timeline/Dates */}
+              <div className="flex items-center gap-3">
+                <Calendar className="w-4 h-4 flex-shrink-0" style={{ color: '#00d4ff' }} />
+                <span>
+                  <strong style={{ color: '#ffffff' }}>Dates:</strong> <span style={{ color: 'rgba(255, 255, 255, 0.9)' }}>{project.duration}</span>
+                </span>
               </div>
-            </m.div>
-          </div>
 
-          {/* Project Info */}
-          <div className="space-y-6">
-            <div>
-              <m.h1 
-                className={`${isModal ? 'text-2xl' : 'text-4xl'} font-bold mb-4 holographic`}
-                animate={{
-                  x: mouseXPercent * (isModal ? 1 : 2),
-                }}
-                transition={{ type: 'spring', stiffness: 150, damping: 20 }}
-              >
-                {project.title}
-              </m.h1>
-              <p 
-                className={`${isModal ? 'text-sm' : 'text-lg'} leading-relaxed`}
-                style={{ color: 'rgba(255, 255, 255, 0.9)' }}
-              >
-                {project.description}
-              </p>
-            </div>
+              {/* Location (with dates if available) */}
+              {project.location && (
+                <div className="flex items-center gap-3">
+                  <MapPin className="w-4 h-4 flex-shrink-0" style={{ color: '#00ff88' }} />
+                  <span>
+                    <strong style={{ color: '#ffffff' }}>Location:</strong> <span style={{ color: 'rgba(255, 255, 255, 0.9)' }}>{project.location}</span>
+                  </span>
+                </div>
+              )}
 
-            {/* Project Meta */}
-            <div className={`grid grid-cols-${isModal ? '2' : '3'} gap-4`}>
-              <div className="text-center p-4 cyber-glass rounded-lg">
-                <Calendar className={`${isModal ? 'w-5 h-5' : 'w-6 h-6'} mx-auto mb-2`} style={{ color: '#00d4ff' }} />
-                <div className={`${isModal ? 'text-xs' : 'text-sm'} font-semibold`} style={{ color: '#00d4ff' }}>
-                  {project.duration}
+              {/* Teams (display as simple list) */}
+              {Array.isArray(project.team_size) ? (
+                <div className="flex items-center gap-3">
+                  <Users className="w-4 h-4 flex-shrink-0" style={{ color: '#00ff88' }} />
+                  <span>
+                    <strong style={{ color: '#ffffff' }}>Teams:</strong> <span style={{ color: 'rgba(255, 255, 255, 0.9)' }}>{project.team_size.join(', ')}</span>
+                  </span>
                 </div>
-                <div className={`${isModal ? 'text-xs' : 'text-xs'}`} style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
-                  Timeline
+              ) : project.team_size && (
+                <div className="flex items-center gap-3">
+                  <Users className="w-4 h-4 flex-shrink-0" style={{ color: '#00ff88' }} />
+                  <span>
+                    <strong style={{ color: '#ffffff' }}>Teams:</strong> <span style={{ color: 'rgba(255, 255, 255, 0.9)' }}>{project.team_size}</span>
+                  </span>
                 </div>
-              </div>
-              <div className="text-center p-4 cyber-glass rounded-lg">
-                <Users className={`${isModal ? 'w-5 h-5' : 'w-6 h-6'} mx-auto mb-2`} style={{ color: '#00ff88' }} />
-                <div className={`${isModal ? 'text-xs' : 'text-sm'} font-semibold`} style={{ color: '#00ff88' }}>
-                  {project.team}
-                </div>
-                <div className={`${isModal ? 'text-xs' : 'text-xs'}`} style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
-                  Team Size
-                </div>
-              </div>
-              {!isModal && (
-                <div className="text-center p-4 cyber-glass rounded-lg">
-                  <Zap className="w-6 h-6 mx-auto mb-2" style={{ color: '#ff006e' }} />
-                  <div className="text-sm font-semibold" style={{ color: '#ff006e' }}>
-                    {project.role}
-                  </div>
-                  <div className="text-xs" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
-                    My Role
-                  </div>
+              )}
+
+              {/* Company (name and size inline) */}
+              {project.company && project.company !== 'TBD' && (
+                <div className="flex items-center gap-3">
+                  <Building2 className="w-4 h-4 flex-shrink-0" style={{ color: '#8338ec' }} />
+                  <span>
+                    <strong style={{ color: '#ffffff' }}>Company:</strong> <span style={{ color: 'rgba(255, 255, 255, 0.9)' }}>{project.company}</span>
+                    {project.company_size && <span className="ml-2" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>({project.company_size})</span>}
+                  </span>
                 </div>
               )}
             </div>
 
-            {/* Technologies */}
-            <div>
-              <h3 className={`${isModal ? 'text-sm' : 'text-lg'} font-semibold mb-3`} style={{ color: '#ffffff' }}>
-                Technologies Used
-              </h3>
-              <div className="flex flex-wrap gap-2">
+            {/* Description - Separated section */}
+            <div className="space-y-8 pt-12">
+              {project.longDescription.map((item, index) => {
+                if (typeof item === 'string') {
+                  return (
+                    <p 
+                      key={index}
+                      className="text-lg leading-relaxed"
+                      style={{ color: 'rgba(255, 255, 255, 0.9)' }}
+                    >
+                      {item}
+                    </p>
+                  );
+                } else {
+                  const content = item as { title?: string; content: string };
+                  return (
+                    <div key={index} className="space-y-4">
+                      {content.title && (
+                        <h3 className="text-2xl font-semibold mb-4" style={{ color: '#ffffff' }}>
+                          {content.title}
+                        </h3>
+                      )}
+                      <div 
+                        className="text-lg leading-relaxed"
+                        style={{ color: 'rgba(255, 255, 255, 0.9)' }}
+                      >
+                        <span dangerouslySetInnerHTML={{ __html: content.content }} />
+                      </div>
+                    </div>
+                  );
+                }
+              })}
+            </div>
+
+            {/* Tech Stack - Separated section */}
+            <div className="pt-12" style={{ borderColor: 'rgba(255, 255, 255, 0.1)' }}>
+              <div className="flex flex-wrap gap-4">
                 {project.technologies.map((tech, index) => (
                   <span
                     key={index}
-                    className={`px-3 py-1 ${isModal ? 'text-xs' : 'text-sm'} rounded-full border`}
+                    className="px-5 py-3 text-base rounded-md border"
                     style={{
                       background: 'rgba(0, 212, 255, 0.1)',
                       color: '#00d4ff',
@@ -215,163 +225,170 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
               </div>
             </div>
           </div>
-        </MotionFadeIn>
-
-        {/* Detailed Sections */}
-        <div className={`grid grid-cols-1 ${isModal ? 'gap-4' : 'lg:grid-cols-2 gap-8'}`}>
-          {/* Project Description */}
-          <MotionFadeIn
-            className="cyber-glass-purple rounded-xl p-6"
-            delay={0.4}
-          >
-            <h3 className={`${isModal ? 'text-lg' : 'text-xl'} font-bold mb-4`} style={{ color: '#ffffff' }}>
-              Project Overview
-            </h3>
-            <div className="space-y-3">
-            {project.longDescription.map((paragraph, index) => (
-                <p 
-                  key={index}
-                  className={isModal ? 'text-sm' : 'text-base'}
-                  style={{ color: 'rgba(255, 255, 255, 0.8)' }}
-                >
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-          </MotionFadeIn>
-
-          {/* Key Features */}
-          <MotionFadeIn
-            className="cyber-glass rounded-xl p-6"
-            delay={0.5}
-          >
-            <h3 className={`${isModal ? 'text-lg' : 'text-xl'} font-bold mb-4`} style={{ color: '#ffffff' }}>
-              Key Features
-            </h3>
-            <div className="space-y-2">
-              {project.features.map((feature, index) => (
-                <m.div
-                  key={index}
-                  className="flex items-start gap-3"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.6 + index * 0.1 }}
-                >
-                  <div 
-                    className="w-2 h-2 rounded-full mt-2 flex-shrink-0"
-                    style={{ background: '#00d4ff' }}
-                  />
-                  <p 
-                    className={isModal ? 'text-sm' : 'text-base'}
-                    style={{ color: 'rgba(255, 255, 255, 0.8)' }}
-                  >
-                    {feature}
-                  </p>
-                </m.div>
-              ))}
-            </div>
-          </MotionFadeIn>
-
-          {/* Challenges & Solutions */}
-          {!isModal && (
+        ) : (
+          /* Full Page Layout - keep existing with animations */
+          <>
             <MotionFadeIn
-              className="cyber-glass-pink rounded-xl p-6"
-              delay={0.6}
+              className="mb-16"
+              delay={0.2}
             >
-              <h3 className="text-xl font-bold mb-4" style={{ color: '#ffffff' }}>
-                Technical Challenges
-              </h3>
-              <div className="space-y-2">
-                {project.challenges.map((challenge, index) => (
-                  <m.div
-                    key={index}
-                    className="flex items-start gap-3"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.7 + index * 0.1 }}
+              <div className="space-y-6">
+                <div>
+                  <m.h1 
+                    className="text-4xl font-bold mb-4 holographic"
+                    animate={{
+                      x: mouseXPercent * 2,
+                    }}
+                    transition={{ type: 'spring', stiffness: 150, damping: 20 }}
                   >
-                    <div 
-                      className="w-2 h-2 rounded-full mt-2 flex-shrink-0"
-                      style={{ background: '#ff006e' }}
-                    />
-                    <p style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
-                      {challenge}
-                    </p>
-                  </m.div>
-                ))}
+                    {project.title}
+                  </m.h1>
+                </div>
+
+                {/* Project Meta */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="p-4 rounded-lg border border-white/10" style={{ background: 'rgba(0, 212, 255, 0.1)' }}>
+                    <Calendar className="w-6 h-6 mb-2" style={{ color: '#00d4ff' }} />
+                    <div className="text-sm font-semibold mb-1" style={{ color: '#00d4ff' }}>
+                      {project.duration}
+                    </div>
+                    <div className="text-xs" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+                      Timeline
+                    </div>
+                  </div>
+                  <div className="p-4 rounded-lg border border-white/10" style={{ background: 'rgba(0, 255, 136, 0.1)' }}>
+                    <Users className="w-6 h-6 mb-2" style={{ color: '#00ff88' }} />
+                    <div className="text-sm font-semibold mb-1" style={{ color: '#00ff88' }}>
+                      {project.team_size || project.team}
+                    </div>
+                    <div className="text-xs" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+                      Team Size
+                    </div>
+                  </div>
+                  <div className="p-4 rounded-lg border border-white/10" style={{ background: 'rgba(255, 0, 110, 0.1)' }}>
+                    <Briefcase className="w-6 h-6 mb-2" style={{ color: '#ff006e' }} />
+                    <div className="text-sm font-semibold mb-1" style={{ color: '#ff006e' }}>
+                      {project.role}
+                    </div>
+                    <div className="text-xs" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+                      My Role
+                    </div>
+                  </div>
+                  {project.company && (
+                    <div className="p-4 rounded-lg border border-white/10" style={{ background: 'rgba(131, 56, 236, 0.1)' }}>
+                      <Building2 className="w-6 h-6 mb-2" style={{ color: '#8338ec' }} />
+                      <div className="text-sm font-semibold mb-1" style={{ color: '#8338ec' }}>
+                        {project.company}
+                      </div>
+                      <div className="text-xs" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+                        {project.company_size || 'Company'}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Technologies */}
+                <div className="mt-6">
+                  <h3 className="text-lg font-semibold mb-3" style={{ color: '#ffffff' }}>
+                    Technologies Used
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {project.technologies.map((tech, index) => (
+                      <span
+                        key={index}
+                        className="px-3 py-1.5 text-sm rounded-full border"
+                        style={{
+                          background: 'rgba(0, 212, 255, 0.1)',
+                          color: '#00d4ff',
+                          borderColor: 'rgba(0, 212, 255, 0.3)',
+                        }}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </MotionFadeIn>
-          )}
 
-          {/* Results & Impact */}
-          <MotionFadeIn
-            className="cyber-glass-purple rounded-xl p-6"
-            delay={isModal ? 0.6 : 0.7}
-          >
-            <h3 className={`${isModal ? 'text-lg' : 'text-xl'} font-bold mb-4`} style={{ color: '#ffffff' }}>
-              Results & Impact
-            </h3>
-            <div className="space-y-2">
-            {project.outcomes.map((result, index) => (
-                <m.div
-                  key={index}
-                  className="flex items-start gap-3"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: (isModal ? 0.7 : 0.8) + index * 0.1 }}
-                >
-                  <div 
-                    className="w-2 h-2 rounded-full mt-2 flex-shrink-0"
-                    style={{ background: '#00ff88' }}
-                  />
-                  <p 
-                    className={isModal ? 'text-sm' : 'text-base'}
-                    style={{ color: 'rgba(255, 255, 255, 0.8)' }}
-                  >
-                    {result}
-                  </p>
-                </m.div>
-              ))}
+            {/* Detailed Sections */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Product Description */}
+              <MotionFadeIn delay={0.4}>
+                <div className="space-y-6">
+                  {project.longDescription.map((item, index) => {
+                    if (typeof item === 'string') {
+                      return (
+                        <p 
+                          key={index}
+                          className="text-base leading-relaxed"
+                          style={{ color: 'rgba(255, 255, 255, 0.9)' }}
+                        >
+                          {item}
+                        </p>
+                      );
+                    } else {
+                      const content = item as { title?: string; content: string };
+                      return (
+                        <div key={index} className="space-y-2">
+                          {content.title && (
+                            <h3 className="text-lg font-semibold" style={{ color: '#ffffff' }}>
+                              {content.title}
+                            </h3>
+                          )}
+                          <p 
+                            className="text-base leading-relaxed"
+                            style={{ color: 'rgba(255, 255, 255, 0.9)' }}
+                          >
+                            {content.content}
+                          </p>
+                        </div>
+                      );
+                    }
+                  })}
+                </div>
+              </MotionFadeIn>
+
+              {/* Achievements */}
+              <MotionFadeIn
+                className="rounded-xl p-6 border border-white/10"
+                style={{ background: 'rgba(0, 212, 255, 0.1)' }}
+                delay={0.5}
+              >
+                <h3 className="text-xl font-bold mb-4" style={{ color: '#ffffff' }}>
+                  Achievements
+                </h3>
+                <div className="space-y-3">
+                  {project.achievements && project.achievements.length > 0 ? (
+                    project.achievements.map((achievement, index) => (
+                      <m.div
+                        key={index}
+                        className="flex items-start gap-3"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.6 + index * 0.1 }}
+                      >
+                        <div 
+                          className="w-2 h-2 rounded-full mt-2 flex-shrink-0"
+                          style={{ background: '#00d4ff' }}
+                        />
+                        <p 
+                          className="text-base leading-relaxed"
+                          style={{ color: 'rgba(255, 255, 255, 0.9)' }}
+                        >
+                          {achievement}
+                        </p>
+                      </m.div>
+                    ))
+                  ) : (
+                    <p className="text-base" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+                      No achievements listed.
+                    </p>
+                  )}
+                </div>
+              </MotionFadeIn>
             </div>
-          </MotionFadeIn>
-        </div>
-
-        {/* Action Buttons - only in modal */}
-        {isModal && (project.demo || project.github) && (
-          <MotionFadeIn
-            className="flex justify-center gap-4 mt-6 pt-6 border-t border-white/10"
-            y={20}
-            duration={0.6}
-            delay={0.8}
-          >
-            {project.demo && (
-              <Button
-                asChild
-                className="btn-cyber px-6 py-3"
-              >
-                <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                  <ExternalLink className="h-4 w-4 mr-2" />
-                  View Live Demo
-                </a>
-              </Button>
-            )}
-            {project.github && (
-              <Button
-                variant="outline"
-                asChild
-                className="px-6 py-3"
-                style={{
-                  borderColor: 'rgba(255, 255, 255, 0.3)',
-                  color: '#ffffff',
-                }}
-              >
-                <a href={project.github} target="_blank" rel="noopener noreferrer">
-                  <Github className="h-4 w-4 mr-2" />
-                  View Code
-                </a>
-              </Button>
-            )}
-          </MotionFadeIn>
+          </>
         )}
       </div>
     </div>

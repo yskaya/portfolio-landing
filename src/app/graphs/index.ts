@@ -1,9 +1,9 @@
 export { AnimatedCursor } from './AnimatedCursor';
-export { AnimatedProjectDetail } from './BgPattern2';
-export { AnimatedWorkHistory } from './BgPattern3';
+export { BgPattern2 } from './BgPattern2';
+export { BgPattern3 } from './BgPattern3';
 
 export { MotionFadeIn } from './MotionFadeIn';
 export { MotionSection } from './MotionSection';
 export { MotionSlideIn } from './MotionSlideIn';
 
-export { ParallaxBackground } from './AnimatedBackground';
+export { AnimatedBackground } from './AnimatedBackground';

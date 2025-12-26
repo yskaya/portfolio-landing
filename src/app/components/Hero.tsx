@@ -16,9 +16,9 @@ export function Hero() {
   const rotatingTitles = intro.positions && intro.positions.length > 0 ? intro.positions : ["TBD"];
   const username = intro.links?.email ? intro.links.email.split('@')[0] : 'tbd';
   const socialLinks = [
-    { icon: Github, label: 'GitHub', href: intro.links?.github || 'TBD', color: '#00d4ff' },
-    { icon: Linkedin, label: 'LinkedIn', href: intro.links?.linkedin || 'TBD', color: '#ff006e' },
-    { icon: Mail, label: 'Contact', href: intro.links?.email ? `mailto:${intro.links.email}` : 'TBD', color: '#8338ec' },
+    { icon: Github, label: 'GitHub', href: intro.links?.github, color: '#00d4ff' },
+    { icon: Linkedin, label: 'LinkedIn', href: intro.links?.linkedin, color: '#ff006e' },
+    { icon: Mail, label: 'Contact', href: intro.links?.email ? `mailto:${intro.links.email}` : '#', color: '#8338ec' },
   ];
 
   useEffect(() => {
@@ -129,7 +129,7 @@ export function Hero() {
               fontWeight: 700,
             }}
           >
-            {intro.name || 'TBD'}
+            {intro.name}
 
             {/* Glitch effect overlay */}
             <m.div
@@ -207,9 +207,7 @@ export function Hero() {
             }}
             delay={0.4}
           >
-            {intro.short_description || 'TBD'}
-            <br />
-            {intro.about || 'TBD'}
+            {intro.short_description || intro.about || 'TBD'}
           </MotionFadeIn>
         </m.div>
         

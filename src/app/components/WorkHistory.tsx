@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { m } from 'motion/react';
-import { Calendar, MapPin, Users, TrendingUp, ExternalLink, Building } from 'lucide-react';
+import { Calendar, MapPin, Users, TrendingUp, ExternalLink, Building, ChevronDown } from 'lucide-react';
 import { useMousePosition } from '../hooks/useMousePosition';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 import { MotionSection } from '../graphs/MotionSection';
@@ -26,9 +26,17 @@ interface WorkExperience {
   impact?: string;
 }
 
+interface CompanyGroup {
+  company: string;
+  companyUrl: string;
+  location: string;
+  positions: WorkExperience[];
+  dateRange: string;
+}
+
 export function WorkHistory() {
   const scrollY = useScrollPosition();
-  const [expandedId, setExpandedId] = useState<string>('');
+  const [expandedPositionId, setExpandedPositionId] = useState<string>('');
   const mousePosition = useMousePosition();
 
   const mouseXPercent = (mousePosition.x / window.innerWidth - 0.5) * 2;
@@ -44,14 +52,49 @@ export function WorkHistory() {
     location: item.location,
     type: 'TBD',
     description: [item.desc, ...(item.responsibilities || [])],
-    achievements: item.achievements ? [item.achievements] : [],
+    achievements: Array.isArray(item.achievements) ? item.achievements : (item.achievements ? [item.achievements] : []),
     technologies: [],
     teamSize: item.team_size || 'TBD',
     impact: 'TBD',
   }));
 
-  const toggleExpanded = (id: string) => {
-    setExpandedId(expandedId === id ? '' : id);
+  // Group experiences by company
+  const companyGroups: CompanyGroup[] = useMemo(() => {
+    const groups = new Map<string, CompanyGroup>();
+    
+    experiences.forEach((exp) => {
+      if (!groups.has(exp.company)) {
+        groups.set(exp.company, {
+          company: exp.company,
+          companyUrl: exp.companyUrl,
+          location: exp.location,
+          positions: [],
+          dateRange: '',
+        });
+      }
+      groups.get(exp.company)!.positions.push(exp);
+    });
+
+    // Calculate date ranges and sort positions by date (newest first)
+    return Array.from(groups.values()).map((group) => {
+      group.positions.sort((a, b) => {
+        // Simple date comparison - extract year from period
+        const aYear = parseInt(a.period.split(' - ')[0].split(' ').pop() || '0');
+        const bYear = parseInt(b.period.split(' - ')[0].split(' ').pop() || '0');
+        return bYear - aYear;
+      });
+      
+      const dates = group.positions.map(p => p.period);
+      const startDate = dates[dates.length - 1].split(' - ')[0];
+      const endDate = dates[0].split(' - ')[1];
+      group.dateRange = `${startDate} - ${endDate}`;
+      
+      return group;
+    });
+  }, [experiences]);
+
+  const togglePositionExpanded = (id: string) => {
+    setExpandedPositionId(expandedPositionId === id ? '' : id);
   };
 
   return (
@@ -88,207 +131,172 @@ export function WorkHistory() {
           </m.p>
         </m.div>
 
-        <div className="space-y-8">
-          {experiences.map((exp, index) => (
-            <MotionFadeIn
-              key={exp.id}
-              className="relative"
-              animateStyle={{ x: mouseXPercent * (index % 2 === 0 ? 2 : -2) }}
-              transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-            >
-              <HoverGlowCard
-                className="cyber-glass-purple cyber-glass-purple-box cyber-glass-box rounded-xl p-8 cursor-pointer"
-                onClick={() => toggleExpanded(exp.id)}
+        <div className="space-y-6">
+          {companyGroups.map((group, groupIndex) => {
+            return (
+              <MotionFadeIn
+                key={group.company}
+                className="relative"
+                animateStyle={{ x: mouseXPercent * (groupIndex % 2 === 0 ? 2 : -2) }}
+                transition={{ type: 'spring', stiffness: 200, damping: 25 }}
               >
-                {/* Header */}
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <m.h3 
-                        className="text-2xl font-bold"
-                        style={{ color: '#ffffff' }}
-                        whileHover={{ color: '#8338ec' }}
-                      >
-                        {exp.position}
-                      </m.h3>
-                      {exp.companyUrl && (
-                        <m.a
-                          href={exp.companyUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full transition-all duration-300"
-                          style={{
-                            background: 'rgba(131, 56, 236, 0.2)',
-                            borderColor: '#8338ec',
-                            color: '#ffffff',
-                          }}
-                          whileHover={{
-                            background: 'rgba(131, 56, 236, 0.4)',
-                            scale: 1.05,
-                          }}
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <ExternalLink className="w-3 h-3" />
-                          Visit
-                        </m.a>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-4 text-sm mb-4">
-                      <div className="flex items-center gap-1">
-                        <Building className="w-4 h-4" style={{ color: '#8338ec' }} />
-                        <span style={{ color: '#8338ec', fontWeight: 600 }}>{exp.company}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" style={{ color: 'rgba(255, 255, 255, 0.7)' }} />
-                        <span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>{exp.period}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <MapPin className="w-4 h-4" style={{ color: 'rgba(255, 255, 255, 0.7)' }} />
-                        <span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>{exp.location}</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex gap-4 text-sm">
-                    {exp.teamSize && (
-                      <div className="flex items-center gap-1">
-                        <Users className="w-4 h-4" style={{ color: '#00ff88' }} />
-                        <span style={{ color: '#00ff88' }}>{exp.teamSize}</span>
-                      </div>
-                    )}
-                    {exp.impact && (
-                      <div className="flex items-center gap-1">
-                        <TrendingUp className="w-4 h-4" style={{ color: '#00d4ff' }} />
-                        <span style={{ color: '#00d4ff' }}>{exp.impact}</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Brief Description */}
-                <div className="mb-6">
-                  <p style={{ color: 'rgba(255, 255, 255, 0.9)' }}>
-                    {exp.description[0]}
-                  </p>
-                </div>
-
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {exp.technologies.map((tech, techIndex) => (
-                    <m.span
-                      key={techIndex}
-                      className="px-3 py-1 text-xs rounded-full"
-                      style={{
-                        background: 'rgba(131, 56, 236, 0.3)',
-                        color: '#ffffff',
-                        border: '1px solid rgba(131, 56, 236, 0.5)',
-                      }}
-                      whileHover={{
-                        background: 'rgba(131, 56, 236, 0.5)',
-                        scale: 1.05,
-                      }}
-                    >
-                      {tech}
-                    </m.span>
-                  ))}
-                </div>
-
-                {/* Expand/Collapse Indicator */}
-                <div className="flex justify-center">
-                  <m.div
-                    className="w-8 h-1 rounded-full"
-                    style={{ background: 'rgba(131, 56, 236, 0.5)' }}
-                    animate={{
-                      scaleX: expandedId === exp.id ? 2 : 1,
-                      background: expandedId === exp.id ? '#8338ec' : 'rgba(131, 56, 236, 0.5)',
-                    }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </div>
-
-                {/* Expanded Content */}
-                <m.div
-                  initial={false}
-                  animate={{
-                    height: expandedId === exp.id ? 'auto' : 0,
-                    opacity: expandedId === exp.id ? 1 : 0,
-                  }}
-                  transition={{ duration: 0.4, ease: 'easeInOut' }}
-                  className="overflow-hidden"
-                >
-                  <div className="pt-6 border-t border-white/10 mt-6">
-                    {/* Full Description */}
-                    <div className="mb-6">
-                      <h4 className="text-lg font-semibold mb-3" style={{ color: '#ffffff' }}>
-                        Role Overview
-                      </h4>
-                      <div className="space-y-2" style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
-                        {exp.description.map((desc, descIndex) => (
-                          <p key={descIndex}>
-                            • {desc}
-                          </p>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Key Achievements */}
-                    <div>
-                      <h4 className="text-lg font-semibold mb-3" style={{ color: '#ffffff' }}>
-                        Key Achievements
-                      </h4>
-                      <div className="space-y-2">
-                        {exp.achievements.map((achievement, achIndex) => (
-                          <MotionSlideIn
-                            key={achIndex}
-                            delay={achIndex * 0.1}
-                            direction="left"
+                <HoverGlowCard className="cyber-glass-purple cyber-glass-purple-box cyber-glass-box rounded-xl overflow-hidden">
+                  {/* Company Header - Always Visible */}
+                  <div className="p-6 border-b border-white/10">
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <Building className="w-5 h-5" style={{ color: '#8338ec' }} />
+                          <m.h3 
+                            className="text-2xl font-bold"
+                            style={{ color: '#ffffff' }}
+                            whileHover={{ color: '#8338ec' }}
                           >
-                            <p style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
-                              🚀 {achievement}
-                            </p>
-                          </MotionSlideIn>
-                        ))}
+                            {group.company}
+                          </m.h3>
+                          {group.companyUrl && (
+                            <m.a
+                              href={group.companyUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full transition-all duration-300"
+                              style={{
+                                background: 'rgba(131, 56, 236, 0.2)',
+                                borderColor: '#8338ec',
+                                color: '#ffffff',
+                              }}
+                              whileHover={{
+                                background: 'rgba(131, 56, 236, 0.4)',
+                                scale: 1.05,
+                              }}
+                            >
+                              <ExternalLink className="w-3 h-3" />
+                              Visit
+                            </m.a>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-4 text-sm">
+                          <div className="flex items-center gap-1">
+                            <Calendar className="w-4 h-4" style={{ color: 'rgba(255, 255, 255, 0.7)' }} />
+                            <span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>{group.dateRange}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <MapPin className="w-4 h-4" style={{ color: 'rgba(255, 255, 255, 0.7)' }} />
+                            <span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>{group.location}</span>
+                          </div>
+                          {group.positions.length > 1 && (
+                            <span className="text-xs px-2 py-1 rounded-full" style={{ background: 'rgba(131, 56, 236, 0.2)', color: '#8338ec' }}>
+                              {group.positions.length} positions
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </m.div>
-              </HoverGlowCard>
-            </MotionFadeIn>
-          ))}
-        </div>
 
-        {/* Career Summary */}
-        <m.div
-          className="mt-16 text-center"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <div className="cyber-glass-purple cyber-glass-purple-box rounded-xl p-8">
-            <h3 className="text-xl font-bold mb-4 text-white">
-              Career Highlights
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-2 holographic">15+</div>
-                <div className="text-sm" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>Years Experience</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-2 holographic">5</div>
-                <div className="text-sm" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>Countries Worked</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-2 holographic">20+</div>
-                <div className="text-sm" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>Projects Delivered</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-2 holographic">Millions</div>
-                <div className="text-sm" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>Users Impacted</div>
-              </div>
-            </div>
-          </div>
-        </m.div>
+                  {/* All Positions - Always Visible */}
+                  <div className="px-6 pb-6 space-y-6 pt-6">
+                    {group.positions.map((position, posIndex) => (
+                      <div key={position.id}>
+                        <div 
+                          className="mb-3 cursor-pointer group"
+                          onClick={() => togglePositionExpanded(position.id)}
+                        >
+                          <div className="flex relative" style={{ gap: '5%' }}>
+                            {/* First Column: Position and Team - 25% */}
+                            <div className="flex-shrink-0" style={{ width: '25%' }}>
+                              <h4 className="text-lg font-semibold mb-1 group-hover:opacity-80 transition-opacity" style={{ color: '#ffffff' }}>
+                                {position.position}
+                              </h4>
+                              {position.teamSize && position.teamSize !== 'TBD' && (
+                                <div className="flex items-center gap-1 text-sm">
+                                  <Users className="w-4 h-4" style={{ color: '#00ff88' }} />
+                                  <span style={{ color: '#00ff88' }}>{position.teamSize}</span>
+                                </div>
+                              )}
+                            </div>
+                            
+                            {/* Second Column: Date and Description - 60% */}
+                            <div className="flex-shrink-0" style={{ width: '60%' }}>
+                              <div className="text-sm mb-1" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+                                {position.period}
+                              </div>
+                              <p className="text-sm" style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
+                                {position.description[0]}
+                              </p>
+                            </div>
+
+                            {/* Visual indicator - Chevron icon */}
+                            <div className="absolute right-0 top-0">
+                              <m.div
+                                animate={{ rotate: expandedPositionId === position.id ? 180 : 0 }}
+                                transition={{ duration: 0.3 }}
+                                className="opacity-80 group-hover:opacity-100 transition-opacity"
+                              >
+                                <ChevronDown 
+                                  className="w-6 h-6" 
+                                  style={{ 
+                                    color: expandedPositionId === position.id ? '#8338ec' : 'rgba(131, 56, 236, 0.9)',
+                                    filter: 'drop-shadow(0 0 4px rgba(131, 56, 236, 0.5))'
+                                  }} 
+                                />
+                              </m.div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Expanded Details - Appears right after description when expanded */}
+                        <m.div
+                          initial={false}
+                          animate={{
+                            height: expandedPositionId === position.id ? 'auto' : 0,
+                            opacity: expandedPositionId === position.id ? 1 : 0,
+                          }}
+                          transition={{ duration: 0.4, ease: 'easeInOut' }}
+                          className="overflow-hidden cursor-pointer"
+                          onClick={() => togglePositionExpanded(position.id)}
+                        >
+                          <div className="pt-4" style={{ marginLeft: 'calc(25% + 5%)' }}>
+                            {position.description.slice(1).length > 0 && (
+                              <div className="space-y-2 mb-6" style={{ color: 'rgba(255, 255, 255, 0.9)' }}>
+                                {position.description.slice(1).map((desc, descIndex) => (
+                                  <div key={descIndex} className="flex items-start gap-3 text-sm">
+                                    <span className="mt-1.5 flex-shrink-0" style={{ color: '#00d4ff' }}>•</span>
+                                    <span className="flex-1 leading-relaxed">{desc}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                            {position.achievements.length > 0 && (
+                              <div>
+                                <h5 className="text-sm font-semibold mb-3" style={{ color: '#ffffff' }}>
+                                  Key Achievements
+                                </h5>
+                                <div className="space-y-2">
+                                  {position.achievements.map((achievement, achIndex) => (
+                                    <div key={achIndex} className="flex items-start gap-3 text-sm">
+                                      <span className="mt-1.5 flex-shrink-0" style={{ color: '#00ff88' }}>🚀</span>
+                                      <span className="flex-1 leading-relaxed" style={{ color: 'rgba(255, 255, 255, 0.9)' }}>{achievement}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </m.div>
+                        
+                        {/* Separating line - Only show between positions */}
+                        {posIndex < group.positions.length - 1 && (
+                          <div className="border-b border-white/10 pt-4"></div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </HoverGlowCard>
+              </MotionFadeIn>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

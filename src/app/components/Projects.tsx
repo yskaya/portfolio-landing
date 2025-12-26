@@ -19,7 +19,7 @@ export function Projects({ showAll = false }: ProjectsProps) {
   const [selectedProjectId, setSelectedProjectId] = useState<string>("");
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   
-  const displayProjects = showAll ? projects : projects.slice(0, 4);
+  const displayProjects = showAll ? projects : projects.slice(0, 6);
 
   const selectedProject = useMemo(
     () => projects.find((p) => p.id === selectedProjectId),
@@ -38,7 +38,7 @@ export function Projects({ showAll = false }: ProjectsProps) {
 
   return (
     <>
-    <section className="py-20 px-4">
+    <section className="py-20 px-4 lg:px-12">
       <div className="max-w-6xl mx-auto">
         <MotionFadeIn>
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">
@@ -52,13 +52,27 @@ export function Projects({ showAll = false }: ProjectsProps) {
               <HoverGlowCard onClick={() => handleProjectSelect(project.id)}>
                 <Card className="bg-white/5 border-white/10 text-white hover:bg-white/10 transition-colors">
                   <CardHeader>
-                    <div className="flex justify-between items-start">
-                      <CardTitle className="text-xl text-white">{project.title}</CardTitle>
+                    <div className="flex justify-between items-start gap-2">
+                      <div className="flex-1 min-w-0">
+                        <CardTitle className="text-xl text-white mb-1 line-clamp-1">{project.title}</CardTitle>
+                        {/* Date and Position - compact, under title */}
+                        <div className="flex flex-wrap items-center gap-2 text-xs text-gray-400">
+                          {project.duration && project.duration !== 'TBD' && (
+                            <span>{project.duration}</span>
+                          )}
+                          {project.role && (
+                            <>
+                              {project.duration && project.duration !== 'TBD' && <span>•</span>}
+                              <span className="line-clamp-1">{Array.isArray(project.role) ? project.role.join(' / ') : project.role}</span>
+                            </>
+                          )}
+                        </div>
+                      </div>
                       {project.featured && (
-                        <Badge className="bg-white text-black transition-none">Featured</Badge>
+                        <Badge className="bg-white text-black transition-none flex-shrink-0">Featured</Badge>
                       )}
                     </div>
-                    <CardDescription className="text-gray-300">
+                    <CardDescription className="text-gray-300 mt-2">
                       {project.description}
                     </CardDescription>
                   </CardHeader>
@@ -92,7 +106,28 @@ export function Projects({ showAll = false }: ProjectsProps) {
       </div>
 
       <Dialog open={isProjectModalOpen} onOpenChange={setIsProjectModalOpen}>
-          <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto cyber-glass border-2">
+          <DialogContent 
+            className="!max-w-4xl sm:!max-w-4xl !h-screen !border !p-0 flex flex-col !rounded-none"
+            style={{
+              background: `
+                linear-gradient(180deg, rgba(10, 10, 20, 0.85) 0%, rgba(15, 15, 25, 0.80) 50%, rgba(10, 10, 20, 0.85) 100%),
+                radial-gradient(circle at 30% 20%, rgba(131, 56, 236, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(0, 212, 255, 0.20) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 0, 110, 0.15) 0%, transparent 60%)
+              `,
+              backdropFilter: 'blur(40px)',
+              WebkitBackdropFilter: 'blur(40px)',
+              borderColor: 'rgba(255, 255, 255, 0.1)',
+              boxShadow: `
+                0 0 80px rgba(131, 56, 236, 0.4),
+                0 0 120px rgba(0, 212, 255, 0.3),
+                0 0 160px rgba(255, 0, 110, 0.2),
+                inset 0 0 100px rgba(131, 56, 236, 0.1),
+                inset 0 0 200px rgba(0, 212, 255, 0.05)
+              `,
+            }}
+          >
+            <div className="flex-1 overflow-y-auto">
             <DialogHeader className="sr-only">
               <DialogTitle>{selectedProject?.title || "Project Details"}</DialogTitle>
             </DialogHeader>
@@ -103,6 +138,7 @@ export function Projects({ showAll = false }: ProjectsProps) {
                 isModal
               />
             )}
+            </div>
           </DialogContent>
         </Dialog>
     </section>

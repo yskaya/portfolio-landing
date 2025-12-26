@@ -5,7 +5,6 @@ import { AnimatePresence, LazyMotion, domAnimation } from "motion/react";
 import { Hero } from "./components/Hero";
 import { About } from "./components/About";
 import { Skills } from "./components/Skills";
-import { Qualification } from "./components/Qualification";
 import { WorkHistory } from "./components/WorkHistory";
 import { Projects } from "./components/Projects";
 import { Contact } from "./components/Contact";
@@ -50,10 +49,6 @@ export default function App() {
                 <Skills />
               </MotionSection>
 
-              <MotionSection id={SECTION.SKILLS} className="cyber-glass-green2">
-                <Qualification />
-              </MotionSection>
-
               <MotionSection id={SECTION.CONTACT} className="cyber-glass-green">
                 <Contact />
               </MotionSection>
@@ -75,4 +70,5 @@ export default function App() {
     </div>
   );
 }
+
 

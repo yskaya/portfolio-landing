@@ -2,7 +2,7 @@
   "skills": [
     {
       "category_name": "Languages & Core",
-      "technologies": ["JS(ES6+)", "Typescript"]
+      "technologies": ["JavaScript (ES6+)", "TypeScript"]
     },
     {
       "category_name": "Frontend",
@@ -10,7 +10,7 @@
     },
     {
       "category_name": "Backend",
-      "technologies": ["Node.js", "NestJS", "Express", "MySQL"]
+      "technologies": ["Node.js", "NestJS", "Express", "Go", "MySQL"]
     },
     {
       "category_name": "APIs",
@@ -26,7 +26,7 @@
     },
     {
       "category_name": "Cloud & Infra",
-      "technologies": ["AWS", "Docker", "OAuth"]
+      "technologies": ["AWS", "Docker", "Kubernetes", "OAuth"]
     },
     {
       "category_name": "Build",
