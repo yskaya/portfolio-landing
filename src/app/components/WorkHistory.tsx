@@ -39,8 +39,8 @@ export function WorkHistory() {
   const [expandedPositionId, setExpandedPositionId] = useState<string>('');
   const mousePosition = useMousePosition();
 
-  const mouseXPercent = (mousePosition.x / window.innerWidth - 0.5) * 2;
-  const mouseYPercent = (mousePosition.y / window.innerHeight - 0.5) * 2;
+  const mouseXPercent = typeof window !== "undefined" ? (mousePosition.x / window.innerWidth - 0.5) * 2 : 0;
+  const mouseYPercent = typeof window !== "undefined" ? (mousePosition.y / window.innerHeight - 0.5) * 2 : 0;
   const { work } = useData();
 
   const experiences: WorkExperience[] = work.map((item, index) => ({

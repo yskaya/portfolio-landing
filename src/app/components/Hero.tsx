@@ -29,8 +29,8 @@ export function Hero() {
   }, [rotatingTitles.length]);
 
   // Calculate mouse movement effects
-  const mouseXPercent = (mousePosition.x / window.innerWidth - 0.5) * 2;
-  const mouseYPercent = (mousePosition.y / window.innerHeight - 0.5) * 2;
+  const mouseXPercent = typeof window !== "undefined" ? (mousePosition.x / window.innerWidth - 0.5) * 2 : 0;
+  const mouseYPercent = typeof window !== "undefined" ? (mousePosition.y / window.innerHeight - 0.5) * 2 : 0;
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">

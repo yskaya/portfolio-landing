@@ -15,10 +15,12 @@ export function useMouseMV() {
   const y = useMotionValue(0);
 
   // Attach mousemove listener via Motion's useDomEvent
-  useDomEvent(window, "mousemove", (e: MouseEvent) => {
-    x.set(e.clientX);
-    y.set(e.clientY);
-  });
+  if (typeof window !== "undefined") {
+    useDomEvent(window, "mousemove", (e: MouseEvent) => {
+      x.set(e.clientX);
+      y.set(e.clientY);
+    });
+  }
 
   const xs = useSpring(x, { stiffness: 400, damping: 40 });
   const ys = useSpring(y, { stiffness: 400, damping: 40 });

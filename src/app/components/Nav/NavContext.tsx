@@ -28,6 +28,7 @@ export function NavProvider({ children }: { children: ReactNode }) {
     : 0;
 
   const scrollToSection = (id: string) => {
+    if (typeof window === "undefined") return;
     const el = document.getElementById(id);
     el?.scrollIntoView({ behavior: "smooth", block: "start" });
   };

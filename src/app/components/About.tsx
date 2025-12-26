@@ -18,8 +18,8 @@ export function About() {
   const mousePosition = useMousePosition();
   const { intro } = useData();
 
-  const mouseXPercent = (mousePosition.x / window.innerWidth - 0.5) * 2;
-  const mouseYPercent = (mousePosition.y / window.innerHeight - 0.5) * 2;
+  const mouseXPercent = typeof window !== "undefined" ? (mousePosition.x / window.innerWidth - 0.5) * 2 : 0;
+  const mouseYPercent = typeof window !== "undefined" ? (mousePosition.y / window.innerHeight - 0.5) * 2 : 0;
 
   const aboutSection = intro.about_section;
   const highlights = aboutSection?.highlights || [];

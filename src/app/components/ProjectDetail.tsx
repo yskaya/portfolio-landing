@@ -38,8 +38,8 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
   const scrollY = useScrollPosition();
   const mousePosition = useMousePosition();
 
-  const mouseXPercent = (mousePosition.x / window.innerWidth - 0.5) * 2;
-  const mouseYPercent = (mousePosition.y / window.innerHeight - 0.5) * 2;
+  const mouseXPercent = typeof window !== "undefined" ? (mousePosition.x / window.innerWidth - 0.5) * 2 : 0;
+  const mouseYPercent = typeof window !== "undefined" ? (mousePosition.y / window.innerHeight - 0.5) * 2 : 0;
 
   const content = (
     <div className={`relative ${isModal ? 'p-10 min-h-full' : 'min-h-screen py-32 px-4'} ${isModal ? '' : 'overflow-hidden'}`}>
