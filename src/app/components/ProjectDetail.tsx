@@ -110,10 +110,33 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
         {isModal ? (
           /* Modal Layout: Title -> Role -> Timeline -> Teams -> Company/Product size -> Company -> Description -> Tech Stack */
           <div>
-            {/* Title */}
-            <h1 className="text-4xl font-bold mb-12" style={{ color: '#ffffff' }}>
-              {project.title}
-            </h1>
+            {/* Title with Visit link */}
+            <div className="flex items-center gap-4 mb-12">
+              <h1 className="text-4xl font-bold" style={{ color: '#ffffff' }}>
+                {project.title}
+              </h1>
+              {project.demo && project.demo !== 'TBD' && (
+                <m.a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full transition-all duration-300 flex-shrink-0"
+                  style={{
+                    background: 'rgba(131, 56, 236, 0.2)',
+                    borderColor: '#8338ec',
+                    color: '#8338ec',
+                    border: '1px solid rgba(131, 56, 236, 0.3)',
+                  }}
+                  whileHover={{
+                    background: 'rgba(131, 56, 236, 0.4)',
+                    scale: 1.05,
+                  }}
+                >
+                  <ExternalLink className="w-3 h-3" />
+                  Visit
+                </m.a>
+              )}
+            </div>
 
             {/* Meta Info in new order: Role -> Timeline -> Teams -> Company - Separated with visual divider - More compact */}
             <div className="space-y-3 text-base pb-12 border-b" style={{ color: 'rgba(255, 255, 255, 0.8)', borderColor: 'rgba(255, 255, 255, 0.1)' }}>

@@ -97,6 +97,22 @@ export function Projects({ showAll = false }: ProjectsProps) {
                       )}
                     </div>
                     
+                    {/* Visit Link */}
+                    {project.demo && project.demo !== 'TBD' && (
+                      <div className="mt-4 pt-4 border-t border-white/10">
+                        <a
+                          href={project.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-2 text-sm font-medium transition-all duration-300 hover:gap-3 group"
+                          style={{ color: '#8338ec' }}
+                        >
+                          <span>Visit Project</span>
+                          <ExternalLink className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                        </a>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               </HoverGlowCard>

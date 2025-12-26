@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { m } from 'motion/react';
-import { Calendar, MapPin, Users, TrendingUp, ExternalLink, Building, ChevronDown } from 'lucide-react';
+import { Calendar, MapPin, Users, TrendingUp, ExternalLink, Building, ChevronDown, BookOpen } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { useMousePosition } from '../hooks/useMousePosition';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 import { MotionSection } from '../graphs/MotionSection';
@@ -10,6 +11,7 @@ import { useData } from '../context/DataContext';
 import { AnimatedWorkHistory } from '../graphs';
 import { HoverGlowCard } from '../graphs/HoverGlowCard';
 import { BgPattern3 } from '../graphs/BgPattern3';
+import { CareerStory } from './CareerStory';
 
 interface WorkExperience {
   id: string;
@@ -34,14 +36,45 @@ interface CompanyGroup {
   dateRange: string;
 }
 
+// Map company names to story section IDs
+const companyToStorySection: Record<string, number> = {
+  'KL82 (Creative Laboratory 82)': 1,
+  'KL82': 1,
+  'Various (Europe)': 1, // KL82 is part of early Europe work
+  'Sophia Learning (via Warecorp)': 2,
+  'Sophia Learning': 2,
+  'Candena': 3,
+  'U.S. Relocation & Freelance': 4,
+  'Freelance Engineer': 4,
+  'AI Amelia (IPsoft)': 5,
+  'IPsoft (Amelia)': 5,
+  'Amelia': 5,
+  'Namely': 6,
+  'WeTransfer': 7,
+  'WoWCube': 8,
+};
+
 export function WorkHistory() {
   const scrollY = useScrollPosition();
   const [expandedPositionId, setExpandedPositionId] = useState<string>('');
+  const [isStoryModalOpen, setIsStoryModalOpen] = useState(false);
+  const [storySectionId, setStorySectionId] = useState<number | undefined>(undefined);
   const mousePosition = useMousePosition();
 
   const mouseXPercent = typeof window !== "undefined" ? (mousePosition.x / window.innerWidth - 0.5) * 2 : 0;
   const mouseYPercent = typeof window !== "undefined" ? (mousePosition.y / window.innerHeight - 0.5) * 2 : 0;
   const { work } = useData();
+
+  const handleStoryClick = (company: string) => {
+    const sectionId = companyToStorySection[company];
+    if (sectionId) {
+      setStorySectionId(sectionId);
+      setIsStoryModalOpen(true);
+    } else {
+      setStorySectionId(undefined);
+      setIsStoryModalOpen(true);
+    }
+  };
 
   const experiences: WorkExperience[] = work.map((item, index) => ({
     id: `work-${index}`,
@@ -146,7 +179,6 @@ export function WorkHistory() {
                     <div className="flex items-center justify-between">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                          <Building className="w-5 h-5" style={{ color: '#8338ec' }} />
                           <m.h3 
                             className="text-2xl font-bold"
                             style={{ color: '#ffffff' }}
@@ -154,26 +186,6 @@ export function WorkHistory() {
                           >
                             {group.company}
                           </m.h3>
-                          {group.companyUrl && (
-                            <m.a
-                              href={group.companyUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full transition-all duration-300"
-                              style={{
-                                background: 'rgba(131, 56, 236, 0.2)',
-                                borderColor: '#8338ec',
-                                color: '#ffffff',
-                              }}
-                              whileHover={{
-                                background: 'rgba(131, 56, 236, 0.4)',
-                                scale: 1.05,
-                              }}
-                            >
-                              <ExternalLink className="w-3 h-3" />
-                              Visit
-                            </m.a>
-                          )}
                         </div>
                         <div className="flex items-center gap-4 text-sm">
                           <div className="flex items-center gap-1">
@@ -184,11 +196,6 @@ export function WorkHistory() {
                             <MapPin className="w-4 h-4" style={{ color: 'rgba(255, 255, 255, 0.7)' }} />
                             <span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>{group.location}</span>
                           </div>
-                          {group.positions.length > 1 && (
-                            <span className="text-xs px-2 py-1 rounded-full" style={{ background: 'rgba(131, 56, 236, 0.2)', color: '#8338ec' }}>
-                              {group.positions.length} positions
-                            </span>
-                          )}
                         </div>
                       </div>
                     </div>
@@ -203,24 +210,27 @@ export function WorkHistory() {
                           onClick={() => togglePositionExpanded(position.id)}
                         >
                           <div className="flex relative" style={{ gap: '5%' }}>
-                            {/* First Column: Position and Team - 25% */}
+                            {/* First Column: Position, Team, and Date - 25% */}
                             <div className="flex-shrink-0" style={{ width: '25%' }}>
                               <h4 className="text-lg font-semibold mb-1 group-hover:opacity-80 transition-opacity" style={{ color: '#ffffff' }}>
                                 {position.position}
                               </h4>
                               {position.teamSize && position.teamSize !== 'TBD' && (
-                                <div className="flex items-center gap-1 text-sm">
+                                <div className="flex items-center gap-1 text-sm mb-1">
                                   <Users className="w-4 h-4" style={{ color: '#00ff88' }} />
                                   <span style={{ color: '#00ff88' }}>{position.teamSize}</span>
                                 </div>
                               )}
+                              {/* Only show date if company has multiple positions */}
+                              {group.positions.length > 1 && (
+                                <div className="text-sm" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+                                  {position.period}
+                                </div>
+                              )}
                             </div>
                             
-                            {/* Second Column: Date and Description - 60% */}
+                            {/* Second Column: Description - 60% */}
                             <div className="flex-shrink-0" style={{ width: '60%' }}>
-                              <div className="text-sm mb-1" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
-                                {position.period}
-                              </div>
                               <p className="text-sm" style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
                                 {position.description[0]}
                               </p>
@@ -291,6 +301,24 @@ export function WorkHistory() {
                         )}
                       </div>
                     ))}
+                    
+                    {/* Read Story Link - At the end of all positions */}
+                    <div className="pt-6 border-t border-white/10 mt-6 flex justify-end">
+                      <button
+                        onClick={() => handleStoryClick(group.company)}
+                        className="inline-flex items-center gap-2 text-sm font-medium transition-all duration-300 hover:gap-3 group"
+                        style={{ color: '#8338ec' }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.color = '#a855f7';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.color = '#8338ec';
+                        }}
+                      >
+                        <span>read story</span>
+                        <BookOpen className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                      </button>
+                    </div>
                   </div>
                 </HoverGlowCard>
               </MotionFadeIn>
@@ -298,6 +326,42 @@ export function WorkHistory() {
           })}
         </div>
       </div>
+
+      {/* My Story Dialog */}
+      <Dialog open={isStoryModalOpen} onOpenChange={setIsStoryModalOpen}>
+        <DialogContent 
+          className="!max-w-4xl sm:!max-w-4xl !h-screen !border !p-0 flex flex-col !rounded-none"
+          style={{
+            background: `
+              linear-gradient(180deg, rgba(10, 10, 20, 0.85) 0%, rgba(15, 15, 25, 0.80) 50%, rgba(10, 10, 20, 0.85) 100%),
+              radial-gradient(circle at 30% 20%, rgba(131, 56, 236, 0.25) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(0, 212, 255, 0.20) 0%, transparent 50%),
+              radial-gradient(circle at 50% 50%, rgba(255, 0, 110, 0.15) 0%, transparent 60%)
+            `,
+            backdropFilter: 'blur(40px)',
+            WebkitBackdropFilter: 'blur(40px)',
+            borderColor: 'rgba(255, 255, 255, 0.1)',
+            boxShadow: `
+              0 0 80px rgba(131, 56, 236, 0.4),
+              0 0 120px rgba(0, 212, 255, 0.3),
+              0 0 160px rgba(255, 0, 110, 0.2),
+              inset 0 0 100px rgba(131, 56, 236, 0.1),
+              inset 0 0 200px rgba(0, 212, 255, 0.05)
+            `,
+          }}
+        >
+          <div className="flex-1 overflow-y-auto">
+            <DialogHeader className="sr-only">
+              <DialogTitle>My Story</DialogTitle>
+            </DialogHeader>
+            <CareerStory
+              onBack={() => setIsStoryModalOpen(false)}
+              isModal
+              scrollToSectionId={storySectionId}
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

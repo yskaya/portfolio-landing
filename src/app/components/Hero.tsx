@@ -211,34 +211,35 @@ export function Hero() {
           </MotionFadeIn>
         </m.div>
         
-        {/* Social Links with cyberpunk styling */}
+        {/* Social Links */}
         <MotionFadeIn
-          className="flex justify-center gap-6 mb-12"
+          className="flex flex-wrap justify-center gap-4 mb-12"
           delay={0.6}
         >
           {socialLinks.map((item, index) => (
             <m.div key={index} whileHover={{ 
                 scale: 1.05,
-                boxShadow: `0 0 30px ${item.color}`,
+                boxShadow: `0 0 20px ${item.color}`,
               }}
               whileTap={{ scale: 0.95 }}
             >
               <Button 
                 asChild
                 variant="outline" 
-                size="lg" 
-                className="relative overflow-hidden border-2 transition-all duration-300 btn-cyber"
+                size="default" 
+                className="relative overflow-hidden border transition-all duration-300 btn-cyber"
                 style={{
-                  background: `rgba(${item.color === '#00d4ff' ? '0, 212, 255' : item.color === '#ff006e' ? '255, 0, 110' : '131, 56, 236'}, 0.1)`,
+                  background: `rgba(${item.color === '#00d4ff' ? '0, 212, 255' : item.color === '#ff006e' ? '255, 0, 110' : '131, 56, 236'}, 0.08)`,
                   borderColor: item.color,
                   color: item.color,
                   fontFamily: 'JetBrains Mono, monospace',
                   textTransform: 'uppercase',
                   letterSpacing: '0.1em',
+                  fontSize: '0.875rem',
                 }}
               >
                 <a href={item.href} target={item.href.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer">
-                  <item.icon className="mr-2 h-5 w-5" />
+                  <item.icon className="mr-2 h-4 w-4" />
                   {item.label}
                   
                   {/* Holographic shimmer */}

@@ -5,6 +5,7 @@ import introData from '../../data/intro.json';
 import projectsRaw from '../../data/projects.json';
 import skillsData from '../../data/skills.json';
 import workData from '../../data/work.json';
+import careerStoryData from '../../data/career-story.json';
 
 export interface AboutHighlight {
   icon: string;
@@ -97,11 +98,19 @@ export interface WorkItem {
   link?: string;
 }
 
+export interface CareerStorySection {
+  id: number;
+  period: string;
+  title: string;
+  content: string;
+}
+
 export interface DataContextType {
   intro: Intro;
   projects: Project[];
   skills: SkillsData;
   work: WorkItem[];
+  careerStory: CareerStorySection[];
 }
 
 const projects: Project[] = projectsRaw.projects.map((p: any) => {
@@ -155,10 +164,11 @@ const DataContext = createContext<DataContextType>({
   projects,
   skills: skillsData as SkillsData,
   work: (workData as { work: WorkItem[] }).work || [],
+  careerStory: (careerStoryData as { sections: CareerStorySection[] }).sections || [],
 });
 
 export function DataProvider({ children }: { children: ReactNode }) {
-  return <DataContext.Provider value={{ intro: introData as Intro, projects, skills: skillsData as SkillsData, work: (workData as { work: WorkItem[] }).work || [] }}>{children}</DataContext.Provider>;
+  return <DataContext.Provider value={{ intro: introData as Intro, projects, skills: skillsData as SkillsData, work: (workData as { work: WorkItem[] }).work || [], careerStory: (careerStoryData as { sections: CareerStorySection[] }).sections || [] }}>{children}</DataContext.Provider>;
 }
 
 export const useData = () => useContext(DataContext);
