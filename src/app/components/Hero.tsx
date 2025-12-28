@@ -145,7 +145,7 @@ export function Hero() {
           }}>
             <div className="flex items-center gap-2">
               <Terminal size={16} />
-              <span>{username}@portfolio:~$</span>
+              <span>{username}@portfolio:~$ </span>
               <span>{typedText}</span>
               {!showDownloadLink && (
                 <m.span
