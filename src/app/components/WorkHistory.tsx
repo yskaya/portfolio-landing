@@ -134,6 +134,16 @@ export function WorkHistory() {
   return (
     <div id="work-history" className="relative py-32 px-4 overflow-hidden">
       <style dangerouslySetInnerHTML={{__html: `
+        @keyframes pulse-glow {
+          0%, 100% {
+            background: rgba(131, 56, 236, 0.2);
+            box-shadow: 0px 0px 20px 5px rgba(131, 56, 236, 0.4), 0 0 30px rgba(131, 56, 236, 0.2);
+          }
+          50% {
+            background: rgba(131, 56, 236, 0.4);
+            box-shadow: 0px 0px 30px 8px rgba(131, 56, 236, 0.6), 0 0 50px rgba(131, 56, 236, 0.4);
+          }
+        }
         .glow-link-purple {
           position: relative;
           text-decoration: none;
@@ -158,6 +168,12 @@ export function WorkHistory() {
         .glow-link-purple:hover::after {
           background: rgba(131, 56, 236, 0.2);
           box-shadow: 0px 0px 20px 5px rgba(131, 56, 236, 0.4), 0 0 30px rgba(131, 56, 236, 0.2);
+        }
+        .group:hover .glow-link-purple {
+          color: #a855f7 !important;
+        }
+        .group:hover .glow-link-purple::after {
+          animation: pulse-glow 2s ease-in-out infinite;
         }
       `}} />
       <BgPattern3 />
