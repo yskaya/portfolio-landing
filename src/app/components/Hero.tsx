@@ -10,6 +10,8 @@ import { useData } from '../context/DataContext';
 export function Hero() {
   const scrollY = useScrollPosition();
   const [textIndex, setTextIndex] = useState(0);
+  const [typedText, setTypedText] = useState('');
+  const [showDownloadLink, setShowDownloadLink] = useState(false);
   const mousePosition = useMousePosition();
   const { intro } = useData();
 
@@ -27,6 +29,27 @@ export function Hero() {
     }, 3000);
     return () => clearInterval(interval);
   }, [rotatingTitles.length]);
+
+  // Typing animation for download command
+  useEffect(() => {
+    const textToType = 'download...';
+    let currentIndex = 0;
+    
+    const typingInterval = setInterval(() => {
+      if (currentIndex < textToType.length) {
+        setTypedText(textToType.substring(0, currentIndex + 1));
+        currentIndex++;
+      } else {
+        clearInterval(typingInterval);
+        // After typing completes, wait a bit then show download link
+        setTimeout(() => {
+          setShowDownloadLink(true);
+        }, 500);
+      }
+    }, 80); // Typing speed - adjust for faster/slower typing
+
+    return () => clearInterval(typingInterval);
+  }, []);
 
   // Calculate mouse movement effects
   const mouseXPercent = typeof window !== "undefined" ? (mousePosition.x / window.innerWidth - 0.5) * 2 : 0;
@@ -120,31 +143,41 @@ export function Hero() {
             boxShadow: '0 0 20px rgba(0, 255, 65, 0.2)',
             color: '#00ff41',
           }}>
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center gap-2">
               <Terminal size={16} />
               <span>{username}@portfolio:~$</span>
-              <m.span
-                animate={{ opacity: [1, 0] }}
-                transition={{ duration: 1, repeat: Infinity }}
-              >
-                █
-              </m.span>
+              <span>{typedText}</span>
+              {!showDownloadLink && (
+                <m.span
+                  animate={{ opacity: [1, 0] }}
+                  transition={{ duration: 1, repeat: Infinity }}
+                >
+                  █
+                </m.span>
+              )}
             </div>
-            <div className="ml-4">
-              <a
-                href="/Yulia_Kanapatskaya.zip"
-                download="Yulia_Kanapatskaya_portfolio.pdf"
-                className="glow-link-blue"
-                style={{ 
-                  color: '#00d4ff',
-                  textDecoration: 'none',
-                  cursor: 'pointer',
-                  position: 'relative'
-                }}
+            {showDownloadLink && (
+              <m.div 
+                className="ml-4 mt-2"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
               >
-                download Yulia_Kanapatskaya_portfolio.pdf
-              </a>
-            </div>
+                <a
+                  href="/Yulia_Kanapatskaya.zip"
+                  download="Yulia_Kanapatskaya.zip"
+                  className="glow-link-blue"
+                  style={{ 
+                    color: '#00d4ff',
+                    textDecoration: 'none',
+                    cursor: 'pointer',
+                    position: 'relative'
+                  }}
+                >
+                  download Yulia_Kanapatskaya.zip
+                </a>
+              </m.div>
+            )}
           </div>
         </MotionFadeIn>
 
