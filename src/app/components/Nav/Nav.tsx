@@ -59,6 +59,7 @@ export function Nav() {
         <m.button
           onClick={onBackHome}
           className="text-xl font-bold relative group brand-name"
+          style={{ cursor: "pointer" }}
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           transition={fastSpring}
@@ -103,6 +104,7 @@ export function Nav() {
                 style={{
                   color: isActive ? "#00d4ff" : "rgba(255,255,255,0.7)",
                   willChange: "color, transform",
+                  cursor: "pointer",
                 }}
                 whileHover={{ y: -1, color: "#00d4ff" }}
                 whileTap={{ y: 0 }}
