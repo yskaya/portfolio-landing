@@ -5,8 +5,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Badge } from "../ui/badge";
 import { ExternalLink, Github, ArrowRight } from "lucide-react";
 import { ProjectDetail } from "./ProjectDetail";
-import { m } from "motion/react";
 import { MotionFadeIn } from "../graphs/MotionFadeIn";
+import { AnimatedHeadline } from "../graphs/AnimatedHeadline";
 import { useData } from "../context/DataContext";
 import { HoverGlowCard } from '../graphs/HoverGlowCard';
 
@@ -95,30 +95,16 @@ export function Projects({ showAll = false }: ProjectsProps) {
       `}} />
       <div className="max-w-6xl mx-auto">
         <div className="mb-16">
-          <MotionFadeIn
-            as="h2"
-            className="text-4xl md:text-5xl font-bold text-center mb-4 text-white relative holographic"
-            style={{ lineHeight: 2 }}
-          >
+          <AnimatedHeadline>
             {showAll ? "All Projects" : "Featured Projects"}
+          </AnimatedHeadline>
 
-            <m.div
-              className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1"
-              style={{ 
-                width: '80%',
-                background: 'linear-gradient(90deg, transparent, currentColor, transparent)',
-              }}
-              animate={{
-                scaleX: [0, 1, 0],
-                color: ['#00d4ff', '#ff006e', '#8338ec', '#00ff88', '#00d4ff'],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                delay: 2,
-                ease: 'easeInOut',
-              }}
-            />
+          <MotionFadeIn
+            as="p"
+            className="text-center text-gray-400 mb-16 max-w-2xl mx-auto"
+            delay={0.3}
+          >
+            Work spanning a wide range of products and scales — from simple marketing sites and early-stage MVPs to complex, multi-team platforms serving 1M+ daily active users
           </MotionFadeIn>
         </div>
         
@@ -131,7 +117,7 @@ export function Projects({ showAll = false }: ProjectsProps) {
                     <div className="flex justify-between items-start gap-2">
                       <div className="flex-1 min-w-0">
                         <CardTitle className="text-xl text-white mb-1 line-clamp-1">{project.title}</CardTitle>
-                        {/* Date, Location, and Position - compact, under title */}
+                        {/* Date and Location - on one line */}
                         <div className="flex flex-wrap items-center gap-2 text-xs text-gray-400">
                           {project.duration && project.duration !== 'TBD' && (
                             <span>{project.duration}</span>
@@ -142,13 +128,13 @@ export function Projects({ showAll = false }: ProjectsProps) {
                               <span>{project.location.split(',')[0]}</span>
                             </>
                           )}
-                          {project.role && (
-                            <>
-                              {(project.duration && project.duration !== 'TBD') || (project.location && project.location !== 'TBD') ? <span>•</span> : null}
-                              <span className="line-clamp-1">{Array.isArray(project.role) ? project.role.join(' / ') : project.role}</span>
-                            </>
-                          )}
                         </div>
+                        {/* Position - on another line */}
+                        {project.role && (
+                          <div className="flex items-center gap-2 text-xs text-gray-400 mt-1">
+                            <span className="line-clamp-1">{Array.isArray(project.role) ? project.role.join(' / ') : project.role}</span>
+                          </div>
+                        )}
                       </div>
                       {project.featured && (
                         <Badge className="bg-white text-black transition-none flex-shrink-0">Featured</Badge>

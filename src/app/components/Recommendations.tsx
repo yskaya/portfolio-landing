@@ -3,6 +3,7 @@
 import { useState, useMemo, useRef, useEffect } from "react";
 import { m } from "motion/react";
 import { MotionFadeIn } from "../graphs/MotionFadeIn";
+import { AnimatedHeadline } from "../graphs/AnimatedHeadline";
 import { Quote, ExternalLink } from "lucide-react";
 import { useData } from "../context/DataContext";
 
@@ -140,34 +141,17 @@ export function Recommendations() {
       `}} />
       <div className="max-w-6xl mx-auto">
         <div className="mb-16">
-          <m.h2 
-            className="text-4xl md:text-5xl font-bold text-white relative inline-block text-center w-full holographic"
-            style={{ lineHeight: 2 }}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
+          <AnimatedHeadline>
             Recommendations
-            
-            <m.div
-              className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1"
-              style={{ 
-                width: '80%',
-                background: 'linear-gradient(90deg, transparent, currentColor, transparent)',
-              }}
-              animate={{
-                scaleX: [0, 1, 0],
-                color: ['#00d4ff', '#ff006e', '#8338ec', '#00ff88', '#00d4ff'],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                delay: 2,
-                ease: 'easeInOut',
-              }}
-            />
-          </m.h2>
+          </AnimatedHeadline>
+
+          <MotionFadeIn
+            as="p"
+            className="text-center text-gray-400 mb-16 max-w-2xl mx-auto"
+            delay={0.3}
+          >
+            LinkedIn recommendations from direct managers and cross-functional leaders
+          </MotionFadeIn>
         </div>
 
         <div className="relative" style={{ minHeight: "600px", overflow: "visible" }}>

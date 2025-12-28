@@ -104,7 +104,7 @@ export function Skills() {
           className="text-center text-gray-400 mb-16 max-w-2xl mx-auto"
           delay={0.3}
         >
-          Frontend expert with full-stack experience, focused on platform architecture, shared UI foundations, and end-to-end technical ownership across frontend and backend systems.
+          Progressed through every stage of modern web development — from core web fundamentals and early monoliths to large-scale React platforms and distributed, multi-service systems
         </MotionFadeIn>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
