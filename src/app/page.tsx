@@ -10,6 +10,7 @@ import { WorkHistory } from "./components/WorkHistory";
 import { Projects } from "./components/Projects";
 import { Recommendations } from "./components/Recommendations";
 import { Contact } from "./components/Contact";
+import { ScrollToTop } from "./components/ScrollToTop";
 import { AnimatedBackground } from "./graphs/AnimatedBackground";
 import { Nav, SECTION } from "./components/Nav/Nav";
 import { MotionSection } from "./graphs/MotionSection";
@@ -76,6 +77,8 @@ export default function App() {
             </p>
           </div>
         </footer>
+
+        <ScrollToTop />
       </LazyMotion>
     </div>
   );

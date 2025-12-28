@@ -20,7 +20,7 @@ function seededRandom(seed: string): number {
 }
 
 export function Recommendations() {
-  const { recommendations } = useData();
+  const { recommendations, intro } = useData();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(1152); // Default max-w-6xl width
@@ -199,8 +199,11 @@ export function Recommendations() {
                   onHoverStart={() => setHoveredIndex(index)}
                   onHoverEnd={() => setHoveredIndex(null)}
                 >
-                  <m.div
-                    className="relative p-6 rounded-lg border backdrop-blur-sm cursor-pointer"
+                  <m.a
+                    href={rec.linkedin_url || intro.links?.linkedin || 'https://linkedin.com/in/yskaya'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative p-6 rounded-lg border backdrop-blur-sm cursor-pointer block"
                     style={{
                       background: isHovered 
                         ? "rgb(11 39 90 / 100%)"
@@ -217,6 +220,8 @@ export function Recommendations() {
                       minHeight: "180px",
                       // Compensate for parent padding to maintain visual position
                       margin: isHovered ? "-40px" : "0",
+                      textDecoration: "none",
+                      color: "inherit",
                     }}
                   >
                     {/* Quote Icon */}
@@ -267,22 +272,18 @@ export function Recommendations() {
                         </p>
                       </div>
                       
-                      {/* LinkedIn Link */}
-                      <a
-                        href={rec.linkedin_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="glow-link-purple inline-flex items-center gap-2 transition-all"
+                      {/* LinkedIn Link Indicator */}
+                      <div
+                        className="inline-flex items-center gap-2 transition-all"
                         style={{
                           color: isHovered ? 'rgba(0, 212, 255, 0.9)' : 'rgba(0, 212, 255, 0.7)',
                         }}
-                        onClick={(e) => e.stopPropagation()}
                       >
-                        <span className="text-xs uppercase tracking-wider font-medium">View</span>
+                        <span className="text-xs uppercase tracking-wider font-medium">View on LinkedIn</span>
                         <ExternalLink className="w-3 h-3" />
-                      </a>
+                      </div>
                     </div>
-                  </m.div>
+                  </m.a>
                 </m.div>
               );
             })}
