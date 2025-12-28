@@ -1,10 +1,5 @@
-import { Button } from "../ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
-import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
 import { Mail, Linkedin, Download } from "lucide-react";
 import { m } from "motion/react";
-import { MotionFadeIn } from "../graphs/MotionFadeIn";
 import { MotionSlideIn } from "../graphs/MotionSlideIn";
 import { useData } from '../context/DataContext';
 
@@ -70,102 +65,57 @@ export function Contact() {
           />
         </m.h2>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div style={{ maxWidth: '600px', margin: '0 auto' }}>
           <MotionSlideIn direction="left">
-            
-            {intro.contact_text && (
-              <div className="mb-8">
-                <p className="text-gray-300 mb-4 leading-relaxed">
-                  {intro.contact_text}
-                </p>
-              </div>
-            )}
+            <div className="space-y-12">
+              {/* Contact Text */}
+              {intro.contact_text && (
+                <div className="text-center space-y-4">
+                  {intro.contact_text.split('\n\n').map((paragraph, index) => (
+                    <p key={index} className="text-lg text-gray-300 leading-relaxed">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              )}
 
-            {/* Contact Links */}
-            <div className="mb-8">
-              <div className="space-y-4">
+              {/* Links - Single Column */}
+              <div className="flex flex-col items-center gap-6">
                 {contactLinks.map((l, index) => {
                   const Component = l.component;
                   return (
-                    <m.div
+                    <m.a
                       key={index}
-                      className="flex items-center gap-3 text-gray-300"
-                      whileHover={{ x: 5 }}
+                      href={l.link}
+                      target={l.link.startsWith('http') ? '_blank' : '_self'}
+                      rel={l.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors group"
+                      whileHover={{ y: -2 }}
                       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                     >
-                      <Component className="h-5 w-5" />
-                      <a
-                        href={l.link}
-                        target={l.link.startsWith('http') ? '_blank' : '_self'}
-                        rel={l.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                        className="hover:text-white transition-colors"
-                      >
-                        {l.label}
-                      </a>
-                    </m.div>
+                      <Component className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                      <span className="text-lg">{l.label}</span>
+                    </m.a>
                   );
                 })}
-              </div>
-            </div>
-
-            {/* Download Links */}
-            <div>
-              <div className="space-y-4">
                 {downloadLinks.map((l, index) => {
                   const Component = l.component;
                   return (
-                    <m.div
+                    <m.a
                       key={index}
-                      className="flex items-center gap-3 text-gray-300"
-                      whileHover={{ x: 5 }}
+                      href={l.link}
+                      download={l.download}
+                      className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors group"
+                      whileHover={{ y: -2 }}
                       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                     >
-                      <Component className="h-5 w-5" />
-                      <a
-                        href={l.link}
-                        download={l.download}
-                        className="hover:text-white transition-colors"
-                      >
-                        {l.label}
-                      </a>
-                    </m.div>
+                      <Component className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                      <span className="text-lg">{l.label}</span>
+                    </m.a>
                   );
                 })}
               </div>
             </div>
-          </MotionSlideIn>
-
-          <MotionSlideIn direction="right" delay={0.2}>
-            <Card className="bg-white/5 border-white/10">
-              <CardHeader>
-                <CardTitle className="text-white">Send a Message</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Input 
-                    placeholder="Your Name" 
-                    className="bg-white/5 border-white/20 text-white placeholder:text-gray-400"
-                  />
-                  <Input 
-                    placeholder="Your Email" 
-                    type="email"
-                    className="bg-white/5 border-white/20 text-white placeholder:text-gray-400"
-                  />
-                </div>
-                <Input 
-                  placeholder="Subject" 
-                  className="bg-white/5 border-white/20 text-white placeholder:text-gray-400"
-                />
-                <Textarea 
-                  placeholder="Tell me about the role, your team, and what you're building..." 
-                  rows={4}
-                  className="bg-white/5 border-white/20 text-white placeholder:text-gray-400"
-                />
-                <Button className="w-full bg-white text-black hover:bg-gray-200">
-                  Send Message
-                </Button>
-              </CardContent>
-            </Card>
           </MotionSlideIn>
         </div>
       </div>

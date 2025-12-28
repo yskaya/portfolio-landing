@@ -11,6 +11,7 @@ interface CareerStoryProps {
 
 export function CareerStory({ onBack, isModal = false, scrollToSectionId }: CareerStoryProps) {
   const { careerStory } = useData();
+  const reversedStory = [...careerStory].reverse();
 
   // Scroll to specific section if provided
   React.useEffect(() => {
@@ -96,7 +97,7 @@ export function CareerStory({ onBack, isModal = false, scrollToSectionId }: Care
 
             {/* Story Sections */}
             <div className="space-y-12">
-              {careerStory.map((section, index) => (
+              {reversedStory.map((section, index) => (
                 <div key={section.id} id={`story-section-${section.id.replace(/:/g, '-')}`} className="space-y-6 scroll-mt-8">
                   {/* Period and Title */}
                   <div className="space-y-2">
@@ -119,7 +120,7 @@ export function CareerStory({ onBack, isModal = false, scrollToSectionId }: Care
                   />
 
                   {/* Separator (except for last item) */}
-                  {index < careerStory.length - 1 && (
+                  {index < reversedStory.length - 1 && (
                     <div className="pt-6 border-b" style={{ borderColor: 'rgba(255, 255, 255, 0.1)' }}></div>
                   )}
                 </div>
@@ -132,7 +133,7 @@ export function CareerStory({ onBack, isModal = false, scrollToSectionId }: Care
               My Story
             </h1>
             <div className="space-y-12">
-              {careerStory.map((section, index) => (
+              {reversedStory.map((section, index) => (
                 <div key={section.id} className="space-y-6">
                   <div className="space-y-2">
                     <div className="flex items-center gap-3 justify-center">
@@ -150,7 +151,7 @@ export function CareerStory({ onBack, isModal = false, scrollToSectionId }: Care
                     style={{ color: 'rgba(255, 255, 255, 0.9)' }}
                     dangerouslySetInnerHTML={{ __html: section.content }}
                   />
-                  {index < careerStory.length - 1 && (
+                  {index < reversedStory.length - 1 && (
                     <div className="pt-6 border-b max-w-4xl mx-auto" style={{ borderColor: 'rgba(255, 255, 255, 0.1)' }}></div>
                   )}
                 </div>

@@ -140,23 +140,10 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
         {isModal ? (
           /* Modal Layout: Title -> Role -> Timeline -> Teams -> Company/Product size -> Company -> Description -> Tech Stack */
           <div>
-            {/* Title with View Product link */}
+            {/* Title */}
             <div className="mb-12">
-              <h1 className="text-4xl font-bold inline-flex items-baseline gap-4" style={{ color: '#ffffff' }}>
+              <h1 className="text-4xl font-bold" style={{ color: '#ffffff' }}>
                 <span className="holographic">{project.title}</span>
-                {project.demo && project.demo !== 'TBD' && (
-                  <a
-                    href={project.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="glow-link-purple inline-block text-xs uppercase tracking-wider font-medium"
-                    style={{ 
-                      color: 'rgba(131, 56, 236, 0.7)',
-                    }}
-                  >
-                    View Product
-                  </a>
-                )}
               </h1>
             </div>
 
@@ -219,13 +206,27 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
                 </div>
               )}
 
-              {/* Status */}
+              {/* Status with Open Product link */}
               {project.status && (
-                <div className="flex items-center gap-3">
+                <div className="flex gap-3 flex-wrap" style={{ alignItems: 'baseline' }}>
                   <CheckCircle2 className="w-4 h-4 flex-shrink-0" style={{ color: '#00d4ff' }} />
                   <span>
                     <strong style={{ color: '#ffffff' }}>Status:</strong> <span style={{ color: 'rgba(255, 255, 255, 0.9)' }}>{project.status}</span>
                   </span>
+                  {project.demo && project.demo !== 'TBD' && (
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="glow-link-purple inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-medium"
+                      style={{ 
+                        color: 'rgba(131, 56, 236, 0.7)',
+                      }}
+                    >
+                      Open Product
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  )}
                 </div>
               )}
             </div>

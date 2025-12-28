@@ -52,12 +52,14 @@ export function Qualifications() {
           />
         </m.h2>
         
-        <div className="space-y-6 text-gray-300 mb-16 text-center">
-          {qualificationContent.map((s, index) => (
-            <MotionFadeIn key={index} as="p" delay={(index + 1) * 0.15} className="text-lg">
-              <span dangerouslySetInnerHTML={{ __html: typeof s === 'string' ? s : s.content }} />
-            </MotionFadeIn>
-          ))}
+        <div className="mb-16" style={{ maxWidth: '80%', margin: '0 auto' }}>
+          <div className="space-y-6 text-gray-300 text-center">
+            {qualificationContent.map((s, index) => (
+              <MotionFadeIn key={index} as="p" delay={(index + 1) * 0.15} className="text-lg">
+                <span dangerouslySetInnerHTML={{ __html: typeof s === 'string' ? s : s.content }} />
+              </MotionFadeIn>
+            ))}
+          </div>
         </div>
 
         {/* Career Highlights Grid */}

@@ -25,7 +25,7 @@ export type SectionId = typeof SECTION[keyof typeof SECTION];
 export const NAV_ITEMS: { label: string; id: SectionId, hidden?: boolean }[] = [
   { label: "About", id: SECTION.ABOUT },
   { label: "Projects", id: SECTION.PROJECTS },
-  { label: "Experience", id: SECTION.EXPERIENCE },
+  { label: "Work", id: SECTION.EXPERIENCE },
   { label: "Skills", id: SECTION.SKILLS },
   { label: "Contact", id: SECTION.CONTACT },
 ];

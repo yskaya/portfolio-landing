@@ -53,18 +53,11 @@
       "name": "Tooling, Infra & Delivery",
       "groups": [
         {
-          "label": "Cloud, Infra and Build",
+          "label": "Tooling, Infra & Delivery",
           "technologies": [
             "AWS",
             "Docker",
-            "Webpack",
-            "Vite",
-            "Rollup"
-          ]
-        },
-        {
-          "label": "CI/CD",
-          "technologies": [
+            "CI/CD pipelines",
             "GitHub Actions",
             "Jenkins",
             "Drone",
@@ -72,8 +65,11 @@
           ]
         },
         {
-          "label": "Testing",
+          "label": "Build, Testing & Quality",
           "technologies": [
+            "Webpack",
+            "Vite",
+            "Rollup",
             "Jest",
             "React Testing Library",
             "Cypress",

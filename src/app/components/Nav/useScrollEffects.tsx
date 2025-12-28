@@ -15,6 +15,7 @@ export interface ScrollData {
  * - No manual event listeners or RAF management
  * - React state updates are coalesced and thresholded
  * - Velocity is derived from Motion's useVelocity + spring smoothing
+ * - Active section detected via IntersectionObserver for accuracy
  */
 export function useScrollEffects() {
   const [data, setData] = useState<ScrollData>({
@@ -26,8 +27,17 @@ export function useScrollEffects() {
     isScrolling: false,
   });
 
-  // Sections map remains memoized
-  const sections = useMemo(() => ['hero', 'about', 'projects', 'experience', 'skills',  'contact'], []);
+  // Section IDs in order as they appear on the page
+  const sectionIds = useMemo(() => [
+    'hero',
+    'about',
+    'qualifications',
+    'projects',
+    'experience',
+    'skills',
+    'recommendations',
+    'contact'
+  ], []);
 
   // Motion-provided scroll values
   const { scrollY, scrollYProgress } = useScroll();
@@ -55,17 +65,86 @@ export function useScrollEffects() {
 
   // Track isScrolling with a small idle timeout
   const idleTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
   const lastSnapshotRef = useRef({ y: 0, progress: 0, section: 'hero' });
   const rafPending = useRef<number | null>(null);
+  const currentSectionRef = useRef<string>('hero');
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
-  // Helper to compute section by progress (fast, no DOM queries)
-  const progressToSection = (p: number) => {
-    const idx = Math.min(Math.floor(p * (sections.length - 1)), sections.length - 1);
-    return sections[idx];
-  };
+  // Use IntersectionObserver to detect which section is currently in view
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const visibleSections = new Map<string, number>();
+    
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const sectionId = entry.target.id;
+          if (entry.isIntersecting) {
+            // Store the intersection ratio (how much of the section is visible)
+            const ratio = entry.intersectionRatio;
+            visibleSections.set(sectionId, ratio);
+          } else {
+            visibleSections.delete(sectionId);
+          }
+        });
+
+        // Find the section with the highest intersection ratio
+        if (visibleSections.size > 0) {
+          let maxRatio = 0;
+          let activeSection = currentSectionRef.current;
+          
+          visibleSections.forEach((ratio, sectionId) => {
+            if (ratio > maxRatio) {
+              maxRatio = ratio;
+              activeSection = sectionId;
+            }
+          });
+
+          if (activeSection !== currentSectionRef.current) {
+            currentSectionRef.current = activeSection;
+            setData((prev) => ({ ...prev, currentSection: activeSection }));
+          }
+        }
+      },
+      {
+        rootMargin: '-30% 0px -50% 0px', // Section is active when it's in the top-middle portion of viewport
+        threshold: [0, 0.25, 0.5, 0.75, 1.0],
+      }
+    );
+
+    // Observe all section elements
+    const observeSections = () => {
+      sectionIds.forEach((id) => {
+        const element = document.getElementById(id);
+        if (element && observerRef.current) {
+          observerRef.current.observe(element);
+        }
+      });
+    };
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'complete') {
+      observeSections();
+    } else {
+      const timeoutId = setTimeout(observeSections, 100);
+      return () => {
+        clearTimeout(timeoutId);
+        if (observerRef.current) {
+          observerRef.current.disconnect();
+        }
+      };
+    }
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, [sectionIds]);
 
   // Coalesce updates into a single rAF tick to avoid flooding React state
+  // Note: currentSection is updated separately by IntersectionObserver
   const scheduleUpdate = () => {
     if (rafPending.current != null) return;
     rafPending.current = requestAnimationFrame(() => {
@@ -75,26 +154,24 @@ export function useScrollEffects() {
       const p = smoothProgress.get();
       const v = Math.abs(clampedVelocity.get());
       const dir = directionMV.get() as ScrollData['scrollDirection'];
-      const section = progressToSection(p);
 
       const last = lastSnapshotRef.current;
       const yChanged = Math.abs(last.y - y) > 1;
       const pChanged = Math.abs(last.progress - p) > 0.0025; // ~0.25%
-      const sChanged = last.section !== section;
 
-      if (!yChanged && !pChanged && !sChanged && Math.abs(data.scrollVelocity - v) < 0.05 && data.scrollDirection === dir && data.isScrolling) {
+      if (!yChanged && !pChanged && Math.abs(data.scrollVelocity - v) < 0.05 && data.scrollDirection === dir && data.isScrolling) {
         // No meaningful change
         return;
       }
 
-      lastSnapshotRef.current = { y, progress: p, section };
+      lastSnapshotRef.current = { y, progress: p, section: currentSectionRef.current };
 
       setData((prev) => ({
+        ...prev,
         scrollY: y,
         scrollDirection: dir,
         scrollVelocity: v,
         scrollProgress: p,
-        currentSection: section,
         isScrolling: true,
       }));
 
@@ -114,6 +191,7 @@ export function useScrollEffects() {
   useEffect(() => () => {
     if (rafPending.current != null) cancelAnimationFrame(rafPending.current);
     if (idleTimeoutRef.current) clearTimeout(idleTimeoutRef.current);
+    if (observerRef.current) observerRef.current.disconnect();
   }, []);
 
   return data;
