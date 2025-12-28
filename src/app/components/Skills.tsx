@@ -4,7 +4,7 @@ import { AnimatedHeadline } from '../graphs/AnimatedHeadline';
 import { Badge } from "../ui/badge";
 import { useMousePosition } from '../hooks/useMousePosition';
 import { useScrollPosition } from '../hooks/useScrollPosition';
-import { Code, Database, Cloud, Zap, Wrench, TestTube } from 'lucide-react';
+import { Code, Database, Cloud, Zap, Wrench, TestTube, Building } from 'lucide-react';
 import { useData } from '../context/DataContext';
 import { HoverGlowCard } from '../graphs/HoverGlowCard';
 import { Tooltip, TooltipTrigger, TooltipContent } from '../ui/tooltip';
@@ -64,7 +64,7 @@ export function Skills() {
   };
 
   const iconMap: Record<string, any> = {
-    'Core Web, Frontend & Backend': Code,
+    'Web Full-Stack core': Building,
     'Architecture, Platforms & AI': Cloud,
     'Tooling, Infra & Delivery': Wrench,
     // Legacy mappings for backwards compatibility

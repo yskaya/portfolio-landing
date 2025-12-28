@@ -35,6 +35,58 @@ export function Contact() {
   ];
   return (
     <section className="py-20 px-4 bg-black/20">
+      <style dangerouslySetInnerHTML={{__html: `
+        .glow-link-contact {
+          position: relative;
+          text-decoration: none;
+          cursor: pointer;
+          transition: color 0.3s ease;
+        }
+        .glow-link-contact::after {
+          content: '';
+          position: absolute;
+          bottom: 9px;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: transparent;
+          box-shadow: 0 0 15px rgba(0, 212, 255, 0), 0 0 30px rgba(0, 212, 255, 0);
+          transition: box-shadow 0.3s ease, background 0.3s ease;
+          pointer-events: none;
+        }
+        .glow-link-contact:hover {
+          color: #00d4ff !important;
+        }
+        .glow-link-contact:hover::after {
+          background: rgba(0, 212, 255, 0.3);
+          box-shadow: 0px 0px 20px 5px rgba(0, 212, 255, 0.5), 0 0 40px rgba(0, 212, 255, 0.3);
+        }
+        .glow-link-download {
+          position: relative;
+          text-decoration: none;
+          cursor: pointer;
+          transition: color 0.3s ease;
+        }
+        .glow-link-download::after {
+          content: '';
+          position: absolute;
+          bottom: 9px;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: transparent;
+          box-shadow: 0 0 15px rgba(255, 255, 255, 0), 0 0 30px rgba(255, 255, 255, 0);
+          transition: box-shadow 0.3s ease, background 0.3s ease;
+          pointer-events: none;
+        }
+        .glow-link-download:hover {
+          color: #ffffff !important;
+        }
+        .glow-link-download:hover::after {
+          background: rgba(255, 255, 255, 0.3);
+          box-shadow: 0px 0px 20px 5px rgba(255, 255, 255, 0.5), 0 0 40px rgba(255, 255, 255, 0.3);
+        }
+      `}} />
       <div className="max-w-6xl mx-auto">
         <m.h2 
           className="text-4xl md:text-5xl font-bold mb-12 text-white relative inline-block text-center w-full holographic"
@@ -89,12 +141,12 @@ export function Contact() {
                       href={l.link}
                       target={l.link.startsWith('http') ? '_blank' : '_self'}
                       rel={l.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors group"
+                      className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors group glow-link-contact relative"
                       whileHover={{ y: -2 }}
                       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                     >
                       <Component className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                      <span className="text-lg">{l.label}</span>
+                      <span className="text-lg relative">{l.label}</span>
                     </m.a>
                   );
                 })}
@@ -105,12 +157,12 @@ export function Contact() {
                       key={index}
                       href={l.link}
                       download={l.download}
-                      className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors group"
+                      className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors group glow-link-download relative"
                       whileHover={{ y: -2 }}
                       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                     >
                       <Component className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                      <span className="text-lg">{l.label}</span>
+                      <span className="text-lg relative">{l.label}</span>
                     </m.a>
                   );
                 })}

@@ -24,11 +24,14 @@ export function Recommendations() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(1152); // Default max-w-6xl width
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const updateWidth = () => {
       if (containerRef.current) {
-        setContainerWidth(containerRef.current.offsetWidth);
+        const width = containerRef.current.offsetWidth;
+        setContainerWidth(width);
+        setIsMobile(width < 760);
       }
     };
     
@@ -163,7 +166,8 @@ export function Recommendations() {
               const baseZIndex = zIndexMap[index] || index + 1;
               const zIndex = isHovered ? 100 : baseZIndex;
               const baseWidth = 380; // Base card width in px
-              const expandedWidth = 760; // Same expanded size for all cards
+              // On mobile (< 760px), use full width; otherwise use 760px max
+              const expandedWidth = isMobile ? containerWidth : 760;
               
               // Calculate movement toward center (not perfectly centered)
               const containerCenter = 50; // 50% of container
@@ -179,7 +183,8 @@ export function Recommendations() {
                     top: `${position.y}px`,
                     zIndex: zIndex,
                     // Gateway: Add padding when hovered to keep cursor within bounds (prevents hover flicker)
-                    padding: isHovered ? "40px" : "0",
+                    // On mobile, use less padding since card is full width
+                    padding: isHovered ? (isMobile ? "20px" : "40px") : "0",
                   }}
                   initial={{ opacity: 0, y: 30, scale: 0.9, left: `${position.xPercent}%`, x: 0 }}
                   animate={{
@@ -187,10 +192,16 @@ export function Recommendations() {
                     y: 0,
                     scale: 1,
                     rotate: isHovered ? 0 : position.rotate,
-                    width: isHovered ? `${expandedWidth}px` : `${baseWidth}px`,
+                    width: isHovered 
+                      ? (isMobile ? '100%' : `${expandedWidth}px`)
+                      : `${baseWidth}px`,
                     // Move toward center but not perfectly aligned - adjust left position and use partial centering
-                    left: isHovered ? `${newXPercent}%` : `${position.xPercent}%`,
-                    x: isHovered ? `-${expandedWidth * 0.3}px` : 0, // Partial shift toward center, not full centering
+                    left: isHovered 
+                      ? (isMobile ? '0%' : `${newXPercent}%`)
+                      : `${position.xPercent}%`,
+                    x: isHovered 
+                      ? (isMobile ? 0 : `-${expandedWidth * 0.3}px`)
+                      : 0, // Partial shift toward center, not full centering
                   }}
                   transition={{ 
                     duration: 0.3,
@@ -219,7 +230,8 @@ export function Recommendations() {
                       width: "100%",
                       minHeight: "180px",
                       // Compensate for parent padding to maintain visual position
-                      margin: isHovered ? "-40px" : "0",
+                      // On mobile, use less margin since padding is reduced
+                      margin: isHovered ? (isMobile ? "-20px" : "-40px") : "0",
                       textDecoration: "none",
                       color: "inherit",
                     }}
