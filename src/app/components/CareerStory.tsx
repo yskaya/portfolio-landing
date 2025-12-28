@@ -6,7 +6,7 @@ import { useData } from '../context/DataContext';
 interface CareerStoryProps {
   onBack?: () => void;
   isModal?: boolean;
-  scrollToSectionId?: number;
+  scrollToSectionId?: string;
 }
 
 export function CareerStory({ onBack, isModal = false, scrollToSectionId }: CareerStoryProps) {
@@ -15,7 +15,11 @@ export function CareerStory({ onBack, isModal = false, scrollToSectionId }: Care
   // Scroll to specific section if provided
   React.useEffect(() => {
     if (scrollToSectionId && typeof window !== "undefined") {
-      const element = document.getElementById(`story-section-${scrollToSectionId}`);
+      // Handle both string IDs (with colons) and numeric IDs for backward compatibility
+      const elementId = scrollToSectionId.includes(':') 
+        ? `story-section-${scrollToSectionId.replace(/:/g, '-')}`
+        : `story-section-${scrollToSectionId}`;
+      const element = document.getElementById(elementId);
       if (element) {
         setTimeout(() => {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -93,7 +97,7 @@ export function CareerStory({ onBack, isModal = false, scrollToSectionId }: Care
             {/* Story Sections */}
             <div className="space-y-12">
               {careerStory.map((section, index) => (
-                <div key={section.id} id={`story-section-${section.id}`} className="space-y-6 scroll-mt-8">
+                <div key={section.id} id={`story-section-${section.id.replace(/:/g, '-')}`} className="space-y-6 scroll-mt-8">
                   {/* Period and Title */}
                   <div className="space-y-2">
                     <div className="flex items-center gap-3">

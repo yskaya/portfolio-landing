@@ -7,6 +7,7 @@ import { useScrollPosition } from '../hooks/useScrollPosition';
 import { Code, Database, Cloud, Zap, Wrench, TestTube } from 'lucide-react';
 import { useData } from '../context/DataContext';
 import { HoverGlowCard } from '../graphs/HoverGlowCard';
+import { Tooltip, TooltipTrigger, TooltipContent } from '../ui/tooltip';
 
 export function Skills() {
   const scrollY = useScrollPosition();
@@ -16,7 +17,57 @@ export function Skills() {
   const mouseXPercent = typeof window !== "undefined" ? (mousePosition.x / window.innerWidth - 0.5) * 2 : 0;
   const mouseYPercent = typeof window !== "undefined" ? (mousePosition.y / window.innerHeight - 0.5) * 2 : 0;
 
+  // Helper function to parse technology and calculate years
+  const parseTechnology = (tech: string) => {
+    // Match both em dash (—) and regular dash (-) followed by "since YYYY"
+    const sinceMatch = tech.match(/[—\-] since (\d{4})/);
+    if (sinceMatch) {
+      const year = parseInt(sinceMatch[1]);
+      const currentYear = new Date().getFullYear();
+      const years = currentYear - year;
+      // Remove the "— since YYYY" or "- since YYYY" part
+      const techName = tech.replace(/[—\-] since \d{4}/, '').trim();
+      return { name: techName, years, hasDate: true, isBadge: true };
+    }
+    
+    // Check if it contains a colon (group label like "APIs: REST, GraphQL")
+    if (tech.includes(':')) {
+      const [label, techs] = tech.split(':');
+      return { 
+        name: tech, 
+        years: null, 
+        hasDate: false, 
+        isBadge: false,
+        isGroupLabel: true,
+        label: label.trim(),
+        techList: techs ? techs.split(',').map(t => t.trim()) : []
+      };
+    }
+    
+    // Check if it's a descriptive phrase (long, contains &, or common descriptive words)
+    const isDescriptive = tech.length > 30 || 
+                          tech.includes(' & ') || 
+                          tech.includes('platforms') ||
+                          tech.includes('systems') ||
+                          tech.includes('workflows') ||
+                          tech.includes('architectures') ||
+                          tech.includes('modernization') ||
+                          tech.includes('integration') ||
+                          tech.match(/\([^)]+\)/); // Contains parentheses (like "LLM integration (OpenAI)")
+    
+    return { 
+      name: tech, 
+      years: null, 
+      hasDate: false, 
+      isBadge: !isDescriptive 
+    };
+  };
+
   const iconMap: Record<string, any> = {
+    'Core Web, Frontend & Backend': Code,
+    'Architecture, Platforms & AI': Cloud,
+    'Tooling, Infra & Delivery': Wrench,
+    // Legacy mappings for backwards compatibility
     'Languages & Core': Code,
     'Frontend': Code,
     'Backend': Database,
@@ -32,10 +83,10 @@ export function Skills() {
     'Other Backend': Database,
   };
 
-  const skillCategories = skills.skills.map((cat) => ({
-    title: cat.category_name,
-    icon: iconMap[cat.category_name] || Code,
-    skills: cat.technologies,
+  const skillCategories = skills.collections.map((collection) => ({
+    title: collection.name,
+    icon: iconMap[collection.name] || Code,
+    groups: collection.groups,
     color: 'from-blue-500/20 to-cyan-500/20',
   }));
 
@@ -53,9 +104,7 @@ export function Skills() {
           className="text-center text-gray-400 mb-16 max-w-2xl mx-auto"
           delay={0.3}
         >
-          {skills.qualification && skills.qualification.length > 0
-            ? skills.qualification.slice(0, 2).join(' ')
-            : 'TBD'}
+          Frontend expert with full-stack experience, focused on platform architecture, shared UI foundations, and end-to-end technical ownership across frontend and backend systems.
         </MotionFadeIn>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -79,59 +128,140 @@ export function Skills() {
                   }}
                 >
 
-                  {/* Icon with rotation effect */}
-                  <m.div
-                    className="flex items-center mb-4"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                  >
+                  {/* Category Header - Better formatting */}
+                  <div className="mb-6 pb-4 border-b border-white/10">
                     <m.div
-                      className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mr-3"
-                      whileHover={{ rotate: 360, scale: 1.1 }}
-                      transition={{ duration: 0.5 }}
+                      className="flex items-center gap-3"
+                      whileHover={{ x: 5 }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                     >
-                      <Icon className="h-5 w-5 text-white" />
-                    </m.div>
-                    <h3 className="text-lg font-semibold text-white">
-                      {category.title}
-                    </h3>
-                  </m.div>
-
-                  {/* Skills with staggered animation */}
-                  <div className="flex flex-wrap gap-2">
-                    {category.skills.map((skill, skillIndex) => (
                       <m.div
-                        key={skillIndex}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ 
-                          duration: 0.3, 
-                          delay: skillIndex * 0.05,
-                          type: 'spring',
-                          stiffness: 200
-                        }}
-                        whileHover={{ 
-                          scale: 1.05,
-                          y: -2,
-                          boxShadow: '0 10px 20px rgba(255,255,255,0.1)',
+                        className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500/20 to-cyan-500/20 flex items-center justify-center flex-shrink-0"
+                        whileHover={{ rotate: 360, scale: 1.1 }}
+                        transition={{ duration: 0.5 }}
+                        style={{
+                          border: '1px solid rgba(131, 56, 236, 0.3)',
                         }}
                       >
-                        <Badge 
-                          variant="secondary" 
-                          className="bg-white/10 text-white border-white/20 hover:bg-white/20 transition-all duration-300 cursor-default relative overflow-hidden text-xs"
-                        >
-                          {/* Shine effect */}
-                          <m.div
-                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                            initial={{ x: '-100%' }}
-                            whileHover={{ x: '100%' }}
-                            transition={{ duration: 0.6 }}
-                          />
-                          <span className="relative z-10">{skill}</span>
-                        </Badge>
+                        <Icon className="h-4 w-4 text-white" />
                       </m.div>
-                    ))}
+                      <h3 className="text-base font-bold text-white tracking-wide uppercase text-sm">
+                        {category.title}
+                      </h3>
+                    </m.div>
+                  </div>
+
+                  {/* Skills with staggered animation */}
+                  <div className="space-y-4">
+                    {category.groups.map((group, groupIndex) => {
+                      return (
+                        <m.div
+                          key={groupIndex}
+                          initial={{ opacity: 0, y: 10 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ 
+                            duration: 0.3, 
+                            delay: groupIndex * 0.05,
+                          }}
+                          className="space-y-2"
+                        >
+                          <p className="text-sm text-gray-400 font-medium">{group.label}:</p>
+                          <div className="flex flex-wrap gap-2">
+                            {group.technologies.map((tech, techIndex) => {
+                              const parsed = parseTechnology(tech);
+                              
+                              // Check if it's a descriptive phrase (not a badge)
+                              const isDescriptive = parsed.name.length > 30 || 
+                                parsed.name.includes(' & ') || 
+                                parsed.name.includes('platforms') ||
+                                parsed.name.includes('systems') ||
+                                parsed.name.includes('workflows') ||
+                                parsed.name.includes('architectures') ||
+                                parsed.name.includes('modernization') ||
+                                parsed.name.includes('integration') ||
+                                parsed.name.match(/\([^)]+\)/);
+                              
+                              // Only show badge if it's an actual tech name, not a descriptive phrase
+                              if (isDescriptive) {
+                                return (
+                                  <m.p
+                                    key={techIndex}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ 
+                                      duration: 0.3, 
+                                      delay: groupIndex * 0.05 + techIndex * 0.03,
+                                    }}
+                                    className="text-sm text-gray-300"
+                                  >
+                                    {parsed.name}
+                                  </m.p>
+                                );
+                              }
+                              
+                              return (
+                                <m.div
+                                  key={techIndex}
+                                  initial={{ opacity: 0, scale: 0.8 }}
+                                  whileInView={{ opacity: 1, scale: 1 }}
+                                  viewport={{ once: true }}
+                                  transition={{ 
+                                    duration: 0.3, 
+                                    delay: groupIndex * 0.05 + techIndex * 0.03,
+                                    type: 'spring',
+                                    stiffness: 200
+                                  }}
+                                  whileHover={{ 
+                                    scale: 1.05,
+                                    y: -2,
+                                  }}
+                                >
+                                  {parsed.hasDate && parsed.years !== null ? (
+                                    <Tooltip>
+                                      <TooltipTrigger asChild>
+                                        <Badge 
+                                          variant="secondary" 
+                                          className="bg-white/10 text-white border-white/20 hover:bg-white/20 transition-all duration-300 cursor-default relative overflow-hidden text-xs"
+                                        >
+                                          <m.div
+                                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                                            initial={{ x: '-100%' }}
+                                            whileHover={{ x: '100%' }}
+                                            transition={{ duration: 0.6 }}
+                                          />
+                                          <span className="relative z-10">{parsed.name}</span>
+                                        </Badge>
+                                      </TooltipTrigger>
+                                      <TooltipContent
+                                        className="bg-gray-900 text-white border-gray-700"
+                                        sideOffset={5}
+                                      >
+                                        <p>{parsed.years} {parsed.years === 1 ? 'year' : 'years'} of experience</p>
+                                      </TooltipContent>
+                                    </Tooltip>
+                                  ) : (
+                                    <Badge 
+                                      variant="secondary" 
+                                      className="bg-white/10 text-white border-white/20 hover:bg-white/20 transition-all duration-300 cursor-default relative overflow-hidden text-xs"
+                                    >
+                                      <m.div
+                                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                                        initial={{ x: '-100%' }}
+                                        whileHover={{ x: '100%' }}
+                                        transition={{ duration: 0.6 }}
+                                      />
+                                      <span className="relative z-10">{parsed.name}</span>
+                                    </Badge>
+                                  )}
+                                </m.div>
+                              );
+                            })}
+                          </div>
+                        </m.div>
+                      );
+                    })}
                   </div>
 
                   {/* Floating particles */}

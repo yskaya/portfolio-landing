@@ -7,8 +7,7 @@
       "end": "Sept 2024",
       "desc": "Owned frontend platform architecture across multiple high-traffic products, focusing on shared UI foundations, developer experience, and long-term scalability. Operated at Staff level across product and platform teams while remaining hands-on in architecture and implementation.",
       "location": "NYC (remote)",
-      "team_size": "App Platform team",
-      "addon": "4 years total at WeTransfer",
+      "team": "App Platform team",
       "responsibilities": [
         "Led frontend platform architecture, including a multi-package design system and shared UI foundations",
         "Designed and implemented CI/CD pipelines, build systems, and publishing workflows",
@@ -29,8 +28,7 @@
       "end": "Dec 2022",
       "desc": "Worked on a visually rich, real-time collaborative product used at scale, owning complex frontend systems while contributing across the stack. Focused on performance, maintainability, and high-quality user interaction in a fast-moving product environment.",
       "location": "NYC (remote)",
-      "team_size": "Paste team",
-      "addon": "",
+      "team": "Paste team",
       "responsibilities": [
         "Modernized frontend architecture to improve performance, maintainability, and scalability",
         "Built and evolved complex real-time collaborative editing features",
@@ -52,8 +50,7 @@
       "end": "Sept 2020",
       "desc": "Helped build and scale a greenfield integrations product in a data-heavy, regulated HR domain, bridging frontend architecture and backend APIs. Owned complex workflows for data import, validation, and reconciliation.",
       "location": "NYC (hybrid)",
-      "team_size": "Integration team",
-      "addon": "2 years total at Namely",
+      "team": "Integration team",
       "responsibilities": [
         "Contributed to Go-based REST APIs",
         "Owned integration tool end-to-end from UX to API delivery",
@@ -75,8 +72,7 @@
       "end": "Sept 2019",
       "desc": "Worked as part of a centralized frontend discipline, scaling shared UI foundations and design systems across multiple HR, payroll, and benefits products. Focused on performance, consistency, and complex data-driven workflows.",
       "location": "NYC (hybrid)",
-      "team_size": "FE Core team",
-      "addon": "",
+      "team": "FE Core team",
       "responsibilities": [
         "Scaled HR platform capabilities through new tools and product integrations",
         "Owned product-critical modules with focus on performance and scalability",
@@ -95,12 +91,11 @@
     {
       "position": "Software Engineer",
       "company": "AI Amelia (IPsoft)",
-      "start": "September 2017",
-      "end": "September 2018",
+      "start": "Sept 2017",
+      "end": "Sept 2018",
       "desc": "Built enterprise-grade frontend systems for configuring conversational AI workflows, translating complex dialog logic into usable interfaces for non-technical users. Operated at the intersection of frontend engineering and applied AI systems.",
       "location": "New York (on-site)",
-      "team_size": "UX Team",
-      "addon": "1 year",
+      "team": "UX Team",
       "responsibilities": [
         "Built React-based conversational UI for enterprise customers",
         "Collaborated with Cognitive Engineers to design dialog configuration workflows",
@@ -116,12 +111,11 @@
     {
       "position": "Freelance Engineer",
       "company": "U.S. Relocation & Freelance",
-      "start": "2015",
-      "end": "2017",
+      "start": "Feb 2016",
+      "end": "Sept 2017",
       "desc": "U.S. relocation & freelance engineering (Angular, Vue, MVPs)",
       "location": "U.S.",
-      "team_size": "",
-      "addon": "",
+      "team": "",
       "responsibilities": [
         "Built MVPs and web applications using Angular and Vue.js",
         "Delivered freelance engineering projects during U.S. relocation period"
@@ -136,8 +130,7 @@
       "end": "Dec 2015",
       "desc": "Owned frontend architecture and modernization for a B2B EdTech platform, evolving a legacy Rails application into a configurable, white-label system. Led frontend direction while continuing hands-on development.",
       "location": "Berlin (remote)",
-      "team_size": "5-person team",
-      "addon": "3 years",
+      "team": "5-person team",
       "responsibilities": [
         "Led frontend modernization of a legacy Rails application",
         "Delivered modular SPA frontends while maintaining the legacy system",
@@ -155,12 +148,11 @@
     {
       "position": "Early Full-Stack / Frontend Engineer",
       "company": "Various (Europe)",
-      "start": "2008",
-      "end": "2012",
+      "start": "May 2009",
+      "end": "Dec 2013",
       "desc": "Built commercial web products end-to-end in small teams, gaining foundational experience across frontend, backend, data modeling, and deployment. Developed strong ownership habits and pragmatic engineering judgment early in career.",
       "location": "Europe (on-site / remote)",
-      "team_size": "10-15 employees",
-      "addon": "",
+      "team": "10-15 employees",
       "responsibilities": [
         "Delivered commercial web applications across frontend and backend",
         "Built modular JavaScript interfaces and backend features",

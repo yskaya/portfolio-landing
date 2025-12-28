@@ -1,68 +1,94 @@
 {
-  "skills": [
+  "collections": [
     {
-      "category_name": "Languages & Core",
-      "technologies": ["JavaScript (ES6+)", "TypeScript"]
+      "name": "Core Web, Frontend & Backend",
+      "groups": [
+        {
+          "label": "Frontend",
+          "technologies": [
+            "JavaScript — since 2009",
+            "HTML / CSS — since 2009",
+            "React — since 2014",
+            "TypeScript — since 2017",
+            "Next.js — since 2019"
+          ]
+        },
+        {
+          "label": "Backend",
+          "technologies": [
+            "Node.js — since 2016",
+            "NestJS — since 2020",
+            "REST",
+            "GraphQL",
+            "gRPC",
+            "Redis",
+            "MySQL",
+            "PostgreSQL"
+          ]
+        }
+      ]
     },
     {
-      "category_name": "Frontend",
-      "technologies": ["React", "Next.js", "JavaScript", "CSS", "HTML"]
+      "name": "Architecture & Platforms",
+      "groups": [
+        {
+          "label": "Platforms",
+          "technologies": [
+            "Frontend platforms & Design systems",
+            "Monorepos & multi-package libraries",
+            "Microservices & modular architectures"
+          ]
+        },
+        {
+          "label": "AI Development",
+          "technologies": [
+            "LLM integration (OpenAI)",
+            "AI-assisted development workflows",
+            "Product-facing AI features & prototypes"
+          ]
+        }
+      ]
     },
     {
-      "category_name": "Backend",
-      "technologies": ["Node.js", "NestJS", "Express", "Go", "MySQL"]
-    },
-    {
-      "category_name": "APIs",
-      "technologies": ["REST", "GraphQL", "WebSocket", "gRPC", "Redis"]
-    },
-    {
-      "category_name": "Architecture patterns",
-      "technologies": ["Monolith", "SPA", "MPA", "Microservices", "Monorepo"]
-    },
-    {
-      "category_name": "CI/CD",
-      "technologies": ["Drone", "Jenkins", "Travis CI", "GitHub Actions"]
-    },
-    {
-      "category_name": "Cloud & Infra",
-      "technologies": ["AWS", "Docker", "Kubernetes", "OAuth"]
-    },
-    {
-      "category_name": "Build",
-      "technologies": ["Webpack", "Vite", "Rollup", "npm", "Yarn"]
-    },
-    {
-      "category_name": "Markup & Styling",
-      "technologies": ["SASS", "LESS", "HTML5", "CSS3"]
-    },
-    {
-      "category_name": "AI Integration",
-      "technologies": ["OpenAI", "LLM workflows"]
-    },
-    {
-      "category_name": "Testing",
-      "technologies": ["Unit (React testing library, Jest, Enzyme, Jasmine, Karma)", "Integration (Cypress)", "e2e (Selenium, Cypress)", "VR testing (Chromatic)"]
-    },
-    {
-      "category_name": "Other FE Frameworks",
-      "technologies": ["Vue.js", "Angular"]
-    },
-    {
-      "category_name": "Other Backend",
-      "technologies": ["Ruby on Rails", "PHP"]
+      "name": "Tooling, Infra & Delivery",
+      "groups": [
+        {
+          "label": "Cloud, Infra and Build",
+          "technologies": [
+            "AWS",
+            "Docker",
+            "Webpack",
+            "Vite",
+            "Rollup"
+          ]
+        },
+        {
+          "label": "CI/CD",
+          "technologies": [
+            "GitHub Actions",
+            "Jenkins",
+            "Drone",
+            "Travis CI"
+          ]
+        },
+        {
+          "label": "Testing",
+          "technologies": [
+            "Jest",
+            "React Testing Library",
+            "Cypress",
+            "Selenium",
+            "Chromatic"
+          ]
+        }
+      ]
     }
   ],
   "qualification": [
-    "Driving frontend architecture for large-scale platforms and design systems across multiple products",
-    "Building reusable modules and internal libraries for shared use in complex monorepo environments",
-    "Leading modernization efforts — from monolith-to-SPA transitions and modularizing legacy codebases",
-    "Defining engineering workflows including CI/CD pipelines, quality gates, and code standards",
-    "Owning delivery across the stack (primarily frontend, with backend contributions using Node/NestJS)",
-    "Mentoring engineers through code reviews, design documentation, onboarding, and POCs",
-    "Partnering with cross-functional leadership to translate product goals into technical execution",
-    "Collaborating internationally across hybrid and remote teams in the U.S. and Europe",
-    "Contributing to hiring through interview design, candidate evaluation, and process improvements",
-    "Delivering pixel-perfect, accessible, responsive UIs with strong attention to performance and UX"
+    "Frontend expert specializing in scalable platforms, shared UI systems, and design systems",
+    "Technical leadership across architecture, delivery, and long-term system evolution",
+    "Hands-on full-stack engineer (frontend-first, with active backend contributions)",
+    "Experience leading modernization efforts across complex, legacy codebases",
+    "Growing focus on technical management while remaining close to the code"
   ]
 }

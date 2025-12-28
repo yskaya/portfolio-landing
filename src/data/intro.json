@@ -17,17 +17,18 @@
     "Staff+ Frontend / Platform Engineer",
     "Engineering Manager (Technical)",
     "Senior Full-Stack / Frontend Engineer",
-    "Individual Contriputer /  Principled Engineer"
+    "Individual Contributer /  Principled Engineer"
   ],
-  "location": "Los Angeles - open for relocation",
-  "short_description": "I design scalable frontend platforms, design systems, and modern web architectures — blending hands-on engineering with long-term technical leadership.",
+  "location": "Los Angeles",
+  "open_for_relocation": true,
+  "short_description": "15+ years delivering large-scale web platforms, with end-to-end ownership across frontend systems, full-stack execution, and technical leadership supporting products used by millions worldwide",
   "about": "Frontend platform & system architect with 15+ years of experience leading UI infrastructure and full-stack systems in high-scale, multi-product environments. Specialized in design systems, frontend platforms, and modernizing legacy systems into scalable architectures. Strong at translating product vision into executable technical plans while balancing delivery, quality, and long-term maintainability. Core Technologies: React, TypeScript, Next.js, Node.js, NestJS, GraphQL, Redis, gRPC, Docker, AWS.",
   "about_section": {
     "title": "Overview",
     "highlights": [
       {
         "icon": "Code2",
-        "title": "15+ Years",
+        "title": "15+ Years of Experience",
         "desc": "Building and scaling production web systems"
       },
       {
@@ -54,7 +55,49 @@
         "content": "At <strong>WeTransfer</strong>, I led frontend platform architecture, including a <strong>multi-package design system</strong> adopted across five products and used by <strong>30+ engineers</strong>, supporting applications with <strong>1M+ DAU</strong>. I remained hands-on through code contributions, pull request reviews, and architectural guidance, while partnering closely with product and platform teams. More recently, I stepped into a <strong>Technical Engineering Manager</strong> role, expanding my scope into planning, prioritization, and delivery — while continuing to contribute directly to the codebase."
       },
       {
-        "content": "My priority is a <strong>Principal or Staff IC role</strong> with a frontend focus, where <strong>architectural ownership</strong> and <strong>hands-on execution</strong> are central. I'm also open to <strong>technical engineering management roles</strong> where leadership remains close to the work — combining system design, delivery ownership, and active engineering involvement. I'm looking for a <strong>long-term environment</strong> that values clarity, sustainable systems, and leadership through impact."
+        "content": "My focus is on technical management roles where leadership is grounded in hands-on engineering. I'm intentionally growing toward managing systems, scope, and delivery while remaining an active Staff-level individual contributor. I'm looking for a long-term role with room for growth and meaningful equity participation."
+      }
+    ]
+  },
+  "qualification_section": {
+    "title": "Qualifications",
+    "highlights": [
+      {
+        "icon": "Code2",
+        "title": "Frontend Expert",
+        "desc": "Scalable platforms & shared UI systems"
+      },
+      {
+        "icon": "Users",
+        "title": "Technical Leadership",
+        "desc": "Architecture, delivery & system evolution"
+      },
+      {
+        "icon": "Globe",
+        "title": "Full-Stack",
+        "desc": "Frontend-first with backend contributions"
+      },
+      {
+        "icon": "Award",
+        "title": "Modernization",
+        "desc": "Leading legacy codebase transformations"
+      }
+    ],
+    "content": [
+      {
+        "content": "Frontend expert specializing in scalable platforms, shared UI systems, and design systems"
+      },
+      {
+        "content": "Technical leadership across architecture, delivery, and long-term system evolution"
+      },
+      {
+        "content": "Hands-on full-stack engineer (frontend-first, with active backend contributions)"
+      },
+      {
+        "content": "Experience leading modernization efforts across complex, legacy codebases"
+      },
+      {
+        "content": "Growing focus on technical management while remaining close to the code"
       }
     ]
   },
@@ -62,13 +105,14 @@
     "degree": "Master of Science in Computer Systems Engineering",
     "university": "Belarusian State University of Informatics and Radio-electronics",
     "location": "Minsk, Belarus",
-    "start": "Sep 2005",
-    "end": "Sep 2010"
+    "start_date": "Sep 2005",
+    "end_date": "Sep 2010"
   },
   "career_highlights": {
     "years_experience": "15+",
     "countries_worked": "5",
     "projects_delivered": "20+",
     "users_impacted": "Millions"
-  }
+  },
+  "contact_text": "I'm currently considering Senior, Staff, or Principal IC roles where I can stay hands-on as a full-stack engineer with deep React expertise, while growing toward technical management responsibilities over time. I'm looking for a long-term environment with equity, where architectural ownership, product thinking, and people development are valued."
 }

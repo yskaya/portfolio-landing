@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Badge } from "../ui/badge";
 import { ExternalLink, Github, ArrowRight } from "lucide-react";
 import { ProjectDetail } from "./ProjectDetail";
+import { m } from "motion/react";
 import { MotionFadeIn } from "../graphs/MotionFadeIn";
 import { useData } from "../context/DataContext";
 import { HoverGlowCard } from '../graphs/HoverGlowCard';
@@ -39,12 +40,87 @@ export function Projects({ showAll = false }: ProjectsProps) {
   return (
     <>
     <section className="py-20 px-4 lg:px-12">
+      <style dangerouslySetInnerHTML={{__html: `
+        .glow-link-purple {
+          position: relative;
+          text-decoration: none;
+          cursor: pointer;
+          transition: color 0.3s ease;
+        }
+        .glow-link-purple::after {
+          content: '';
+          position: absolute;
+          bottom: 5px;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: transparent;
+          box-shadow: 0 0 15px rgba(131, 56, 236, 0), 0 0 30px rgba(131, 56, 236, 0);
+          transition: box-shadow 0.3s ease, background 0.3s ease;
+          pointer-events: none;
+        }
+        .glow-link-purple:hover {
+          color: #a855f7 !important;
+        }
+        .glow-link-purple:hover::after {
+          background: rgba(131, 56, 236, 0.2);
+          box-shadow: 0px 0px 20px 5px rgba(131, 56, 236, 0.4), 0 0 30px rgba(131, 56, 236, 0.2);
+        }
+        .glow-link-white {
+          position: relative;
+          text-decoration: none;
+          cursor: pointer;
+          transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+        .glow-link-white::after {
+          content: '';
+          position: absolute;
+          bottom: 5px;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: transparent;
+          box-shadow: 0 0 15px rgba(255, 255, 255, 0), 0 0 30px rgba(255, 255, 255, 0);
+          transition: box-shadow 0.3s ease, background 0.3s ease;
+          pointer-events: none;
+        }
+        .glow-link-white:hover {
+          color: #ffffff !important;
+          text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6);
+        }
+        .glow-link-white:hover::after {
+          background: rgba(255, 255, 255, 0.2);
+          box-shadow: 0px 0px 20px 5px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.2);
+        }
+      `}} />
       <div className="max-w-6xl mx-auto">
-        <MotionFadeIn>
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">
+        <div className="mb-16">
+          <MotionFadeIn
+            as="h2"
+            className="text-4xl md:text-5xl font-bold text-center mb-4 text-white relative holographic"
+            style={{ lineHeight: 2 }}
+          >
             {showAll ? "All Projects" : "Featured Projects"}
-          </h2>
-        </MotionFadeIn>
+
+            <m.div
+              className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1"
+              style={{ 
+                width: '80%',
+                background: 'linear-gradient(90deg, transparent, currentColor, transparent)',
+              }}
+              animate={{
+                scaleX: [0, 1, 0],
+                color: ['#00d4ff', '#ff006e', '#8338ec', '#00ff88', '#00d4ff'],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                delay: 2,
+                ease: 'easeInOut',
+              }}
+            />
+          </MotionFadeIn>
+        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {displayProjects.map((project, index) => (
@@ -55,14 +131,20 @@ export function Projects({ showAll = false }: ProjectsProps) {
                     <div className="flex justify-between items-start gap-2">
                       <div className="flex-1 min-w-0">
                         <CardTitle className="text-xl text-white mb-1 line-clamp-1">{project.title}</CardTitle>
-                        {/* Date and Position - compact, under title */}
+                        {/* Date, Location, and Position - compact, under title */}
                         <div className="flex flex-wrap items-center gap-2 text-xs text-gray-400">
                           {project.duration && project.duration !== 'TBD' && (
                             <span>{project.duration}</span>
                           )}
-                          {project.role && (
+                          {project.location && project.location !== 'TBD' && (
                             <>
                               {project.duration && project.duration !== 'TBD' && <span>•</span>}
+                              <span>{project.location.split(',')[0]}</span>
+                            </>
+                          )}
+                          {project.role && (
+                            <>
+                              {(project.duration && project.duration !== 'TBD') || (project.location && project.location !== 'TBD') ? <span>•</span> : null}
                               <span className="line-clamp-1">{Array.isArray(project.role) ? project.role.join(' / ') : project.role}</span>
                             </>
                           )}
@@ -105,11 +187,11 @@ export function Projects({ showAll = false }: ProjectsProps) {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className="inline-flex items-center gap-2 text-sm font-medium transition-all duration-300 hover:gap-3 group"
-                          style={{ color: '#8338ec' }}
+                          className="glow-link-white inline-flex items-center gap-2 text-xs uppercase tracking-wider font-medium"
+                          style={{ color: 'rgba(255, 255, 255, 0.7)' }}
                         >
                           <span>Visit Project</span>
-                          <ExternalLink className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                          <ExternalLink className="w-3 h-3" />
                         </a>
                       </div>
                     )}
@@ -123,7 +205,7 @@ export function Projects({ showAll = false }: ProjectsProps) {
 
       <Dialog open={isProjectModalOpen} onOpenChange={setIsProjectModalOpen}>
           <DialogContent 
-            className="!max-w-4xl sm:!max-w-4xl !h-screen !border !p-0 flex flex-col !rounded-none"
+            className="!max-w-4xl sm:!max-w-4xl !h-screen !p-0 flex flex-col !rounded-none !border-0"
             style={{
               background: `
                 linear-gradient(180deg, rgba(10, 10, 20, 0.85) 0%, rgba(15, 15, 25, 0.80) 50%, rgba(10, 10, 20, 0.85) 100%),
@@ -133,7 +215,6 @@ export function Projects({ showAll = false }: ProjectsProps) {
               `,
               backdropFilter: 'blur(40px)',
               WebkitBackdropFilter: 'blur(40px)',
-              borderColor: 'rgba(255, 255, 255, 0.1)',
               boxShadow: `
                 0 0 80px rgba(131, 56, 236, 0.4),
                 0 0 120px rgba(0, 212, 255, 0.3),

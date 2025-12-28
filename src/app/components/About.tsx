@@ -3,7 +3,7 @@ import { m } from 'motion/react';
 import { MotionFadeIn } from "../graphs/MotionFadeIn";
 import { useMousePosition } from '../hooks/useMousePosition';
 import { useScrollPosition } from '../hooks/useScrollPosition';
-import { Code2, Globe, Award, Users, BookOpen } from 'lucide-react';
+import { Code2, Globe, Award, Users, BookOpen, Book, Target, TrendingUp } from 'lucide-react';
 import { HoverGlowCard } from '../graphs/HoverGlowCard';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { useData } from '../context/DataContext';
@@ -14,14 +14,48 @@ const iconMap: Record<string, any> = {
   'Globe': Globe,
   'Award': Award,
   'Users': Users,
+  'Target': Target,
+  'TrendingUp': TrendingUp,
 };
+
+function HighlightCard({ item, IconComponent }: { item: any; IconComponent: any }) {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  return (
+    <HoverGlowCard
+      className="text-center p-6 rounded-xl relative backdrop-blur-md border border-white/10"
+      style={{
+        background: 'rgba(255, 255, 255, 0.05)',
+        cursor: 'default',
+      }}
+      color="rgba(131, 56, 236, 0.3)"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <m.div
+        className="inline-block"
+        animate={{
+          rotate: isHovered ? 360 : 0,
+        }}
+        transition={{
+          duration: 0.6,
+          ease: 'easeInOut',
+        }}
+      >
+        <IconComponent className="h-6 w-6 text-white mx-auto mb-2" />
+      </m.div>
+      <h4 className="text-white font-semibold mb-1" style={{ cursor: 'default', userSelect: 'none' }}>{item.title}</h4>
+      <p className="text-gray-400 text-sm" style={{ cursor: 'default', userSelect: 'none' }}>{item.desc}</p>
+    </HoverGlowCard>
+  );
+}
 
 export function About() {
   const scrollY = useScrollPosition();
   const mousePosition = useMousePosition();
   const [isStoryModalOpen, setIsStoryModalOpen] = useState(false);
   const [storySectionId, setStorySectionId] = useState<number | undefined>(undefined);
-  const { intro } = useData();
+  const { intro, skills } = useData();
 
   const mouseXPercent = typeof window !== "undefined" ? (mousePosition.x / window.innerWidth - 0.5) * 2 : 0;
   const mouseYPercent = typeof window !== "undefined" ? (mousePosition.y / window.innerHeight - 0.5) * 2 : 0;
@@ -32,8 +66,32 @@ export function About() {
   const title = aboutSection?.title || 'About';
 
 
+
   return (
     <section className="relative py-32 px-4 overflow-hidden">
+      <style dangerouslySetInnerHTML={{__html: `
+        .glow-link {
+          position: relative;
+          text-decoration: none;
+          cursor: pointer;
+        }
+        .glow-link::after {
+          content: '';
+          position: absolute;
+          bottom: 5px;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: transparent;
+          box-shadow: 0 0 15px rgba(255, 255, 255, 0), 0 0 30px rgba(255, 255, 255, 0);
+          transition: box-shadow 0.3s ease, background 0.3s ease;
+          pointer-events: none;
+        }
+        .glow-link:hover::after {
+          background: rgba(255, 255, 255, 0.2);
+          box-shadow: 0px 0px 20px 5px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.2);
+        }
+      `}} />
 
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -64,19 +122,22 @@ export function About() {
                 </MotionFadeIn>
               ))}
               
-              {/* Read Full Story Link */}
+              {/* Read Story Link */}
               <MotionFadeIn delay={(content.length + 1) * 0.2}>
-                <button
-                  onClick={() => {
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
                     setStorySectionId(undefined);
                     setIsStoryModalOpen(true);
                   }}
-                  className="inline-flex items-center gap-2 text-base font-medium transition-all duration-300 hover:gap-3 group mt-4"
-                  style={{ color: '#8338ec' }}
+                  className="glow-link inline-block text-xs uppercase tracking-wider font-medium mt-4"
+                  style={{ 
+                    color: 'rgba(255, 255, 255, 0.7)',
+                  }}
                 >
-                  <span>Read full story</span>
-                  <BookOpen className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </button>
+                  Read Story
+                </a>
               </MotionFadeIn>
             </div>
           </div>
@@ -107,24 +168,11 @@ export function About() {
             {highlights.map((item, index) => {
               const IconComponent = iconMap[item.icon] || Code2;
               return (
-                <HoverGlowCard
-                  key={index}
-                  className="text-center p-6 rounded-xl relative backdrop-blur-md border border-white/10"
-                  style={{
-                    background: 'rgba(255, 255, 255, 0.05)',
-                  }}
-                >
-                  <IconComponent className="h-6 w-6 text-white mx-auto mb-2" />
-                  <h4 className="text-white font-semibold mb-1">{item.title}</h4>
-                  <p className="text-gray-400 text-sm">{item.desc}</p>
-                </HoverGlowCard>
+                <HighlightCard key={index} item={item} IconComponent={IconComponent} />
               );
             })}
           </div>
         </m.div>
-
-
-       
       </div>
 
       {/* My Story Dialog */}

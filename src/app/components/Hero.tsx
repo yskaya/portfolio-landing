@@ -167,7 +167,6 @@ export function Hero() {
                 color: '#00d4ff',
                 textShadow: '0 0 20px rgba(0, 212, 255, 0.5)',
               }}
-              exit={{ opacity: 0, y: -20 }}
             >
               {rotatingTitles[textIndex]}
               <m.span
@@ -217,12 +216,7 @@ export function Hero() {
           delay={0.6}
         >
           {socialLinks.map((item, index) => (
-            <m.div key={index} whileHover={{ 
-                scale: 1.05,
-                boxShadow: `0 0 20px ${item.color}`,
-              }}
-              whileTap={{ scale: 0.95 }}
-            >
+            <div key={index}>
               <Button 
                 asChild
                 variant="outline" 
@@ -237,58 +231,107 @@ export function Hero() {
                   letterSpacing: '0.1em',
                   fontSize: '0.875rem',
                 }}
+                onMouseEnter={(e) => {
+                  const rgb = item.color === '#00d4ff' ? '0, 212, 255' : item.color === '#ff006e' ? '255, 0, 110' : '131, 56, 236';
+                  e.currentTarget.style.boxShadow = `0 0 15px rgba(${rgb}, 0.4), 0 0 30px rgba(${rgb}, 0.2)`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
               >
-                <a href={item.href} target={item.href.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer">
+                <a href={item.href || '#'} target={item.href?.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer">
                   <item.icon className="mr-2 h-4 w-4" />
                   {item.label}
-                  
-                  {/* Holographic shimmer */}
-                  <m.div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100"
-                    style={{
-                      background: `linear-gradient(90deg, transparent, ${item.color}40, transparent)`,
-                    }}
-                    animate={{
-                      x: ['-100%', '100%'],
-                    }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                    }}
-                  />
                 </a>
               </Button>
-            </m.div>
+            </div>
           ))}
         </MotionFadeIn>
         
-        {/* Location badge with AI styling */}
+        {/* Location - inline display */}
         <MotionFadeIn
-          className="mb-12"
+          className="mb-12 flex items-center justify-center"
           delay={0.8}
         >
           <div
-            className="inline-flex items-center px-6 py-3 rounded-full border backdrop-blur-md"
+            className="inline-flex items-center gap-4"
             style={{
-              background: 'rgba(0, 255, 65, 0.05)',
-              borderColor: '#00ff41',
-              boxShadow: '0 0 20px rgba(0, 255, 65, 0.2)',
               fontFamily: 'JetBrains Mono, monospace',
             }}
           >
-            <span style={{ color: '#00ff41' }}>📍</span>
-            <span className="ml-2" style={{ color: 'rgba(255, 255, 255, 0.9)' }}>
+            {/* Open for relocation - left side */}
+            {intro.open_for_relocation && (
+              <m.span
+                className="text-xs uppercase tracking-wider"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1, duration: 0.5 }}
+                style={{
+                  color: 'rgba(0, 255, 65, 0.7)',
+                  fontFamily: 'JetBrains Mono, monospace',
+                  fontSize: '0.65rem',
+                  letterSpacing: '0.1em',
+                  textShadow: '0 0 6px rgba(0, 255, 65, 0.3)',
+                }}
+              >
+                open for relocation
+              </m.span>
+            )}
+            
+            {/* More noticeable pulsing indicator */}
+            <m.span
+              className="relative flex items-center justify-center"
+              style={{ color: '#00ff41' }}
+              animate={{
+                scale: [1, 1.3, 1],
+                opacity: [0.3, 1, 0.3],
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            >
+              <span style={{ 
+                filter: 'drop-shadow(0 0 4px #00ff41)',
+              }}>
+                ◉
+              </span>
+              {/* Pulsing glow effect */}
+              <m.span
+                className="absolute inset-0"
+                style={{
+                  color: '#00ff41',
+                  filter: 'blur(4px)',
+                  opacity: 0.6,
+                }}
+                animate={{
+                  scale: [1, 1.5, 1],
+                  opacity: [0.3, 0.8, 0.3],
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+              >
+                ◉
+              </m.span>
+            </m.span>
+            
+            {/* Location - right side */}
+            <span
+              className="uppercase tracking-wider"
+              style={{
+                color: 'rgba(0, 255, 65, 0.9)',
+                fontFamily: 'JetBrains Mono, monospace',
+                fontSize: '1.15rem',
+                letterSpacing: '0.1em',
+                textShadow: '0 0 8px rgba(0, 255, 65, 0.4)',
+              }}
+            >
               {intro.location || 'TBD'}
             </span>
-            {/* Dot blinking */}
-            <m.span 
-              className="ml-2"
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              style={{ color: '#00ff41' }}
-            >
-              ●
-            </m.span>
           </div>
         </MotionFadeIn>
         

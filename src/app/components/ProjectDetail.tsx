@@ -1,6 +1,6 @@
 import { m } from 'motion/react';
 import { MotionFadeIn } from '../graphs/MotionFadeIn';
-import { ArrowLeft, ExternalLink, Github, Calendar, Users, Zap, X, Building2, Briefcase, MapPin } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Github, Calendar, Users, Zap, X, Building2, Briefcase, MapPin, Monitor, CheckCircle2 } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useMousePosition } from '../hooks/useMousePosition';
 import { useScrollPosition } from '../hooks/useScrollPosition';
@@ -15,6 +15,7 @@ interface Project {
   challenges: string[];
   outcomes: string[];
   achievements: string[];
+  responsibilities?: string[];
   image?: string;
   demo?: string;
   github?: string;
@@ -25,6 +26,8 @@ interface Project {
   company?: string;
   company_size?: string;
   location?: string;
+  work_mode?: string;
+  status?: string;
   category: string;
 }
 
@@ -43,6 +46,33 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
 
   const content = (
     <div className={`relative ${isModal ? 'p-10 min-h-full' : 'min-h-screen py-32 px-4'} ${isModal ? '' : 'overflow-hidden'}`}>
+      <style dangerouslySetInnerHTML={{__html: `
+        .glow-link-purple {
+          position: relative;
+          text-decoration: none;
+          cursor: pointer;
+          transition: color 0.3s ease;
+        }
+        .glow-link-purple::after {
+          content: '';
+          position: absolute;
+          bottom: 5px;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: transparent;
+          box-shadow: 0 0 15px rgba(131, 56, 236, 0), 0 0 30px rgba(131, 56, 236, 0);
+          transition: box-shadow 0.3s ease, background 0.3s ease;
+          pointer-events: none;
+        }
+        .glow-link-purple:hover {
+          color: #a855f7 !important;
+        }
+        .glow-link-purple:hover::after {
+          background: rgba(131, 56, 236, 0.2);
+          box-shadow: 0px 0px 20px 5px rgba(131, 56, 236, 0.4), 0 0 30px rgba(131, 56, 236, 0.2);
+        }
+      `}} />
       {/* Background effects for modal */}
       {isModal && (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -110,36 +140,28 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
         {isModal ? (
           /* Modal Layout: Title -> Role -> Timeline -> Teams -> Company/Product size -> Company -> Description -> Tech Stack */
           <div>
-            {/* Title with Visit link */}
-            <div className="flex items-center gap-4 mb-12">
-              <h1 className="text-4xl font-bold" style={{ color: '#ffffff' }}>
-                {project.title}
+            {/* Title with View Product link */}
+            <div className="mb-12">
+              <h1 className="text-4xl font-bold inline-flex items-baseline gap-4" style={{ color: '#ffffff' }}>
+                <span className="holographic">{project.title}</span>
+                {project.demo && project.demo !== 'TBD' && (
+                  <a
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="glow-link-purple inline-block text-xs uppercase tracking-wider font-medium"
+                    style={{ 
+                      color: 'rgba(131, 56, 236, 0.7)',
+                    }}
+                  >
+                    View Product
+                  </a>
+                )}
               </h1>
-              {project.demo && project.demo !== 'TBD' && (
-                <m.a
-                  href={project.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full transition-all duration-300 flex-shrink-0"
-                  style={{
-                    background: 'rgba(131, 56, 236, 0.2)',
-                    borderColor: '#8338ec',
-                    color: '#8338ec',
-                    border: '1px solid rgba(131, 56, 236, 0.3)',
-                  }}
-                  whileHover={{
-                    background: 'rgba(131, 56, 236, 0.4)',
-                    scale: 1.05,
-                  }}
-                >
-                  <ExternalLink className="w-3 h-3" />
-                  Visit
-                </m.a>
-              )}
             </div>
 
             {/* Meta Info in new order: Role -> Timeline -> Teams -> Company - Separated with visual divider - More compact */}
-            <div className="space-y-3 text-base pb-12 border-b" style={{ color: 'rgba(255, 255, 255, 0.8)', borderColor: 'rgba(255, 255, 255, 0.1)' }}>
+            <div className="space-y-3 text-base" style={{ color: 'rgba(255, 255, 255, 0.8)', borderColor: 'rgba(255, 255, 255, 0.1)' }}>
               {/* Role/Position (display with slash if array) */}
               <div className="flex items-center gap-3">
                 <Briefcase className="w-4 h-4 flex-shrink-0" style={{ color: '#ff006e' }} />
@@ -166,19 +188,12 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
                 </div>
               )}
 
-              {/* Teams (display as simple list) */}
-              {Array.isArray(project.team_size) ? (
+              {/* Work Mode */}
+              {project.work_mode && (
                 <div className="flex items-center gap-3">
-                  <Users className="w-4 h-4 flex-shrink-0" style={{ color: '#00ff88' }} />
+                  <Monitor className="w-4 h-4 flex-shrink-0" style={{ color: '#8338ec' }} />
                   <span>
-                    <strong style={{ color: '#ffffff' }}>Teams:</strong> <span style={{ color: 'rgba(255, 255, 255, 0.9)' }}>{project.team_size.join(', ')}</span>
-                  </span>
-                </div>
-              ) : project.team_size && (
-                <div className="flex items-center gap-3">
-                  <Users className="w-4 h-4 flex-shrink-0" style={{ color: '#00ff88' }} />
-                  <span>
-                    <strong style={{ color: '#ffffff' }}>Teams:</strong> <span style={{ color: 'rgba(255, 255, 255, 0.9)' }}>{project.team_size}</span>
+                    <strong style={{ color: '#ffffff' }}>Work Mode:</strong> <span style={{ color: 'rgba(255, 255, 255, 0.9)' }}>{project.work_mode}</span>
                   </span>
                 </div>
               )}
@@ -190,6 +205,26 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
                   <span>
                     <strong style={{ color: '#ffffff' }}>Company:</strong> <span style={{ color: 'rgba(255, 255, 255, 0.9)' }}>{project.company}</span>
                     {project.company_size && <span className="ml-2" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>({project.company_size})</span>}
+                  </span>
+                </div>
+              )}
+
+              {/* Team */}
+              {project.team && project.team !== 'TBD' && (
+                <div className="flex items-center gap-3">
+                  <Users className="w-4 h-4 flex-shrink-0" style={{ color: '#00ff88' }} />
+                  <span>
+                    <strong style={{ color: '#ffffff' }}>Team:</strong> <span style={{ color: 'rgba(255, 255, 255, 0.9)' }}>{project.team}</span>
+                  </span>
+                </div>
+              )}
+
+              {/* Status */}
+              {project.status && (
+                <div className="flex items-center gap-3">
+                  <CheckCircle2 className="w-4 h-4 flex-shrink-0" style={{ color: '#00d4ff' }} />
+                  <span>
+                    <strong style={{ color: '#ffffff' }}>Status:</strong> <span style={{ color: 'rgba(255, 255, 255, 0.9)' }}>{project.status}</span>
                   </span>
                 </div>
               )}
@@ -228,6 +263,28 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
                 }
               })}
             </div>
+
+            {/* Responsibilities - Separated section */}
+            {project.responsibilities && project.responsibilities.length > 0 && (
+              <div className="pt-12">
+                <h3 className="text-2xl font-bold mb-6" style={{ color: '#ffffff' }}>
+                  Responsibilities
+                </h3>
+                <div className="space-y-3">
+                  {project.responsibilities.map((responsibility, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <span className="flex-shrink-0" style={{ color: '#00d4ff', marginTop: '2px' }}>•</span>
+                      <p 
+                        className="text-lg leading-relaxed flex-1"
+                        style={{ color: 'rgba(255, 255, 255, 0.9)' }}
+                      >
+                        {responsibility}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Tech Stack - Separated section */}
             <div className="pt-12" style={{ borderColor: 'rgba(255, 255, 255, 0.1)' }}>
@@ -372,11 +429,46 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
                 </div>
               </MotionFadeIn>
 
+              {/* Responsibilities */}
+              {project.responsibilities && project.responsibilities.length > 0 && (
+                <MotionFadeIn
+                  className="rounded-xl p-6 border border-white/10"
+                  style={{ background: 'rgba(131, 56, 236, 0.1)' }}
+                  delay={0.5}
+                >
+                  <h3 className="text-xl font-bold mb-4" style={{ color: '#ffffff' }}>
+                    Responsibilities
+                  </h3>
+                  <div className="space-y-3">
+                    {project.responsibilities.map((responsibility, index) => (
+                      <m.div
+                        key={index}
+                        className="flex items-start gap-3"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.6 + index * 0.1 }}
+                      >
+                        <div 
+                          className="w-2 h-2 rounded-full mt-2 flex-shrink-0"
+                          style={{ background: '#8338ec' }}
+                        />
+                        <p 
+                          className="text-base leading-relaxed"
+                          style={{ color: 'rgba(255, 255, 255, 0.9)' }}
+                        >
+                          {responsibility}
+                        </p>
+                      </m.div>
+                    ))}
+                  </div>
+                </MotionFadeIn>
+              )}
+
               {/* Achievements */}
               <MotionFadeIn
                 className="rounded-xl p-6 border border-white/10"
                 style={{ background: 'rgba(0, 212, 255, 0.1)' }}
-                delay={0.5}
+                delay={0.6}
               >
                 <h3 className="text-xl font-bold mb-4" style={{ color: '#ffffff' }}>
                   Achievements
@@ -389,7 +481,7 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
                         className="flex items-start gap-3"
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.6 + index * 0.1 }}
+                        transition={{ delay: 0.7 + index * 0.1 }}
                       >
                         <div 
                           className="w-2 h-2 rounded-full mt-2 flex-shrink-0"

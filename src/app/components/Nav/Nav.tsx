@@ -12,16 +12,17 @@ type Props = {
 export const SECTION = {
   HERO: "hero",
   ABOUT: "about",
+  QUALIFICATIONS: "qualifications",
   EXPERIENCE: "experience",
   SKILLS: "skills",
   PROJECTS: "projects",
+  RECOMMENDATIONS: "recommendations",
   CONTACT: "contact",
 } as const;
 
 export type SectionId = typeof SECTION[keyof typeof SECTION];
 
 export const NAV_ITEMS: { label: string; id: SectionId, hidden?: boolean }[] = [
-  { label: "Hero", id: SECTION.HERO },
   { label: "About", id: SECTION.ABOUT },
   { label: "Projects", id: SECTION.PROJECTS },
   { label: "Experience", id: SECTION.EXPERIENCE },
