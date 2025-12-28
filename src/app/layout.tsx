@@ -3,7 +3,7 @@ import "./globals.css";
 import { DataProvider } from "./context/DataContext";
 import { NavProvider } from "./components/Nav/NavContext";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://skaya.me';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kanapatskaya.me';
 const siteName = "Portfolio. Yulia Kanapatskaya";
 const siteDescription = "Full-stack web engineering with deep Frontend expertise, focused on building scalable platforms and shared systems through hands-on execution and long-term technical ownership";
 
