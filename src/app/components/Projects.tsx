@@ -170,31 +170,33 @@ export function Projects({ showAll = false }: ProjectsProps) {
                   <HoverGlowCard onClick={() => handleProjectSelect(project.id)}>
                     <Card className="bg-white/5 border-white/10 text-white hover:bg-white/10 transition-colors">
                       <CardHeader>
-                        <div className="flex justify-between items-start gap-2">
-                          <div className="flex-1 min-w-0">
-                            <CardTitle className="text-xl text-white mb-1 line-clamp-1">{project.title}</CardTitle>
-                            {/* Date and Location - on one line */}
-                            <div className="flex flex-wrap items-center gap-2 text-xs text-gray-400">
-                              {project.duration && project.duration !== 'TBD' && (
-                                <span>{project.duration}</span>
-                              )}
-                              {project.location && project.location !== 'TBD' && (
-                                <>
-                                  {project.duration && project.duration !== 'TBD' && <span>•</span>}
-                                  <span>{project.location.split(',')[0]}</span>
-                                </>
-                              )}
-                            </div>
-                            {/* Position - on another line */}
-                            {project.role && (
-                              <div className="flex items-center gap-2 text-xs text-gray-400 mt-1">
-                                <span className="line-clamp-1">{Array.isArray(project.role) ? project.role.join(' / ') : project.role}</span>
-                              </div>
-                            )}
-                          </div>
+                        <div className="flex justify-between items-start gap-2 mb-2">
+                          <div className="flex-1 min-w-0"></div>
                           {project.featured && (
                             <Badge className="bg-white text-black transition-none flex-shrink-0">Featured</Badge>
                           )}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          {/* Title - on second line */}
+                          <CardTitle className="text-xl text-white mb-2 line-clamp-1">{project.title}</CardTitle>
+                          {/* Date * Location * Mode - on third line */}
+                          <div className="flex flex-wrap items-center gap-1 text-xs text-gray-400">
+                            {project.duration && project.duration !== 'TBD' && (
+                              <span>{project.duration}</span>
+                            )}
+                            {project.location && project.location !== 'TBD' && (
+                              <>
+                                {project.duration && project.duration !== 'TBD' && <span>•</span>}
+                                <span>{project.location.split(',')[0]}</span>
+                              </>
+                            )}
+                            {project.work_mode && project.work_mode !== 'TBD' && (
+                              <>
+                                {(project.duration && project.duration !== 'TBD' || project.location && project.location !== 'TBD') && <span>•</span>}
+                                <span>{project.work_mode}</span>
+                              </>
+                            )}
+                          </div>
                         </div>
                         <CardDescription className="text-gray-300 mt-2">
                           {project.description}

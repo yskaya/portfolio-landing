@@ -9,40 +9,29 @@
       "work_history": [
         {
           "position": "Principal Engineer - Frontend Platform & Product Architecture",
-          "start": "2025",
+          "start": "May 2025",
           "end": "Present",
-          "desc": "Principal-level IC shaping product foundations and frontend platform architecture while remaining deeply hands-on in implementation.",
+          "desc": "Principal-level individual contributor shaping product foundations and frontend platform architecture, with direct ownership over system design and hands-on contribution to critical paths.",
           "team": "Early-stage product and engineering team",
           "responsibilities": [
-            "Frontend platform architecture and system design",
-            "Product-driven technical decision-making",
-            "Cross-functional collaboration with product and design",
-            "End-to-end ownership of complex UI workflows"
+            "Frontend platform architecture and system design for a permissioned, multi-role product",
+            "Product-driven technical decision-making across UX flows, system behavior, and delivery trade-offs",
+            "Cross-functional collaboration with founders, product, and design",
+            "End-to-end ownership of complex, data-heavy UI workflows"
           ],
           "achievements": [
             "Designed and implemented frontend architecture for a multi-role, permissioned B2B system",
-            "Built scalable UI foundations for AI-assisted document workflows and data-heavy interfaces",
-            "Partnered closely with product leadership to shape feature scope, UX flows, and technical trade-offs",
+            "Built scalable UI foundations for AI-assisted document generation, review, and management workflows",
+            "Partnered closely with product leadership to define feature scope, UX flows, and technical trade-offs",
             "Translated ambiguous legal-domain requirements into structured, maintainable frontend systems",
-            "Established patterns for state management, API integration, and reusable UI components",
+            "Established architectural patterns for state management, API integration, and reusable UI components",
             "Contributed hands-on to core features while guiding architectural direction and long-term maintainability"
           ]
         }
       ],
-      "technical_focus": [
-        "Frontend platform architecture for AI-powered workflows",
-        "Complex form systems, document views, and state-heavy UI flows",
-        "Permissioned access models and role-based UI behavior",
-        "Product-quality UX in data-dense, non-visual domains"
-      ],
-      "impact": [
-        "Enabled rapid iteration on AI-assisted legal workflows without sacrificing architectural clarity",
-        "Reduced frontend complexity through shared abstractions and consistent patterns",
-        "Established a scalable foundation for future product growth in a highly regulated domain"
-      ],
       "tech_stack": ["React", "TypeScript", "Next.js", "Node.js", "API-driven architecture", "Modular frontend systems", "Reusable UI foundations", "LLM-assisted workflows", "Data processing pipelines"],
       "role": "Principal Engineer - Frontend Platform & Product Architecture",
-      "start_date": "2025",
+      "start_date": "May 2025",
       "end_date": "Present",
       "location": "San Francisco",
       "work_mode": "Remote",

@@ -20,7 +20,7 @@
   ],
   "location": "Los Angeles",
   "open_for_relocation": true,
-  "short_description": "15+ years delivering large-scale web platforms, with end-to-end ownership across frontend systems, full-stack execution, and technical leadership supporting products used by millions worldwide",
+  "short_description": "15+ years delivering large-scale web platforms, with end-to-end ownership across frontend systems, product architecture, and hands-on technical leadership for products used by millions.",
   "about": "Frontend platform & system architect with 15+ years of experience leading UI infrastructure and full-stack systems in high-scale, multi-product environments. Specialized in design systems, frontend platforms, and modernizing legacy systems into scalable architectures. Strong at translating product vision into executable technical plans while balancing delivery, quality, and long-term maintainability. Core Technologies: React, TypeScript, Next.js, Node.js, NestJS, GraphQL, Redis, gRPC, Docker, AWS.",
   "about_section": {
     "title": "Overview",
@@ -48,13 +48,13 @@
     ],
     "content": [
       {
-        "content": "I’m a Staff / Principal-level frontend and full-stack engineer with 15+ years of experience building and scaling web products across startups and large consumer platforms."
+        "content": "I’m a Staff / Principal-level frontend and product-focused full-stack engineer with 15+ years of experience building and scaling web platforms across startups and large consumer products."
       },
       {
-        "content": "My core strength is technical leadership as an individual contributor — designing frontend platforms, shared systems, and scalable architectures while staying deeply hands-on in implementation. I work at the intersection of product, architecture, and execution, often owning complex technical problems end-to-end and partnering closely with product and design to shape solutions early."
+        "content": "My core strength is technical leadership as an individual contributor — designing frontend platforms, shared systems, and scalable architectures while staying deeply hands-on on critical paths. I work at the intersection of product, architecture, and execution, often owning complex technical problems end-to-end and partnering closely with founders, product, and design to shape solutions early."
       },
       {
-        "content": "I’ve led frontend platform initiatives, design systems, and cross-product architecture used by millions of users, while remaining actively involved in code, reviews, and system design."
+        "content": "I’ve led frontend platform and design system initiatives, defined cross-product architecture, and delivered secure, scalable systems supporting products used by millions of users, while remaining actively involved in implementation, reviews, and system design."
       }
     ]
   },
