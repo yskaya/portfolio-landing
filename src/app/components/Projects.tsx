@@ -9,6 +9,7 @@ import { MotionFadeIn } from "../graphs/MotionFadeIn";
 import { AnimatedHeadline } from "../graphs/AnimatedHeadline";
 import { useData } from "../context/DataContext";
 import { HoverGlowCard } from '../graphs/HoverGlowCard';
+import { AnimatePresence, m } from "motion/react";
 
 interface ProjectsProps {
   showAll?: boolean;
@@ -19,8 +20,15 @@ export function Projects({ showAll = false }: ProjectsProps) {
 
   const [selectedProjectId, setSelectedProjectId] = useState<string>("");
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+  const [showAllProjects, setShowAllProjects] = useState(false);
   
-  const displayProjects = showAll ? projects : projects.slice(0, 6);
+  const displayProjects = showAll 
+    ? projects 
+    : showAllProjects 
+      ? projects 
+      : projects.slice(0, 4);
+  
+  const hasMoreProjects = !showAll && projects.length > 4;
 
   const selectedProject = useMemo(
     () => projects.find((p) => p.id === selectedProjectId),
@@ -92,6 +100,32 @@ export function Projects({ showAll = false }: ProjectsProps) {
           background: rgba(255, 255, 255, 0.2);
           box-shadow: 0px 0px 20px 5px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.2);
         }
+        .glow-link-cyan {
+          position: relative;
+          text-decoration: none;
+          cursor: pointer;
+          transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+        .glow-link-cyan::after {
+          content: '';
+          position: absolute;
+          bottom: 5px;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: transparent;
+          box-shadow: 0 0 15px rgba(0, 212, 255, 0), 0 0 30px rgba(0, 212, 255, 0);
+          transition: box-shadow 0.3s ease, background 0.3s ease;
+          pointer-events: none;
+        }
+        .glow-link-cyan:hover {
+          color: #00d4ff !important;
+          text-shadow: 0 0 10px rgba(0, 212, 255, 0.8), 0 0 20px rgba(0, 212, 255, 0.6);
+        }
+        .glow-link-cyan:hover::after {
+          background: rgba(0, 212, 255, 0.2);
+          box-shadow: 0px 0px 20px 5px rgba(0, 212, 255, 0.4), 0 0 30px rgba(0, 212, 255, 0.2);
+        }
       `}} />
       <div className="max-w-6xl mx-auto">
         <div className="mb-16">
@@ -108,85 +142,122 @@ export function Projects({ showAll = false }: ProjectsProps) {
           </MotionFadeIn>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {displayProjects.map((project, index) => (
-            <MotionFadeIn key={index} delay={index * 0.1}>
-              <HoverGlowCard onClick={() => handleProjectSelect(project.id)}>
-                <Card className="bg-white/5 border-white/10 text-white hover:bg-white/10 transition-colors">
-                  <CardHeader>
-                    <div className="flex justify-between items-start gap-2">
-                      <div className="flex-1 min-w-0">
-                        <CardTitle className="text-xl text-white mb-1 line-clamp-1">{project.title}</CardTitle>
-                        {/* Date and Location - on one line */}
-                        <div className="flex flex-wrap items-center gap-2 text-xs text-gray-400">
-                          {project.duration && project.duration !== 'TBD' && (
-                            <span>{project.duration}</span>
-                          )}
-                          {project.location && project.location !== 'TBD' && (
-                            <>
-                              {project.duration && project.duration !== 'TBD' && <span>•</span>}
-                              <span>{project.location.split(',')[0]}</span>
-                            </>
+        <m.div
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          layout
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+        >
+          <AnimatePresence mode="popLayout">
+            {displayProjects.map((project, index) => (
+              <m.div
+                key={project.id}
+                layout
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ 
+                  opacity: 0, 
+                  scale: 0.95,
+                  y: -10,
+                  transition: { duration: 0.3, ease: "easeInOut" }
+                }}
+                transition={{ 
+                  duration: 0.4, 
+                  ease: "easeInOut",
+                  layout: { duration: 0.4, ease: "easeInOut" }
+                }}
+              >
+                <MotionFadeIn delay={index < 4 ? index * 0.1 : 0}>
+                  <HoverGlowCard onClick={() => handleProjectSelect(project.id)}>
+                    <Card className="bg-white/5 border-white/10 text-white hover:bg-white/10 transition-colors">
+                      <CardHeader>
+                        <div className="flex justify-between items-start gap-2">
+                          <div className="flex-1 min-w-0">
+                            <CardTitle className="text-xl text-white mb-1 line-clamp-1">{project.title}</CardTitle>
+                            {/* Date and Location - on one line */}
+                            <div className="flex flex-wrap items-center gap-2 text-xs text-gray-400">
+                              {project.duration && project.duration !== 'TBD' && (
+                                <span>{project.duration}</span>
+                              )}
+                              {project.location && project.location !== 'TBD' && (
+                                <>
+                                  {project.duration && project.duration !== 'TBD' && <span>•</span>}
+                                  <span>{project.location.split(',')[0]}</span>
+                                </>
+                              )}
+                            </div>
+                            {/* Position - on another line */}
+                            {project.role && (
+                              <div className="flex items-center gap-2 text-xs text-gray-400 mt-1">
+                                <span className="line-clamp-1">{Array.isArray(project.role) ? project.role.join(' / ') : project.role}</span>
+                              </div>
+                            )}
+                          </div>
+                          {project.featured && (
+                            <Badge className="bg-white text-black transition-none flex-shrink-0">Featured</Badge>
                           )}
                         </div>
-                        {/* Position - on another line */}
-                        {project.role && (
-                          <div className="flex items-center gap-2 text-xs text-gray-400 mt-1">
-                            <span className="line-clamp-1">{Array.isArray(project.role) ? project.role.join(' / ') : project.role}</span>
+                        <CardDescription className="text-gray-300 mt-2">
+                          {project.description}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {project.technologies.slice(0, 4).map((tech, techIndex) => (
+                            <Badge
+                              key={techIndex}
+                              variant="outline"
+                              className="border-white/20 text-gray-300 transition-none"
+                            >
+                              {tech}
+                            </Badge>
+                          ))}
+                          {project.technologies.length > 4 && (
+                            <Badge
+                              variant="outline"
+                              className="border-white/20 text-gray-300 transition-none"
+                            >
+                              +{project.technologies.length - 4}
+                            </Badge>
+                          )}
+                        </div>
+                        
+                        {/* Visit Link */}
+                        {project.demo && project.demo !== 'TBD' && (
+                          <div className="mt-4 pt-4 border-t border-white/10">
+                            <a
+                              href={project.demo}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className="glow-link-white inline-flex items-center gap-2 text-xs uppercase tracking-wider font-medium"
+                              style={{ color: 'rgba(255, 255, 255, 0.7)' }}
+                            >
+                              <span>Visit Project</span>
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
                           </div>
                         )}
-                      </div>
-                      {project.featured && (
-                        <Badge className="bg-white text-black transition-none flex-shrink-0">Featured</Badge>
-                      )}
-                    </div>
-                    <CardDescription className="text-gray-300 mt-2">
-                      {project.description}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.technologies.slice(0, 4).map((tech, techIndex) => (
-                        <Badge
-                          key={techIndex}
-                          variant="outline"
-                          className="border-white/20 text-gray-300 transition-none"
-                        >
-                          {tech}
-                        </Badge>
-                      ))}
-                      {project.technologies.length > 4 && (
-                        <Badge
-                          variant="outline"
-                          className="border-white/20 text-gray-300 transition-none"
-                        >
-                          +{project.technologies.length - 4}
-                        </Badge>
-                      )}
-                    </div>
-                    
-                    {/* Visit Link */}
-                    {project.demo && project.demo !== 'TBD' && (
-                      <div className="mt-4 pt-4 border-t border-white/10">
-                        <a
-                          href={project.demo}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="glow-link-white inline-flex items-center gap-2 text-xs uppercase tracking-wider font-medium"
-                          style={{ color: 'rgba(255, 255, 255, 0.7)' }}
-                        >
-                          <span>Visit Project</span>
-                          <ExternalLink className="w-3 h-3" />
-                        </a>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              </HoverGlowCard>
-            </MotionFadeIn>
-          ))}
-        </div>
+                      </CardContent>
+                    </Card>
+                  </HoverGlowCard>
+                </MotionFadeIn>
+              </m.div>
+            ))}
+          </AnimatePresence>
+        </m.div>
+        
+        {hasMoreProjects && !showAllProjects && (
+          <MotionFadeIn className="text-center mt-12" delay={0.5}>
+            <button
+              onClick={() => setShowAllProjects(true)}
+              className="glow-link-cyan inline-flex items-center gap-2 text-sm uppercase tracking-wider font-medium"
+              style={{ color: 'rgba(0, 212, 255, 0.7)' }}
+            >
+              <span>Show All Projects</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </MotionFadeIn>
+        )}
       </div>
 
       <Dialog open={isProjectModalOpen} onOpenChange={setIsProjectModalOpen}>
