@@ -4,20 +4,19 @@
     "linkedin": "https://linkedin.com/in/yskaya",
     "email": "yulia.kanapatskaya@gmail.com",
     "github": "https://github.com/yskaya",
-    "website": "yulia.kanapatskaya.me",
+    "website": "kanapatskaya.me",
     "personal_websites": [
       "https://amelia.ai",
       "https://wetransfer.com",
-      "https://www.sophia.org",
+      "https://aparti.ai",
       "https://www.namely.com/",
       "https://www.sophia.org/"
     ]
   },
   "positions": [
-    "Staff+ Frontend / Platform Engineer",
-    "Engineering Manager (Technical)",
-    "Senior Full-Stack / Frontend Engineer",
-    "Individual Contributer /  Principled Engineer"
+    "Staff / Principal Frontend Engineer",
+    "Platform & Product Architecture",
+    "Individual Contributor (IC)"
   ],
   "location": "Los Angeles",
   "open_for_relocation": true,
@@ -49,13 +48,13 @@
     ],
     "content": [
       {
-        "content": "I'm a <strong>Staff-level frontend and full-stack engineer</strong> with <strong>15+ years of experience</strong> building and scaling web products across startups and large consumer platforms. My core strength is <strong>technical leadership as an individual contributor</strong> — designing frontend platforms, shared systems, and scalable architectures while staying deeply involved in implementation. I've worked across high-impact product teams in the <strong>U.S. and Europe</strong>, contributing to systems used by <strong>millions of users</strong>."
+        "content": "I’m a Staff / Principal-level frontend and full-stack engineer with 15+ years of experience building and scaling web products across startups and large consumer platforms."
       },
       {
-        "content": "At <strong>WeTransfer</strong>, I led frontend platform architecture, including a <strong>multi-package design system</strong> adopted across five products and used by <strong>30+ engineers</strong>, supporting applications with <strong>1M+ DAU</strong>. I remained hands-on through code contributions, pull request reviews, and architectural guidance, while partnering closely with product and platform teams. More recently, I stepped into a <strong>Technical Engineering Manager</strong> role, expanding my scope into planning, prioritization, and delivery — while continuing to contribute directly to the codebase."
+        "content": "My core strength is technical leadership as an individual contributor — designing frontend platforms, shared systems, and scalable architectures while staying deeply hands-on in implementation. I work at the intersection of product, architecture, and execution, often owning complex technical problems end-to-end and partnering closely with product and design to shape solutions early."
       },
       {
-        "content": "My focus is on technical management roles where leadership is grounded in hands-on engineering. I'm intentionally growing toward managing systems, scope, and delivery while remaining an active Staff-level individual contributor. I'm looking for a long-term role with room for growth and meaningful equity participation."
+        "content": "I’ve led frontend platform initiatives, design systems, and cross-product architecture used by millions of users, while remaining actively involved in code, reviews, and system design."
       }
     ]
   },
@@ -114,5 +113,5 @@
     "projects_delivered": "20+",
     "users_impacted": "Millions"
   },
-  "contact_text": "I'm currently considering Senior, Staff, or Principal IC roles where I can stay hands-on as a full-stack engineer with deep React expertise, while growing toward technical management responsibilities over time.\n\nI'm looking for a long-term environment with equity, where architectural ownership, product thinking, and people development are valued."
+  "contact_text": "I'm currently considering Senior, Staff, or Principal IC roles where I can stay hands-on as a full-stack engineer with deep React expertise, while continuing to grow in architectural ownership, product influence, and technical leadership as an individual contributor."
 }

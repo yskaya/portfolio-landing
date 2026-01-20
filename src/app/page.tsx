@@ -6,7 +6,6 @@ import { Hero } from "./components/Hero";
 import { About } from "./components/About";
 import { Qualifications } from "./components/Qualifications";
 import { Skills } from "./components/Skills";
-import { WorkHistory } from "./components/WorkHistory";
 import { Projects } from "./components/Projects";
 import { Recommendations } from "./components/Recommendations";
 import { Contact } from "./components/Contact";
@@ -46,10 +45,6 @@ export default function App() {
 
               <MotionSection id={SECTION.PROJECTS} className="cyber-glass-green2">
                 <Projects />
-              </MotionSection>
-
-              <MotionSection id={SECTION.EXPERIENCE} className="cyber-glass-purple">
-                <WorkHistory />
               </MotionSection>
 
               <MotionSection id={SECTION.SKILLS} className="cyber-glass-pink">

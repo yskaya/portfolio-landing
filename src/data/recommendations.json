@@ -9,7 +9,8 @@
       "linkedin_url": "https://linkedin.com/in/yskaya/recommendations",
       "company": "WeTransfer",
       "start_date": "Sept 2020",
-      "end_date": "Sept 2024"
+      "end_date": "Sept 2024",
+      "post_date": "Sept 2024"
     },
     {
       "id": "rec-2",
@@ -20,7 +21,8 @@
       "linkedin_url": "https://linkedin.com/in/yskaya/recommendations",
       "company": "AI Amelia (IPsoft)",
       "start_date": "Sept 2017",
-      "end_date": "Sept 2018"
+      "end_date": "Sept 2018",
+      "post_date": "Sept 2018"
     },
     {
       "id": "rec-3",
@@ -31,7 +33,8 @@
       "linkedin_url": "https://linkedin.com/in/yskaya/recommendations",
       "company": "Namely",
       "start_date": "Sept 2018",
-      "end_date": "Sept 2020"
+      "end_date": "Sept 2020",
+      "post_date": "Sept 2020"
     },
     {
       "id": "rec-4",
@@ -42,7 +45,8 @@
       "linkedin_url": "https://linkedin.com/in/yskaya/recommendations",
       "company": "Candena",
       "start_date": "Dec 2013",
-      "end_date": "Dec 2015"
+      "end_date": "Dec 2015",
+      "post_date": "Dec 2015"
     },
     {
       "id": "rec-5",
@@ -53,7 +57,8 @@
       "linkedin_url": "https://linkedin.com/in/yskaya/recommendations",
       "company": "Candena",
       "start_date": "Dec 2013",
-      "end_date": "Dec 2015"
+      "end_date": "Dec 2015",
+      "post_date": "Dec 2015"
     },
     {
       "id": "rec-6",
@@ -64,7 +69,8 @@
       "linkedin_url": "https://linkedin.com/in/yskaya/recommendations",
       "company": "Candena",
       "start_date": "Dec 2013",
-      "end_date": "Dec 2015"
+      "end_date": "Dec 2015",
+      "post_date": "Dec 2015"
     }
   ]
 }

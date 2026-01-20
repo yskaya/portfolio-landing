@@ -16,6 +16,16 @@ interface Project {
   outcomes: string[];
   achievements: string[];
   responsibilities?: string[];
+  work_history?: {
+    position: string;
+    start: string;
+    end: string;
+    desc: string;
+    location?: string;
+    team?: string;
+    responsibilities?: string[];
+    achievements?: string[];
+  }[];
   image?: string;
   demo?: string;
   github?: string;
@@ -43,6 +53,7 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
 
   const mouseXPercent = typeof window !== "undefined" ? (mousePosition.x / window.innerWidth - 0.5) * 2 : 0;
   const mouseYPercent = typeof window !== "undefined" ? (mousePosition.y / window.innerHeight - 0.5) * 2 : 0;
+  const modalWorkItems = project.work_history || [];
 
   const content = (
     <div className={`relative ${isModal ? 'p-10 min-h-full' : 'min-h-screen py-32 px-4'} ${isModal ? '' : 'overflow-hidden'}`}>
@@ -145,6 +156,20 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
               <h1 className="text-4xl font-bold" style={{ color: '#ffffff' }}>
                 <span className="holographic">{project.title}</span>
               </h1>
+              {project.demo && project.demo !== 'TBD' && (
+                <div className="mt-3 flex items-center gap-3 text-xs uppercase tracking-wider font-medium">
+                  <a
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="glow-link-purple inline-flex items-center gap-1.5"
+                    style={{ color: 'rgba(131, 56, 236, 0.7)' }}
+                  >
+                    Open Product
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+              )}
             </div>
 
             {/* Meta Info in new order: Role -> Timeline -> Teams -> Company - Separated with visual divider - More compact */}
@@ -213,20 +238,6 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
                   <span>
                     <strong style={{ color: '#ffffff' }}>Status:</strong> <span style={{ color: 'rgba(255, 255, 255, 0.9)' }}>{project.status}</span>
                   </span>
-                  {project.demo && project.demo !== 'TBD' && (
-                    <a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="glow-link-purple inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-medium"
-                      style={{ 
-                        color: 'rgba(131, 56, 236, 0.7)',
-                      }}
-                    >
-                      Open Product
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  )}
                 </div>
               )}
             </div>
@@ -265,24 +276,74 @@ export function ProjectDetail({ project, onBack, isModal = false }: ProjectDetai
               })}
             </div>
 
-            {/* Responsibilities - Separated section */}
-            {project.responsibilities && project.responsibilities.length > 0 && (
+            {/* Professional Journey (modal only) */}
+            {isModal && modalWorkItems.length > 0 && (
               <div className="pt-12">
-                <h3 className="text-2xl font-bold mb-6" style={{ color: '#ffffff' }}>
-                  Responsibilities
-                </h3>
-                <div className="space-y-3">
-                  {project.responsibilities.map((responsibility, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <span className="flex-shrink-0" style={{ color: '#00d4ff', marginTop: '2px' }}>•</span>
-                      <p 
-                        className="text-lg leading-relaxed flex-1"
-                        style={{ color: 'rgba(255, 255, 255, 0.9)' }}
+                <div className="space-y-6">
+                  {modalWorkItems.map((item, index) => {
+                    const achievements = Array.isArray(item.achievements)
+                      ? item.achievements
+                      : item.achievements
+                        ? [item.achievements]
+                        : [];
+                    return (
+                      <div
+                        key={`${item.company}-${item.position}-${index}`}
+                        className="rounded-xl border border-white/10 p-6"
+                        style={{ background: 'rgba(255, 255, 255, 0.03)' }}
                       >
-                        {responsibility}
-                      </p>
-                    </div>
-                  ))}
+                        <div className="mb-3">
+                          <h4 className="text-xl font-semibold" style={{ color: '#ffffff' }}>
+                            {item.position}
+                          </h4>
+                          <div className="text-sm mt-1" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+                            {item.start} - {item.end}
+                            {item.team && (
+                              <span>
+                                {' '}
+                                • {item.team}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+
+                        <p className="text-base leading-relaxed" style={{ color: 'rgba(255, 255, 255, 0.9)' }}>
+                          {item.desc}
+                        </p>
+
+                        {item.responsibilities && item.responsibilities.length > 0 && (
+                          <div className="mt-4 space-y-2">
+                            {item.responsibilities.map((responsibility, respIndex) => (
+                              <div key={respIndex} className="flex items-start gap-3 text-sm">
+                                <span className="mt-1.5 flex-shrink-0" style={{ color: '#00d4ff' }}>•</span>
+                                <span className="flex-1 leading-relaxed" style={{ color: 'rgba(255, 255, 255, 0.9)' }}>
+                                  {responsibility}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+
+                        {achievements.length > 0 && (
+                          <div className="mt-4">
+                            <h5 className="text-sm font-semibold mb-3" style={{ color: '#ffffff' }}>
+                              Key Achievements
+                            </h5>
+                            <div className="space-y-2">
+                              {achievements.map((achievement, achIndex) => (
+                                <div key={achIndex} className="flex items-start gap-3 text-sm">
+                                  <span className="mt-1.5 flex-shrink-0" style={{ color: '#00ff88' }}>🚀</span>
+                                  <span className="flex-1 leading-relaxed" style={{ color: 'rgba(255, 255, 255, 0.9)' }}>
+                                    {achievement}
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             )}

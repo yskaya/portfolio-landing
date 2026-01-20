@@ -4,7 +4,6 @@ import { createContext, ReactNode, useContext } from 'react';
 import introData from '../../data/intro.json';
 import projectsRaw from '../../data/projects.json';
 import skillsData from '../../data/skills.json';
-import workData from '../../data/work.json';
 import careerStoryData from '../../data/career-story.json';
 import recommendationsData from '../../data/recommendations.json';
 
@@ -82,6 +81,16 @@ export interface Project {
   outcomes: string[];
   achievements: string[];
   responsibilities?: string[];
+  work_history?: {
+    position: string;
+    start: string;
+    end: string;
+    desc: string;
+    location?: string;
+    team?: string;
+    responsibilities?: string[];
+    achievements?: string[];
+  }[];
   image?: string;
   category?: string;
 }
@@ -131,6 +140,7 @@ export interface Recommendation {
   company?: string;
   start_date?: string;
   end_date?: string;
+  post_date?: string;
 }
 
 export interface DataContextType {
@@ -160,8 +170,16 @@ const projects: Project[] = projectsRaw.projects.map((p: any) => {
     }
   }
   
-  // Handle role and team_size as arrays or strings
-  const role = Array.isArray(p.role) ? p.role : (p.role ? [p.role] : ['TBD']);
+  // Prefer explicit role, otherwise derive from work history positions
+  const role = Array.isArray(p.role)
+    ? p.role
+    : p.role
+      ? [p.role]
+      : Array.isArray(p.work_history)
+        ? p.work_history
+            .map((item: { position?: string }) => item.position)
+            .filter((position: string | undefined): position is string => Boolean(position))
+        : ['TBD'];
   const team_size = Array.isArray(p.team_size) ? p.team_size : (p.team_size ? [p.team_size] : undefined);
   
   // Handle duration from start_date and end_date if available, otherwise use date field
@@ -181,7 +199,7 @@ const projects: Project[] = projectsRaw.projects.map((p: any) => {
     duration: duration,
     team: Array.isArray(p.team) ? p.team.join(', ') : (p.team || (Array.isArray(p.team_size) ? p.team_size.join(', ') : (p.team_size || 'TBD'))),
     team_size: team_size,
-    role: role,
+    role: role.length > 0 ? role : ['TBD'],
     company: p.company || 'TBD',
     company_size: p.company_size || 'TBD',
     features: [],
@@ -189,6 +207,7 @@ const projects: Project[] = projectsRaw.projects.map((p: any) => {
     outcomes: [],
     achievements: p.achievements || [],
     responsibilities: p.responsibilities || [],
+    work_history: p.work_history || [],
     image: p.image,
     category: p.location || 'TBD',
     location: p.location || 'TBD',
@@ -210,18 +229,19 @@ const careerStory: CareerStorySection[] = ((careerStoryData as { sections: any[]
 }));
 
 const recommendations: Recommendation[] = (recommendationsData as { recommendations: Recommendation[] }).recommendations || [];
+const work: WorkItem[] = (projectsRaw as { work?: WorkItem[] }).work || [];
 
 const DataContext = createContext<DataContextType>({
   intro: introData as Intro,
   projects,
   skills: skillsData as SkillsData,
-  work: (workData as { work: WorkItem[] }).work || [],
+  work,
   careerStory,
   recommendations,
 });
 
 export function DataProvider({ children }: { children: ReactNode }) {
-  return <DataContext.Provider value={{ intro: introData as Intro, projects, skills: skillsData as SkillsData, work: (workData as { work: WorkItem[] }).work || [], careerStory, recommendations }}>{children}</DataContext.Provider>;
+  return <DataContext.Provider value={{ intro: introData as Intro, projects, skills: skillsData as SkillsData, work, careerStory, recommendations }}>{children}</DataContext.Provider>;
 }
 
 export const useData = () => useContext(DataContext);

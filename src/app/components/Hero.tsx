@@ -12,13 +12,49 @@ export function Hero() {
   const [textIndex, setTextIndex] = useState(0);
   const [typedText, setTypedText] = useState('');
   const [showDownloadLink, setShowDownloadLink] = useState(false);
-  const [isDownloadIconHovered, setIsDownloadIconHovered] = useState(false);
-  const [isDownloadLinkVisited, setIsDownloadLinkVisited] = useState(() => {
+  const [isCLDownloaded, setIsCLDownloaded] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('cl-downloaded') === 'true';
+    }
+    return false;
+  });
+  const [isResumeDownloaded, setIsResumeDownloaded] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('resume-downloaded') === 'true';
+    }
+    return false;
+  });
+  const [isDownloadButtonClicked, setIsDownloadButtonClicked] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('portfolio-downloaded') === 'true';
     }
     return false;
   });
+
+  const handleDownloadBoth = () => {
+    // Create and trigger downloads dynamically
+    const downloadFile = (url: string, filename: string) => {
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+
+    // Trigger both downloads
+    downloadFile('/CL_Yulia_Kanapatskaya_2026.pdf', 'CL_Yulia_Kanapatskaya_2026.pdf');
+    downloadFile('/Resume_Yulia_Kanapatskaya_2026.pdf', 'Resume_Yulia_Kanapatskaya_2026.pdf');
+
+    setIsCLDownloaded(true);
+    setIsResumeDownloaded(true);
+    setIsDownloadButtonClicked(true);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('cl-downloaded', 'true');
+      localStorage.setItem('resume-downloaded', 'true');
+      localStorage.setItem('portfolio-downloaded', 'true');
+    }
+  };
   const mousePosition = useMousePosition();
   const { intro } = useData();
 
@@ -97,6 +133,19 @@ export function Hero() {
         .visited-download-link:hover {
           text-decoration: none !important;
         }
+        .download-button-group:hover .download-icon {
+          filter: drop-shadow(0 0 20px #00d4ff) drop-shadow(0 0 40px #00d4ff);
+        }
+        .download-button-group:hover .download-icon-container {
+          transform: scale(1.1);
+        }
+        .download-button-group:hover .download-glow {
+          opacity: 1;
+          transform: scale(1.3);
+        }
+        .download-button-group:hover .download-pulse {
+          opacity: 0.7;
+        }
       `}} />
       {/* Cyberpunk Background Elements */}
       <m.div
@@ -171,30 +220,50 @@ export function Hero() {
             </div>
              {showDownloadLink && (
                <m.div 
-                 className="mt-2"
+                 className="mt-2 space-x-4 space-y-2"
                  initial={{ opacity: 0, x: -10 }}
                  animate={{ opacity: 1, x: 0 }}
                  transition={{ duration: 0.5 }}
                >
                  <a
-                   href="/Yulia_Kanapatskaya.zip"
-                   download="Yulia_Kanapatskaya_portfolio.zip"
-                   className={isDownloadLinkVisited ? 'inline-flex items-center gap-2 visited-download-link download-link-with-underline' : 'glow-link-blue inline-flex items-center gap-2 download-link-with-underline'}
+                   href="/CL_Yulia_Kanapatskaya_2026.pdf"
+                   download="CL_Yulia_Kanapatskaya_2026.pdf"
+                   className={isCLDownloaded ? 'inline-flex items-center gap-2 visited-download-link download-link-with-underline' : 'glow-link-blue inline-flex items-center gap-2 download-link-with-underline'}
                    style={{ 
-                     color: isDownloadLinkVisited ? 'rgba(255, 255, 255, 0.5)' : '#00d4ff',
+                     color: isCLDownloaded ? 'rgba(255, 255, 255, 0.5)' : '#00d4ff',
                      textUnderlineOffset: '3px',
                      cursor: 'pointer',
                      position: 'relative'
                    }}
                    onClick={() => {
-                     setIsDownloadLinkVisited(true);
+                     setIsCLDownloaded(true);
                      if (typeof window !== 'undefined') {
-                       localStorage.setItem('portfolio-downloaded', 'true');
+                       localStorage.setItem('cl-downloaded', 'true');
                      }
                    }}
                  >
                    <Download className="w-4 h-4" />
-                   Yulia_Kanapatskaya_portfolio.zip
+                   Cover Letter
+                 </a>
+                 <a
+                   href="/Resume_Yulia_Kanapatskaya_2026.pdf"
+                   download="Resume_Yulia_Kanapatskaya_2026.pdf"
+                   className={isResumeDownloaded ? 'inline-flex items-center gap-2 visited-download-link download-link-with-underline' : 'glow-link-blue inline-flex items-center gap-2 download-link-with-underline'}
+                   style={{ 
+                     color: isResumeDownloaded ? 'rgba(255, 255, 255, 0.5)' : '#00d4ff',
+                     textUnderlineOffset: '3px',
+                     cursor: 'pointer',
+                     position: 'relative'
+                   }}
+                   onClick={() => {
+                     setIsResumeDownloaded(true);
+                     if (typeof window !== 'undefined') {
+                       localStorage.setItem('resume-downloaded', 'true');
+                     }
+                   }}
+                 >
+                   <Download className="w-4 h-4" />
+                   Resume
                  </a>
                </m.div>
              )}
@@ -429,97 +498,83 @@ export function Hero() {
         </MotionFadeIn>
         
         {/* Download Icon */}
-        <m.a
-          href="/Yulia_Kanapatskaya.zip"
-          download="Yulia_Kanapatskaya_portfolio.zip"
-          className={`relative inline-block cursor-pointer group download-link-visited ${isDownloadLinkVisited ? 'visited' : ''}`}
+        <m.button
+          onClick={handleDownloadBoth}
+          className={`relative inline-block cursor-pointer download-button-group download-link-visited ${isDownloadButtonClicked ? 'visited' : ''}`}
           style={{
-            color: isDownloadLinkVisited ? 'rgba(255, 255, 255, 0.5)' : '#00d4ff',
-          }}
-          onHoverStart={() => setIsDownloadIconHovered(true)}
-          onHoverEnd={() => setIsDownloadIconHovered(false)}
-          onClick={() => {
-            setIsDownloadLinkVisited(true);
-            if (typeof window !== 'undefined') {
-              localStorage.setItem('portfolio-downloaded', 'true');
-            }
+            color: isDownloadButtonClicked ? 'rgba(255, 255, 255, 0.5)' : '#00d4ff',
+            background: 'none',
+            border: 'none',
+            padding: 0,
           }}
         >
           <m.div
-            className="relative flex items-center justify-center"
+            className="relative flex items-center justify-center download-icon-container"
             style={{
               width: '64px',
               height: '64px',
+              transition: 'transform 0.3s ease',
             }}
-            animate={isDownloadIconHovered || isDownloadLinkVisited ? {
+            animate={isDownloadButtonClicked ? {
               y: 0,
-              scale: isDownloadIconHovered ? 1.1 : 1,
+              scale: 1,
             } : {
               y: [0, 15, 0],
               scale: [1, 1.05, 1],
             }}
             transition={{
               duration: 2,
-              repeat: (isDownloadIconHovered || isDownloadLinkVisited) ? 0 : Infinity,
+              repeat: isDownloadButtonClicked ? 0 : Infinity,
               repeatType: 'reverse',
               ease: 'easeInOut',
             }}
           >
             {/* Icon - always centered */}
             <Download 
-              className="h-8 w-8 absolute"
+              className="h-8 w-8 absolute download-icon"
               style={{
-                filter: isDownloadLinkVisited 
+                filter: isDownloadButtonClicked 
                   ? 'drop-shadow(0 0 5px rgba(255, 255, 255, 0.3))' 
-                  : isDownloadIconHovered 
-                    ? 'drop-shadow(0 0 20px #00d4ff) drop-shadow(0 0 40px #00d4ff)' 
-                    : 'drop-shadow(0 0 10px #00d4ff)',
+                  : 'drop-shadow(0 0 10px #00d4ff)',
                 transition: 'filter 0.3s ease',
-                color: isDownloadLinkVisited ? 'rgba(255, 255, 255, 0.5)' : 'inherit',
+                color: isDownloadButtonClicked ? 'rgba(255, 255, 255, 0.5)' : 'inherit',
               }}
             />
             {/* Pulsing circle - scales with container, opacity pulses */}
             <m.div 
-              className="absolute w-16 h-16 border rounded-full pointer-events-none"
+              className="absolute w-16 h-16 border rounded-full pointer-events-none download-pulse"
               style={{
-                borderColor: isDownloadLinkVisited ? 'rgba(255, 255, 255, 0.5)' : '#00d4ff',
+                borderColor: isDownloadButtonClicked ? 'rgba(255, 255, 255, 0.5)' : '#00d4ff',
                 borderWidth: '1px',
+                transition: 'opacity 0.3s ease',
               }}
-              animate={isDownloadIconHovered || isDownloadLinkVisited ? {
+              animate={isDownloadButtonClicked ? {
                 opacity: 0.7,
               } : {
                 opacity: [0.7, 0.2, 0.7],
               }}
               transition={{
                 duration: 2,
-                repeat: (isDownloadIconHovered || isDownloadLinkVisited) ? 0 : Infinity,
+                repeat: isDownloadButtonClicked ? 0 : Infinity,
                 repeatType: 'reverse',
                 ease: 'easeInOut',
               }}
             />
           </m.div>
           {/* Glow effect on hover - only show if not visited */}
-          {!isDownloadLinkVisited && (
-            <m.div
-              className="absolute inset-0 pointer-events-none -z-0 flex items-center justify-center"
-              animate={isDownloadIconHovered ? {
-                opacity: 1,
-                scale: 1.3,
-              } : {
-                opacity: 0,
-                scale: 1,
-              }}
-              transition={{
-                opacity: { duration: 0.3, ease: 'easeInOut' },
-                scale: { duration: 0.3, ease: 'easeInOut' },
-              }}
+          {!isDownloadButtonClicked && (
+            <div
+              className="absolute inset-0 pointer-events-none -z-0 flex items-center justify-center download-glow"
               style={{
                 background: 'radial-gradient(circle, rgba(0, 212, 255, 0.6) 0%, rgba(0, 212, 255, 0.3) 40%, transparent 70%)',
                 filter: 'blur(15px)',
+                opacity: 0,
+                transform: 'scale(1)',
+                transition: 'opacity 0.3s ease, transform 0.3s ease',
               }}
             />
           )}
-        </m.a>
+        </m.button>
       </div>
 
       {/* Sparkling Show */}

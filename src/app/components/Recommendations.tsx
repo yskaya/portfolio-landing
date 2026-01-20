@@ -204,17 +204,14 @@ export function Recommendations() {
                       : 0, // Partial shift toward center, not full centering
                   }}
                   transition={{ 
-                    duration: 0.3,
-                    ease: [0.4, 0, 0.2, 1]
+                    duration: 0.55,
+                    ease: [0.25, 0.1, 0.25, 1]
                   }}
                   onHoverStart={() => setHoveredIndex(index)}
                   onHoverEnd={() => setHoveredIndex(null)}
                 >
-                  <m.a
-                    href={rec.linkedin_url || intro.links?.linkedin || 'https://linkedin.com/in/yskaya'}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="relative p-6 rounded-lg border backdrop-blur-sm cursor-pointer block"
+                  <m.div
+                    className="relative p-6 rounded-lg border backdrop-blur-sm cursor-default block"
                     style={{
                       background: isHovered 
                         ? "rgb(11 39 90 / 100%)"
@@ -232,7 +229,6 @@ export function Recommendations() {
                       // Compensate for parent padding to maintain visual position
                       // On mobile, use less margin since padding is reduced
                       margin: isHovered ? (isMobile ? "-20px" : "-40px") : "0",
-                      textDecoration: "none",
                       color: "inherit",
                     }}
                   >
@@ -282,20 +278,32 @@ export function Recommendations() {
                         >
                           {rec.author_title}
                         </p>
+                        {rec.post_date && (
+                          <p
+                            className="text-xs mt-1"
+                            style={{ color: "rgba(255, 255, 255, 0.5)" }}
+                          >
+                            {rec.post_date}
+                          </p>
+                        )}
                       </div>
                       
-                      {/* LinkedIn Link Indicator */}
-                      <div
-                        className="inline-flex items-center gap-2 transition-all"
-                        style={{
-                          color: isHovered ? 'rgba(0, 212, 255, 0.9)' : 'rgba(0, 212, 255, 0.7)',
-                        }}
-                      >
-                        <span className="text-xs uppercase tracking-wider font-medium">View on LinkedIn</span>
-                        <ExternalLink className="w-3 h-3" />
+                      <div className="inline-flex items-center gap-2 text-xs">
+                        <a
+                          href={rec.linkedin_url || intro.links?.linkedin || 'https://linkedin.com/in/yskaya'}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 transition-colors"
+                          style={{
+                            color: isHovered ? 'rgba(0, 212, 255, 0.9)' : 'rgba(0, 212, 255, 0.7)',
+                          }}
+                        >
+                          <span className="uppercase tracking-wider font-medium">LinkedIn</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
                       </div>
                     </div>
-                  </m.a>
+                  </m.div>
                 </m.div>
               );
             })}
