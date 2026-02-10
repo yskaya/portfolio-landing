@@ -25,14 +25,17 @@ export function Contact() {
     {
       label: 'Connect on LinkedIn',
       link: intro.links?.linkedin || 'https://linkedin.com/in/yskaya',
-      component: Linkedin
+      component: Linkedin,
+      color: '#00d4ff'
     },
     {
       label: intro.links?.email || 'yulia.kanapatskaya@gmail.com',
       link: intro.links?.email ? `mailto:${intro.links.email}` : 'mailto:yulia.kanapatskaya@gmail.com',
-      component: Mail
+      component: Mail,
+      color: '#a855f7'
     }
   ];
+  const downloadColors = ['#ff006e', '#00ff41'];
   return (
     <section className="py-20 px-4 bg-black/20">
       <style dangerouslySetInnerHTML={{__html: `
@@ -55,11 +58,11 @@ export function Contact() {
           pointer-events: none;
         }
         .glow-link-contact:hover {
-          color: #00d4ff !important;
+          color: currentColor !important;
         }
         .glow-link-contact:hover::after {
-          background: rgba(0, 212, 255, 0.3);
-          box-shadow: 0px 0px 20px 5px rgba(0, 212, 255, 0.5), 0 0 40px rgba(0, 212, 255, 0.3);
+          background: color-mix(in srgb, currentColor 30%, transparent);
+          box-shadow: 0px 0px 20px 5px color-mix(in srgb, currentColor 50%, transparent), 0 0 40px color-mix(in srgb, currentColor 30%, transparent);
         }
         .glow-link-download {
           position: relative;
@@ -80,11 +83,11 @@ export function Contact() {
           pointer-events: none;
         }
         .glow-link-download:hover {
-          color: #ffffff !important;
+          color: currentColor !important;
         }
         .glow-link-download:hover::after {
-          background: rgba(255, 255, 255, 0.3);
-          box-shadow: 0px 0px 20px 5px rgba(255, 255, 255, 0.5), 0 0 40px rgba(255, 255, 255, 0.3);
+          background: color-mix(in srgb, currentColor 30%, transparent);
+          box-shadow: 0px 0px 20px 5px color-mix(in srgb, currentColor 50%, transparent), 0 0 40px color-mix(in srgb, currentColor 30%, transparent);
         }
       `}} />
       <div className="max-w-6xl mx-auto">
@@ -141,7 +144,8 @@ export function Contact() {
                       href={l.link}
                       target={l.link.startsWith('http') ? '_blank' : '_self'}
                       rel={l.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors group glow-link-contact relative"
+                      className="flex items-center gap-3 transition-colors group glow-link-contact relative"
+                      style={{ color: l.color }}
                       whileHover={{ y: -2 }}
                       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                     >
@@ -157,7 +161,8 @@ export function Contact() {
                       key={index}
                       href={l.link}
                       download={l.download}
-                      className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors group glow-link-download relative"
+                      className="flex items-center gap-3 transition-colors group glow-link-download relative"
+                      style={{ color: downloadColors[index] || '#ffffff' }}
                       whileHover={{ y: -2 }}
                       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                     >

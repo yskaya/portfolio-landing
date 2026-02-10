@@ -113,7 +113,7 @@ export function Skills() {
             return (
               <HoverGlowCard
                 key={index}
-                className="relative group"
+                className="relative"
                 
                 transition={{ type: 'spring', stiffness: 150, damping: 25 }}
                 initial={{ opacity: 0, y: 30 }}
@@ -122,7 +122,7 @@ export function Skills() {
               >
                 {/* Card with glassmorphism */}
                 <div
-                  className={`relative p-6 rounded-2xl backdrop-blur-md border border-white/10 overflow-hidden transition-all duration-500 group-hover:border-white/20 h-full`}
+                  className={`relative p-6 rounded-2xl backdrop-blur-md border border-white/10 overflow-hidden h-full`}
                   style={{
                     background: `linear-gradient(135deg, ${category.color.split(' ')[0].replace('from-', 'rgba(')} 0%, rgba(0,0,0,0.1) 100%)`,
                   }}
@@ -132,8 +132,6 @@ export function Skills() {
                   <div className="mb-6 pb-4 border-b border-white/10">
                     <m.div
                       className="flex items-center gap-3"
-                      whileHover={{ x: 5 }}
-                      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                     >
                       <m.div
                         className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500/20 to-cyan-500/20 flex items-center justify-center flex-shrink-0"
@@ -213,23 +211,17 @@ export function Skills() {
                                     type: 'spring',
                                     stiffness: 200
                                   }}
-                                  whileHover={{ 
-                                    scale: 1.05,
-                                    y: -2,
-                                  }}
                                 >
                                   {parsed.hasDate && parsed.years !== null ? (
                                     <Tooltip>
                                       <TooltipTrigger asChild>
                                         <Badge 
                                           variant="secondary" 
-                                          className="bg-white/10 text-white border-white/20 hover:bg-white/20 transition-all duration-300 cursor-default relative overflow-hidden text-xs"
+                                          className="bg-white/10 text-white border-white/20 transition-all duration-300 cursor-default relative overflow-hidden text-xs"
                                         >
                                           <m.div
                                             className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
                                             initial={{ x: '-100%' }}
-                                            whileHover={{ x: '100%' }}
-                                            transition={{ duration: 0.6 }}
                                           />
                                           <span className="relative z-10">{parsed.name}</span>
                                         </Badge>
@@ -244,13 +236,11 @@ export function Skills() {
                                   ) : (
                                     <Badge 
                                       variant="secondary" 
-                                      className="bg-white/10 text-white border-white/20 hover:bg-white/20 transition-all duration-300 cursor-default relative overflow-hidden text-xs"
+                                      className="bg-white/10 text-white border-white/20 transition-all duration-300 cursor-default relative overflow-hidden text-xs"
                                     >
                                       <m.div
                                         className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
                                         initial={{ x: '-100%' }}
-                                        whileHover={{ x: '100%' }}
-                                        transition={{ duration: 0.6 }}
                                       />
                                       <span className="relative z-10">{parsed.name}</span>
                                     </Badge>

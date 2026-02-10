@@ -244,8 +244,8 @@ export function Recommendations() {
                       : 0, // Partial shift toward center, not full centering
                   }}
                   transition={{ 
-                    duration: 0.55,
-                    ease: [0.25, 0.1, 0.25, 1]
+                    duration: 0.7,
+                    ease: [0.22, 1, 0.36, 1]
                   }}
                   onHoverStart={() => setHoveredIndex(index)}
                   onHoverEnd={() => setHoveredIndex(null)}
