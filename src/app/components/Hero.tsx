@@ -225,26 +225,7 @@ export function Hero() {
                  animate={{ opacity: 1, x: 0 }}
                  transition={{ duration: 0.5 }}
                >
-                 <a
-                   href="/CL_Yulia_Kanapatskaya_2026.pdf"
-                   download="CL_Yulia_Kanapatskaya_2026.pdf"
-                   className={isCLDownloaded ? 'inline-flex items-center gap-2 visited-download-link download-link-with-underline' : 'glow-link-blue inline-flex items-center gap-2 download-link-with-underline'}
-                   style={{ 
-                     color: isCLDownloaded ? 'rgba(255, 255, 255, 0.5)' : '#00d4ff',
-                     textUnderlineOffset: '3px',
-                     cursor: 'pointer',
-                     position: 'relative'
-                   }}
-                   onClick={() => {
-                     setIsCLDownloaded(true);
-                     if (typeof window !== 'undefined') {
-                       localStorage.setItem('cl-downloaded', 'true');
-                     }
-                   }}
-                 >
-                   <Download className="w-4 h-4" />
-                   Cover Letter
-                 </a>
+                 
                  <a
                    href="/Resume_Yulia_Kanapatskaya_2026.pdf"
                    download="Resume_Yulia_Kanapatskaya_2026.pdf"

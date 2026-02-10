@@ -22,7 +22,9 @@ function seededRandom(seed: string): number {
 export function Recommendations() {
   const { recommendations, intro } = useData();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [containerWidth, setContainerWidth] = useState(1152); // Default max-w-6xl width
   const [isMobile, setIsMobile] = useState(false);
 
@@ -40,13 +42,34 @@ export function Recommendations() {
     return () => window.removeEventListener('resize', updateWidth);
   }, []);
 
+  useEffect(() => {
+    if (expandedIndex === null) return;
+
+    const handlePointerDown = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as Node;
+      const expandedCard = cardRefs.current[expandedIndex];
+      if (!expandedCard || expandedCard.contains(target)) return;
+      setExpandedIndex(null);
+    };
+
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("touchstart", handlePointerDown);
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("touchstart", handlePointerDown);
+    };
+  }, [expandedIndex]);
+
   // Calculate positions: rotations and absolute positions for cards (using percentages for responsiveness)
   const positions = useMemo(() => {
     if (!recommendations || recommendations.length === 0) return [];
     
     const cardHeight = 200; // Approximate card height including gaps
     const overlap = 80; // Overlap amount in pixels (negative gap for overlapping)
+    const columns = isMobile ? 2 : 3;
     
+    const maxRow = Math.floor((recommendations.length - 1) / columns);
+
     return recommendations.map((rec, index) => {
       // Generate seeded random values
       const randomRotate = seededRandom(rec.id + 'rotate');
@@ -55,37 +78,46 @@ export function Recommendations() {
       // Random rotation
       const rotate = (randomRotate - 0.5) * 12; // -6 to +6 degrees
       
-      // Position cards in three columns, two rows with more overlap
-      const column = index % 3;
-      const row = Math.floor(index / 3);
+      // Position cards in columns with overlap
+      const column = index % columns;
+      const row = Math.floor(index / columns);
       
-      // Base X position as percentage: specific positions for cards 1, 4 and 3, 6
+      // Base X position as percentage
       let baseXPercent: number;
-      if (index === 0 || index === 3) {
-        // Cards 1 and 4: left: 0
-        baseXPercent = 0;
-      } else if (index === 2 || index === 5) {
-        // Cards 3 and 6: left: 70%
-        baseXPercent = 70;
+      if (isMobile) {
+        // Two columns on mobile
+        baseXPercent = column === 0 ? 0 : 25;
       } else {
-        // Other cards: center column (35%)
-        baseXPercent = 35;
+        // Desktop: specific positions for cards 1, 4 and 3, 6
+        if (index === 0 || index === 3) {
+          // Cards 1 and 4: left: 0
+          baseXPercent = 0;
+        } else if (index === 2 || index === 5) {
+          // Cards 3 and 6: left: 70%
+          baseXPercent = 70;
+        } else {
+          // Other cards: center column (35%)
+          baseXPercent = 35;
+        }
       }
       
       // Add slight random offset (±2%)
       const randomOffsetX = (randomX - 0.5) * 4;
       const xPercent = baseXPercent + randomOffsetX;
       
-      // Y position: first 3 cards (indices 0, 1, 2) at top: 0, others with overlap
-      const y = index < 3 ? 0 : (row - 1) * (cardHeight - overlap) + (cardHeight - overlap);
+      // Y position: first row at top, others with overlap
+      const y = row === 0 ? 0 : (row - 1) * (cardHeight - overlap) + (cardHeight - overlap);
       
       return { 
         rotate,
         xPercent,
-        y
+        y,
+        column,
+        row,
+        maxRow
       };
     });
-  }, [recommendations]);
+  }, [recommendations, isMobile]);
 
   if (!recommendations || recommendations.length === 0) {
     return null;
@@ -162,10 +194,18 @@ export function Recommendations() {
           <div ref={containerRef} className="relative" style={{ width: "100%", height: "600px", overflow: "visible" }}>
             {recommendations.map((rec, index) => {
               const isHovered = hoveredIndex === index;
+              const isExpanded = expandedIndex === index;
               const position = positions[index];
               const baseZIndex = zIndexMap[index] || index + 1;
-              const zIndex = isHovered ? 100 : baseZIndex;
-              const baseWidth = 380; // Base card width in px
+              const rowPriority = position ? (position.maxRow - position.row) * 10 : baseZIndex;
+              const columnPriority = position?.column === 1 ? 1 : 0;
+              const layoutZIndex = rowPriority + columnPriority;
+              const stackedZIndex = isExpanded
+                ? 120
+                : (isHovered ? 100 : layoutZIndex);
+              const baseWidth = isMobile
+                ? Math.max(180, Math.floor(containerWidth * 0.75))
+                : 380; // Base card width in px
               // On mobile (< 760px), use full width; otherwise use 760px max
               const expandedWidth = isMobile ? containerWidth : 760;
               
@@ -178,28 +218,28 @@ export function Recommendations() {
               return (
                 <m.div
                   key={rec.id}
+                  ref={(el) => {
+                    cardRefs.current[index] = el;
+                  }}
                   className="absolute"
                   style={{
                     top: `${position.y}px`,
-                    zIndex: zIndex,
-                    // Gateway: Add padding when hovered to keep cursor within bounds (prevents hover flicker)
-                    // On mobile, use less padding since card is full width
-                    padding: isHovered ? (isMobile ? "20px" : "40px") : "0",
+                    zIndex: stackedZIndex,
                   }}
                   initial={{ opacity: 0, y: 30, scale: 0.9, left: `${position.xPercent}%`, x: 0 }}
                   animate={{
-                    opacity: isHovered ? 1 : 0.9,
+                    opacity: isHovered || isExpanded ? 1 : 0.9,
                     y: 0,
                     scale: 1,
-                    rotate: isHovered ? 0 : position.rotate,
-                    width: isHovered 
+                    rotate: isExpanded ? 0 : position.rotate,
+                    width: isExpanded 
                       ? (isMobile ? '100%' : `${expandedWidth}px`)
                       : `${baseWidth}px`,
                     // Move toward center but not perfectly aligned - adjust left position and use partial centering
-                    left: isHovered 
+                    left: isExpanded 
                       ? (isMobile ? '0%' : `${newXPercent}%`)
                       : `${position.xPercent}%`,
-                    x: isHovered 
+                    x: isExpanded 
                       ? (isMobile ? 0 : `-${expandedWidth * 0.3}px`)
                       : 0, // Partial shift toward center, not full centering
                   }}
@@ -209,26 +249,24 @@ export function Recommendations() {
                   }}
                   onHoverStart={() => setHoveredIndex(index)}
                   onHoverEnd={() => setHoveredIndex(null)}
+                  onClick={() => setExpandedIndex(isExpanded ? null : index)}
                 >
                   <m.div
-                    className="relative p-6 rounded-lg border backdrop-blur-sm cursor-default block"
+                    className="relative p-6 rounded-lg border backdrop-blur-sm cursor-pointer block"
                     style={{
-                      background: isHovered 
+                      background: isHovered || isExpanded
                         ? "rgb(11 39 90 / 100%)"
                         : "rgb(11 39 90 / 90%)",
                       backdropFilter: "blur(20px) saturate(180%)",
                       WebkitBackdropFilter: "blur(20px) saturate(180%)",
-                      borderColor: isHovered 
+                      borderColor: isHovered || isExpanded
                         ? "rgba(255, 255, 255, 0.2)"
                         : "rgba(255, 255, 255, 0.12)",
-                      boxShadow: isHovered 
-                        ? "0 40px 100px rgba(11, 39, 90, 1), 0 20px 60px rgba(11, 39, 90, 1), 0 10px 30px rgba(0, 0, 0, 1)"
+                      boxShadow: isHovered || isExpanded
+                        ? "0 25px 60px rgba(11, 39, 90, 0.9), 0 12px 30px rgba(0, 212, 255, 0.18), 0 6px 16px rgba(0, 0, 0, 0.6)"
                         : "0 5px 15px rgba(0, 0, 0, 0.2)",
                       width: "100%",
                       minHeight: "180px",
-                      // Compensate for parent padding to maintain visual position
-                      // On mobile, use less margin since padding is reduced
-                      margin: isHovered ? (isMobile ? "-20px" : "-40px") : "0",
                       color: "inherit",
                     }}
                   >
@@ -238,7 +276,7 @@ export function Recommendations() {
                     >
                       <Quote
                         className="w-8 h-8"
-                        style={{ color: isHovered ? 'rgba(0, 212, 255, 0.9)' : 'rgba(0, 212, 255, 0.7)' }}
+                        style={{ color: isHovered || isExpanded ? 'rgba(0, 212, 255, 0.9)' : 'rgba(0, 212, 255, 0.7)' }}
                       />
                     </m.div>
 
@@ -248,7 +286,7 @@ export function Recommendations() {
                       style={{
                         color: "rgba(255, 255, 255, 0.9)",
                         lineHeight: "1.5",
-                        ...(isHovered
+                        ...(isExpanded
                           ? {
                               display: "block",
                               overflow: "visible",
@@ -294,9 +332,9 @@ export function Recommendations() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1 transition-colors"
-                          style={{
-                            color: isHovered ? 'rgba(0, 212, 255, 0.9)' : 'rgba(0, 212, 255, 0.7)',
-                          }}
+                        style={{
+                          color: isHovered || isExpanded ? 'rgba(0, 212, 255, 0.9)' : 'rgba(0, 212, 255, 0.7)',
+                        }}
                         >
                           <span className="uppercase tracking-wider font-medium">LinkedIn</span>
                           <ExternalLink className="w-3 h-3" />
